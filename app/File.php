@@ -10,6 +10,13 @@ class File extends Model
 	use SoftDeletes;
 
 	/**
+	 * The table associated with the model.
+	 *
+	 * @var string
+	 */
+	protected $table = 'files';
+
+	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
@@ -33,4 +40,20 @@ class File extends Model
 	 * @var array
 	 */
 	protected $dates = ['deleted_at'];
+
+	/**
+	 * Define relation.
+	 */
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
+	/**
+	 * Define relation.
+	 */
+	public function profile()
+	{
+		return $this->hasOne(Profile::class);
+	}
 }

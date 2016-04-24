@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+	/**
+	 * The table associated with the model.
+	 *
+	 * @var string
+	 */
+	protected $table = 'settings';
+
     /**
 	 * The attributes that are mass assignable.
 	 *
@@ -23,4 +30,12 @@ class Setting extends Model
 	protected $hidden = [
 		//
 	];
+
+	/**
+	 * Define relation.
+	 */
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
 }

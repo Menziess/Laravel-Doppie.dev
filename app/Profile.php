@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+	/**
+	 * The table associated with the model.
+	 *
+	 * @var string
+	 */
+	protected $table = 'profiles';
+
     /**
 	 * The attributes that are mass assignable.
 	 *
@@ -23,4 +30,20 @@ class Profile extends Model
 	protected $hidden = [
 		//
 	];
+
+	/**
+	 * Define relation.
+	 */
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
+	/**
+	 * Define relation.
+	 */
+	public function file()
+	{
+		return $this->belongsTo(File::class);
+	}
 }

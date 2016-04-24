@@ -15,6 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::controller('/facebook', 'SocialController');
+
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::controller('/home', 'HomeController');
+
+Route::controller('/admin', 'AdminController');
+
+Route::controller('/user', 'UserController');
+

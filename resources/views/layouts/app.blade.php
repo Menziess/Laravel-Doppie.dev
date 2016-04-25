@@ -30,7 +30,9 @@
 
 	@include('layouts.nav')
 
+	@if (Auth::user())
 	@include('layouts.cover')
+	@endif
 
 	@yield('content')
 

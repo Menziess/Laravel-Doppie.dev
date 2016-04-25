@@ -3,67 +3,71 @@
 @section('content')
 <div class="container">
 	<div class="row row-centered">
-		<div class="col-md-8 col-md-offset-2 col-centered">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-						{!! csrf_field() !!}
 
-						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-							<label class="col-md-4 control-label">E-Mail Address</label>
+		<div class="jumbotron jumbotron-fluid bg-faded">
+			<div class="container">
+			<h1 class="display-4">Well hello there!</h1>
+				<div class="col-md-8 col-md-offset-2 col-centered padding-top">
+					<div class="panel panel-default">
+						<div class="panel-body">
 
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+							<!-- FACEBOOK LOGIN -->
+							<div class="div-centered-small padding-top">
+								<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
+									Facebook
+								</a>
+							</div>
+
+							<hr>
+
+							<!-- LOGIN FLOW -->
+							<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+								{!! csrf_field() !!}
+
+								<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">@</span>
+										<input name="email" type="email" class="form-control" aria-describedby="basic-addon1" value="{{ old('email') }}">
+										<span class="input-group-addon bg-secondary hidden-xs hidden-xs-down">
+									    	<input name="remember" type="radio" aria-label="Radio button for following text input"> Remember
+										</span>
+									</div>
 
 								@if ($errors->has('email'))
 									<span class="help-block">
 										<strong>{{ $errors->first('email') }}</strong>
 									</span>
 								@endif
-							</div>
-						</div>
+								</div>
 
-						<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-							<label class="col-md-4 control-label">Password</label>
-
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
+								<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1">Pass</span>
+										<input name="password" type="password" class="form-control" aria-describedby="basic-addon1">
+										<span class="input-group-btn">
+											<button class="btn btn-primary" type="submit"><i class="fa fa-btn fa-sign-in"></i>Login!</button>
+										</span>
+									</div>
 
 								@if ($errors->has('password'))
 									<span class="help-block">
 										<strong>{{ $errors->first('password') }}</strong>
 									</span>
 								@endif
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
 								</div>
-							</div>
-						</div>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									<i class="fa fa-btn fa-sign-in"></i>Login
-								</button>
-
-								<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook">
-									Facebook Login
-								</a>
-
+								<div class="hidden-sm-up">
+									<input name="remember" type="radio" aria-label="Radio button for following text input"> Remember
+								</div>
 								<a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
-							</div>
+							</form>
+
 						</div>
-					</form>
+					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
+			</div><!-- Inner container -->
+		</div><!-- Jumbotron -->
+	</div><!-- Row -->
+</div><!-- Container -->
+
 @endsection

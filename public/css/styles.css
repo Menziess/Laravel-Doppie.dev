@@ -40,6 +40,26 @@
     margin-right:-4px;
 }
 
+.div-centered-large {
+	margin: 0 auto;
+	width: 80%;
+}
+
+.div-centered-small {
+	margin: 0 auto;
+	width: 40%;
+}
+
+.padding {
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.padding-top {
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
 /* Pagination styling */
 .pagination {
 	display: inline-block;

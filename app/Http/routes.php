@@ -11,17 +11,33 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::controller('/facebook', 'SocialController');
-
+# Register and login routes
 Route::auth();
 
-Route::controller('/home', 'HomeController');
 
-Route::controller('/admin', 'AdminController');
+# Landing page
+Route::get('/', function () {
+	return view('welcome');
+});
 
-Route::controller('/user', 'UserController');
+
+# Redirect routes for facebook login
+Route::controller('/facebook', 'SocialController');
+
+
+# Routes require user to be authenticated
+Route::group(['middleware' => 'auth'], function () {
+
+	Route::controller('/home', 'HomeController');
+
+	Route::controller('/admin', 'AdminController');
+
+	Route::controller('/user', 'UserController');
+});
+
+# CATCH-ALL ROUTE
+Route::group(['prefix' => ''], function () {
+	Route::options('{path?}', 'Controller@actionOk')->where('path', '.+');
+});
 

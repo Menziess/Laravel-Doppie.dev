@@ -36,9 +36,13 @@ return [
 	],
 
 	'facebook' => [
-		'client_id' => '232408667098430',
-		'client_secret' => '9ae3d43a680612e0b7353cb7cf087e60',
-		'redirect' => 'http://84.106.6.149/laravel.dev/public/facebook/fbcallback',
+		'client_id' => env('FB_CLIENT_ID'),
+		'client_secret' => env('FB_CLIENT_SECRET'),
+		'redirect' => env('FB_REDIRECT'),
+	],
+
+	'google' => [
+		'key' => env('GOOGLE_KEY'),
 	],
 
 ];

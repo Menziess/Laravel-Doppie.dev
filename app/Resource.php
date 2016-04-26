@@ -2,10 +2,11 @@
 
 namespace App;
 
+use Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class File extends Model
+class Resource extends Model
 {
 	use SoftDeletes;
 
@@ -14,7 +15,7 @@ class File extends Model
 	 *
 	 * @var string
 	 */
-	protected $table = 'files';
+	protected $table = 'resources';
 
 	/**
 	 * The attributes that are mass assignable.

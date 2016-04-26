@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Config;
-use Carbon\Carbon;
 use Auth;
+use Image;
+use Config;
+use Storage;
+use Carbon\Carbon;
 use App\User;
 use App\Resource;
 use App\Http\Requests;
@@ -88,8 +90,10 @@ class SocialController extends Controller
 		};
 
 		# Avatar
-		if (isset($fb->avatar_original) || isset($fb->avatar)) {
-			self::uploadAvatar($user, $fb);
+		if (!$user->profile->resource) {
+			if (isset($fb->avatar_original) || isset($fb->avatar)) {
+				self::uploadAvatar($user, $fb);
+			}
 		}
 
 		# Location
@@ -109,10 +113,16 @@ class SocialController extends Controller
 	 */
 	private static function uploadAvatar($user, $fb)
 	{
-		// if avatar_original else avatar
-		// upload image to storage
-		// set profile resource id
-		// $user->profile->resource->save();
+		$path = $fb->avatar_original ?: $path = $fb->avatar;
+
+		$resource = new Resource;
+		$folderPath = $resource->createNewImage($path, 522, 522);
+
+		# Persist if uploaded succesfully
+		if (\Storage::exists($folderPath)) {
+			$resource->save();
+			$user->profile->resource_id = $resource->getKey();
+		}
 	}
 
 	/**
@@ -135,6 +145,7 @@ class SocialController extends Controller
 	/**
 	 * Email exists in database.
 	 *
+	 * @todo
 	 * @return App\User
 	 */
 	private static function checkExistingUser($user, $email)

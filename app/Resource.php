@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Image;
 use Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
@@ -56,5 +57,56 @@ class Resource extends Model
 	public function profile()
 	{
 		return $this->hasOne(Profile::class);
+	}
+
+	/**
+	 * Create new image.
+	 *
+	 * @param  string  $path
+	 * @param  integer $width
+	 * @param  integer $height
+	 * @return string  $folderPath
+	 */
+	public function createNewImage($path, $width = 1000, $height = 1000)
+	{
+		$image = Image::make($path)->resize($width, $height);
+
+		$this->original_name = self::generateName();
+		$this->original_mime_type = $image->mime();
+		$this->original_extension = pathinfo($path, PATHINFO_EXTENSION)
+			?: $this->getExtension($this->original_mime_type);
+
+		// $file = file_get_contents($path);
+		$folderPath = 'public/images/' . $this->original_name . $this->original_extension;
+		Storage::put($folderPath, $image);
+
+		return $folderPath;
+	}
+
+	/**
+	 * Generate a new name, that can be used as file/resource name.
+	 *
+	 * @return string
+	 */
+	public static function generateName()
+	{
+		return md5(uniqid(rand(), true));
+	}
+
+	/**
+	 * Use mime type to get a guessed extension.
+	 *
+	 * @param  string $mime_type
+	 * @return string $extension
+	 */
+	private static function getExtension ($mime_type) {
+		$extensions = [
+			'image/jpeg' => '.jpeg',
+			"image/png" => '.png',
+			"image/gif" => '.gif',
+			"image/x-ms-bmp" => '.bmp',
+			'text/xml' => '.xml',
+		];
+		return $extensions[$mime_type];
 	}
 }

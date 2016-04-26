@@ -18,7 +18,7 @@ class CreateProfilesTable extends Migration
 			$table->increments('id');
 			$table->integer('user_id')
 				  ->unsigned();
-			$table->integer('file_id')
+			$table->integer('resource_id')
 				  ->unsigned()
 				  ->nullable();
 
@@ -27,13 +27,13 @@ class CreateProfilesTable extends Migration
 				  ->references('id')
 				  ->on('users')
 				  ->onDelete('cascade');
-			$table->foreign('file_id')
+			$table->foreign('resource_id')
 				  ->references('id')
-				  ->on('files')
+				  ->on('resources')
 				  ->onDelete('set null');
 
 			// Data
-			$table->integer('gender')
+			$table->string('gender')
 				  ->nullable();
 			$table->timestamp('date_of_birth')
 				  ->nullable();

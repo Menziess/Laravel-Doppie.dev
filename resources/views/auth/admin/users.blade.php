@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container fluid">
+<div class="container">
 	<div class="row row-centered">
-		<div class="col-md-8 col-md-offset-2 col-centered">
+		<div class="col fluid">
 			<div class="panel panel-default">
 
+				<p class="text-left">
 				@if(isset($users))
-
-					<table class="table table-hover text-small">
+					<table class="table table-hover table-large text-small text-xs-left">
 						<thead>
 							<tr>
 								<th>#</th>
@@ -29,12 +29,12 @@
 					  </tbody>
 					</table>
 
-					{!! $users->links() !!}
+					{!! $users !!}
 
 				@else
 					No users... Sorry!
 				@endif
-
+				</p>
 			</div>
 		</div>
 	</div>

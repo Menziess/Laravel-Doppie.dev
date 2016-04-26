@@ -24,7 +24,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'first_name', 'last_name', 'email', 'password',
+		'first_name', 'last_name', 'email', 'password', 'facebook_id',
 	];
 
 	/**
@@ -62,24 +62,8 @@ class User extends Authenticatable
 	/**
 	 * Define relation.
 	 */
-	public function file()
+	public function resource()
 	{
-		return $this->hasMany(File::class);
-	}
-
-	/**
-	 * Creates new or retrieves user with facebook_token.
-	 *
-	 * @param  string $facebook_token
-	 * @return App\User $user
-	 */
-	public static function facebookL()
-	{
-
-		$user = User::withTrashed()->where('facebook_id', $id)->first();
-
-		if (!$user) {
-			$user = User::firstOrNew(['facebook_id' => $id]);
-		}
+		return $this->hasMany(Resource::class);
 	}
 }

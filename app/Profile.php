@@ -42,8 +42,8 @@ class Profile extends Model
 	/**
 	 * Define relation.
 	 */
-	public function file()
+	public function resource()
 	{
-		return $this->belongsTo(File::class);
+		return $this->belongsTo(Resource::class);
 	}
 }

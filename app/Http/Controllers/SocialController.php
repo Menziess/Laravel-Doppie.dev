@@ -15,7 +15,7 @@ use App\Http\Requests;
 
 class SocialController extends Controller
 {
-	const SCOPES = ['public_profile', 'email', 'user_birthday', 'user_location', 'user_hometown'];
+	const SCOPES = ['public_profile', 'email', 'user_birthday', 'user_location'];
 	const FIELDS = ['first_name', 'last_name', 'email', 'location', 'birthday', 'gender', 'updated_time'];
 
 	/**
@@ -42,9 +42,14 @@ class SocialController extends Controller
 		$newUser = false;
 		$user = User::withTrashed()->where('facebook_id', $fb->id)->first();
 		if (!$user) {
-			$user = User::firstOrNew(['facebook_id' => $fb->id]);
+			$user = self::checkExistingUser($fb);
+			if ($user) {
+				$user->facebook_id = $fb->id;
+			} else {
+				$user = User::firstOrNew(['facebook_id' => $fb->id]);
+				$user->save();
+			}
 			$newUser = true;
-			$user->save();
 		}
 
 		if (!$newUser) {
@@ -57,12 +62,9 @@ class SocialController extends Controller
 		}
 
 		# See if user needs to be updated
-		if ($fb->user['updated_time'] > $user->updated_at) {
+		if ($fb->user['updated_time'] > $user->updated_at || $newUser) {
 			self::fillUser($user, $fb);
 		}
-
-		# See if a user exists with this email
-		$user = self::checkExistingUser($user, $fb->user['email']);
 
 		Auth::login($user);
 
@@ -76,7 +78,6 @@ class SocialController extends Controller
 	 */
 	private static function fillUser($user, $fb)
 	{
-
 		$user->first_name = isset($fb->user['first_name']) ? $fb->user['first_name'] : null;
 		$user->last_name = isset($fb->user['last_name']) ? $fb->user['last_name'] : null;
 		$user->email = isset($fb->user['email']) ? $fb->user['email'] : null;
@@ -113,7 +114,7 @@ class SocialController extends Controller
 	 */
 	private static function uploadAvatar($user, $fb)
 	{
-		$path = $fb->avatar_original ?: $path = $fb->avatar;
+		$path =  $fb->avatar_original ?: $path =  $fb->avatar;
 
 		$resource = new Resource;
 		$filepath = $resource->createNewImage($path, 522, 522);
@@ -148,16 +149,9 @@ class SocialController extends Controller
 	 * @todo
 	 * @return App\User
 	 */
-	private static function checkExistingUser($user, $email)
+	private static function checkExistingUser($fb)
 	{
-		$existing = User::where('email', $email)->whereNull('facebook_id')->first();
-
-		if ($existing) {
-			// $existing merge with $user
-			dd($existing);
-			$user->save();
-		};
-
+		$user = User::where('email', $fb->user['email'])->whereNull('facebook_id')->first();
 		return $user;
 	}
 }

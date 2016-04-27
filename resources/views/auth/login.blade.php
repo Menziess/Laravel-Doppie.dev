@@ -12,9 +12,9 @@
 						<div class="panel-body">
 
 							<!-- FACEBOOK LOGIN -->
-							<div class="div-centered-small padding-top">
+							<div class="div-centered-large padding-top">
 								<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
-									Facebook
+									Continue with Facebook
 								</a>
 							</div>
 
@@ -23,6 +23,7 @@
 							<!-- LOGIN FLOW -->
 							<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
 								{!! csrf_field() !!}
+								<p class="text-xs-center">Alternatively...</p>
 
 								<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 									<div class="input-group">
@@ -59,9 +60,20 @@
 								<div class="hidden-sm-up">
 									<input name="remember" type="radio" aria-label="Radio button for following text input"> Remember
 								</div>
-								<a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+								<p class="text-xs-center">
+									<a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+								</p>
 							</form>
 
+							<hr>
+
+
+							<!-- FACEBOOK LOGIN -->
+							<div class="div-centered-large padding-top">
+								<a href="{{ url('/register') }}" class="btn btn-secondary btn-block">
+									Register
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>

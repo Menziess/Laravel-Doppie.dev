@@ -6,7 +6,7 @@
 	<ul class="nav navbar-nav">
 	@if (Auth::guest())
 	<div class="padding pull-right">
-		<a href="{{ url('register') }}" class="btn btn-secondary-outline">Register</a>
+		<a href="{{ url('login') }}" class="btn btn-secondary-outline">Login</a>
 	</div>
 	@else
 		<li class="nav-item pull-xs-right">

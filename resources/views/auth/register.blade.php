@@ -12,9 +12,9 @@
 						<div class="panel-body">
 
 							<!-- FACEBOOK LOGIN -->
-							<div class="div-centered-small padding-top">
+							<div class="div-centered-large padding-top">
 								<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
-									Facebook
+									Continue with Facebook
 								</a>
 							</div>
 
@@ -23,7 +23,7 @@
 							<!-- REGISTER FLOW -->
 							<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
 								{!! csrf_field() !!}
-
+								<p class="text-xs-center">Or sign up using this form...</p>
 
 								<div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
 									<div class="input-group">
@@ -66,8 +66,8 @@
 
 								<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 									<div class="input-group">
-										<span class="input-group-addon" id="basic-addon1">Password</span>
-										<input name="password" type="password" class="form-control" aria-describedby="basic-addon1">
+										<span class="input-group-addon" id="basic-addon1">Pass</span>
+										<input name="password" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1">
 									</div>
 
 								@if ($errors->has('password'))
@@ -79,8 +79,8 @@
 
 								<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 									<div class="input-group">
-										<span class="input-group-addon" id="basic-addon1">Password</span>
-										<input name="password_confirmation" type="password" class="form-control" aria-describedby="basic-addon1">
+										<span class="input-group-addon" id="basic-addon1">Pass</span>
+										<input name="password_confirmation" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1">
 										<span class="input-group-btn">
 											<button class="btn btn-primary" type="submit"><i class="fa fa-btn fa-sign-in"></i>Go!</button>
 										</span>

@@ -6,7 +6,6 @@
 		<div class="col fluid">
 			<div class="panel panel-default">
 
-				<p class="text-left">
 				@if(isset($users))
 					<table class="table table-hover table-large text-small text-xs-left">
 						<thead>
@@ -19,14 +18,14 @@
 						</thead>
 					<tbody>
 					@foreach($users as $user)
-						<tr>
+						<tr class="clickable-row" data-href="{{ url('/user/show/' . $user->id) }}">
 							<td>{{ $user->id }}</td>
 							<td>{{ $user->first_name }} {{ $user->last_name }}</td>
 							<td>{{ $user->email }}</td>
 							<td>{{ $user->created_at }}</td>
 						</tr>
 					@endforeach
-					  </tbody>
+					</tbody>
 					</table>
 
 					{!! $users !!}
@@ -34,9 +33,17 @@
 				@else
 					No users... Sorry!
 				@endif
-				</p>
+
 			</div>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".clickable-row").click(function() {
+			window.document.location = $(this).data("href");
+		});
+	});
+</script>
 @endsection

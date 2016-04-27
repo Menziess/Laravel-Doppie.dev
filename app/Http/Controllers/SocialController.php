@@ -57,9 +57,9 @@ class SocialController extends Controller
 		}
 
 		# See if user needs to be updated
-		// if ($fb->user['updated_time'] > $user->updated_at) {
+		if ($fb->user['updated_time'] > $user->updated_at) {
 			self::fillUser($user, $fb);
-		// }
+		}
 
 		# See if a user exists with this email
 		$user = self::checkExistingUser($user, $fb->user['email']);
@@ -116,10 +116,10 @@ class SocialController extends Controller
 		$path = $fb->avatar_original ?: $path = $fb->avatar;
 
 		$resource = new Resource;
-		$folderPath = $resource->createNewImage($path, 522, 522);
+		$filepath = $resource->createNewImage($path, 522, 522);
 
 		# Persist if uploaded succesfully
-		if (\Storage::exists($folderPath)) {
+		if (\Storage::exists($filepath)) {
 			$resource->save();
 			$user->profile->resource_id = $resource->getKey();
 		}

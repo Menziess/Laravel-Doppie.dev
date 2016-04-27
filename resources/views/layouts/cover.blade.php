@@ -5,7 +5,11 @@
 
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-centered">
 		<a href="{{ url('/user/profile') }}" class="over round">
-			<img src="{{ asset('img/profile.jpg') }}" class="img-circle width-100 profile-picture" alt="" >
+			@if(!Auth::user()->profile->resource)
+			<img src="{{ asset('img/placeholder.jpg') }}" class="img-circle width-100 profile-picture" alt="" >
+			@else
+			<img src="{{ asset('images/profile/' . Auth::user()->getKey()) }}" class="img-circle width-100 profile-picture" alt="" >
+			@endif
 		</a>
 
 		</div>

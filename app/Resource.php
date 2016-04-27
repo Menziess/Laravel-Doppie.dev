@@ -11,6 +11,8 @@ class Resource extends Model
 {
 	use SoftDeletes;
 
+	const PROFILE_STORAGE = 'public/images/';
+
 	/**
 	 * The table associated with the model.
 	 *
@@ -77,10 +79,10 @@ class Resource extends Model
 			?: $this->getExtension($this->original_mime_type);
 
 		// $file = file_get_contents($path);
-		$folderPath = 'public/images/' . $this->original_name . $this->original_extension;
-		Storage::put($folderPath, $image);
+		$filepath = 'public/images/' . $this->original_name . $this->original_extension;
+		$image->save(storage_path('app\public\images\\' . $this->original_name . $this->original_extension));
 
-		return $folderPath;
+		return $filepath;
 	}
 
 	/**
@@ -104,8 +106,8 @@ class Resource extends Model
 			'image/jpeg' => '.jpeg',
 			"image/png" => '.png',
 			"image/gif" => '.gif',
-			"image/x-ms-bmp" => '.bmp',
 			'text/xml' => '.xml',
+			"image/x-ms-bmp" => '.bmp',
 		];
 		return $extensions[$mime_type];
 	}

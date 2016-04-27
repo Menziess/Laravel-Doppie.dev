@@ -2,6 +2,9 @@
 
 namespace App;
 
+use Storage;
+use App\Profile;
+use App\Resource;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

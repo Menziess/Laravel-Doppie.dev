@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/admin', 'AdminController');
 
 	Route::controller('/user', 'UserController');
+
+	Route::get('images/profile/{userID}', 'ResourceController@picture');
+
 });
 
 # CATCH-ALL ROUTE

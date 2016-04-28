@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
 			$table->string('password')->nullable();
 			$table->boolean('is_admin')->default(false);
 			$table->boolean('is_active')->default(true);
+			$table->boolean('is_public')->default(true);
 
 			$table->rememberToken();
 			$table->softDeletes();

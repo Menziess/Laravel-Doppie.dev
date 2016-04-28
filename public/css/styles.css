@@ -7,18 +7,33 @@
 }
 
 .title {
-    font-family: Georgia;
-    font-size: 36px;
-    line-height: 1.25;
-    margin-top: 0;
+	font-family: Georgia;
+	font-size: 36px;
+	line-height: 1.25;
+	margin-top: 0;
 }
 
-.profile-picture {
+.profile-picture-small {
 	margin: 5px;
 	/*border: 1px solid #ccc;*/
-	float: left;
-	width: 150px;
-}
+	float: center;
+	max-width: 150px;
+	display: flex;
+	}
+	.profile-picture-small:hover {
+		opacity: 0.9;
+	}
+
+.profile-picture-large {
+	margin: 5px;
+	/*border: 1px solid #ccc;*/
+	/*float: left;*/
+	max-width: 300px;
+	display: flex;
+	}
+	.profile-picture-large:hover {
+		opacity: 0.9;
+	}
 
 .row {
 	margin-top: 10px;
@@ -27,16 +42,16 @@
 
 /* centered columns styles */
 .row-centered {
-    text-align:center;
+	text-align:center;
 }
 
 .col-centered {
-    display:inline-block;
-    float:none;
-    /* reset the text-align */
-    text-align:left;
-    /* inline-block space fix */
-    margin-right:-4px;
+	display:inline-block;
+	float:none;
+	/* reset the text-align */
+	text-align:left;
+	/* inline-block space fix */
+	margin-right:-4px;
 }
 
 .div-centered-large {

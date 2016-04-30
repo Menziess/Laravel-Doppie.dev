@@ -1,15 +1,9 @@
+<div class="container">
 
-<div class="div-centered-small">
-	<a href="{{ url('/login') }}" class="btn btn-primary-outline btn-block">
-		Login
-	</a>
+	<div class"row row-centered">
 
-	<a href="{{ url('/register') }}" class="btn btn-primary-outline btn-block">
-		Register
-	</a>
+		Footer
 
-	<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
-		Facebook
-	</a>
-</div>
+	</div>
+
 </div>

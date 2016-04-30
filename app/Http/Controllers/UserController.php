@@ -31,4 +31,20 @@ class UserController extends Controller
 		}
 		return view('auth.user.profile', compact('user'));
 	}
+
+	public function getDeactivate($id)
+	{
+		if (Auth::user()->getKey() === $id || Auth::user()->is_admin) {
+			User::find($id)->delete();
+		}
+		return redirect()->back();
+	}
+
+	public function getDelete($id)
+	{
+		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
+			User::find($id)->forceDelete();
+		}
+		return redirect()->back();
+	}
 }

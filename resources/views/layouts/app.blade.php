@@ -27,6 +27,8 @@
 		}
 	</style>
 </head>
+
+
 <body id="app-layout">
 
 	@include('layouts.nav')
@@ -41,5 +43,13 @@
 	<script src="https://cdn.jsdelivr.net/tether/1.3.1/tether.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 	{{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
 </body>
+
+<!--
+<footer>
+	@include('layouts.footer')
+</footer>
+-->
+
 </html>

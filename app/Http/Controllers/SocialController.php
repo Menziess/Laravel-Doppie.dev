@@ -146,11 +146,14 @@ class SocialController extends Controller
 	/**
 	 * Email exists in database.
 	 *
-	 * @todo
 	 * @return App\User
 	 */
 	private static function checkExistingUser($fb)
 	{
+		if (!isset($fb->user['email'])) {
+			return;
+		}
+
 		$user = User::where('email', $fb->user['email'])->whereNull('facebook_id')->first();
 		return $user;
 	}

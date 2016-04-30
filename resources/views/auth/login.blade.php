@@ -7,6 +7,7 @@
 		<div class="jumbotron jumbotron-fluid bg-faded">
 			<div class="container">
 			<h1 class="display-4">Well hello there!</h1>
+
 				<div class="col-md-8 col-md-offset-2 col-centered padding-top">
 					<div class="panel panel-default">
 						<div class="panel-body">

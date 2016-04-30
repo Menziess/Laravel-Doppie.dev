@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use App\User;
 use App\Http\Requests;
 
@@ -15,7 +16,17 @@ class AdminController extends Controller
     		return redirect()->action('HomeController@getIndex');
     	}
 
-    	$users = User::orderBy('id', 'desc')->paginate(15);
+    	$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
     	return view('auth.admin.users', compact('users'));
     }
+
+    public function getShow($id)
+	{
+		if ($id && Auth::user()->is_admin) {
+			$user = User::withTrashed()->find($id);
+		} else {
+			return redirect('home');
+		}
+		return view('auth.admin.profile', compact('user'));
+	}
 }

@@ -67,7 +67,7 @@ class Resource extends Model
 	 * @param  integer $height
 	 * @return string  $folderPath
 	 */
-	public function createNewImage($path, $width = 1000, $height = 1000)
+	public function saveToStorage($path, $width = 1000, $height = 1000)
 	{
 		$image = Image::make($path)->resize($width, $height);
 
@@ -80,6 +80,19 @@ class Resource extends Model
 		$image->save(storage_path('app/' . $filepath));
 
 		return $filepath;
+	}
+
+	/**
+	 * Remove from storage.
+	 *
+	 * @param  string $file name + extension
+	 * @return void
+	 */
+	public function removeFromStorage()
+	{
+		$filepath = 'public/images/' . $this->original_name . $this->original_extension;
+		Storage::delete($filepath);
+		$this->delete();
 	}
 
 	/**

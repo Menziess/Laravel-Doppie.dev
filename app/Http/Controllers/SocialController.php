@@ -54,10 +54,10 @@ class SocialController extends Controller
 
 		if (!$newUser) {
 			# Check if user is active or restore when trashed
-			if ($user->is_active === false) {
-				abort(403, User::USER_IS_BLOCKED_BY_ADMIN);
-			} elseif ($user->trashed()) {
-				$user->restore();
+			if ($user->is_active == false) {
+				return redirect('home');
+			} else {
+			 	$user->restore();
 			}
 		}
 

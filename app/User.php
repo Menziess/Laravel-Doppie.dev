@@ -12,8 +12,6 @@ class User extends Authenticatable
 {
 	use SoftDeletes;
 
-	const USER_IS_BLOCKED_BY_ADMIN = 'Sorry, this user is deactivated.';
-
 	/**
 	 * The table associated with the model.
 	 *

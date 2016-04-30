@@ -29,4 +29,26 @@ class AdminController extends Controller
 		}
 		return view('auth.admin.profile', compact('user'));
 	}
+
+    /*
+     * Restores a user and sets is_active on true.
+     */
+    public function getActivate($id)
+    {
+        if (Auth::user()->is_admin) {
+            User::withTrashed()->find($id)->activate();
+        }
+        return redirect()->back();
+    }
+
+    /*
+     * Soft deletes user and sets is_active on false.
+     */
+    public function getDeactivate($id)
+    {
+        if (Auth::user()->is_admin) {
+            User::withTrashed()->find($id)->deactivate();
+        }
+        return redirect()->back();
+    }
 }

@@ -69,4 +69,40 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Resource::class);
 	}
+
+	/**
+	 * Activates a user.
+	 *
+	 * @return void
+	 */
+	public function activate()
+	{
+		$this->restore();
+		$this->is_active = true;
+		$this->save();
+	}
+
+	/**
+	 * Deactivates a user.
+	 *
+	 * @return void
+	 */
+	public function deactivate()
+	{
+		$this->is_active = false;
+		$this->save();
+		$this->delete();
+	}
+
+	/**
+	 * Force delete user and all related private data.
+	 *
+	 * @return bool
+	 */
+	public function deleteAllPrivateData()
+	{
+		# delete additional private data
+
+		$this->forceDelete();
+	}
 }

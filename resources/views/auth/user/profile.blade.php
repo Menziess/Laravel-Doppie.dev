@@ -10,7 +10,7 @@
 		<div class="card card-block">
 			<h4 class="card-title">Picture</h4>
 
-			@include('auth.user.upload')
+			@include('auth.user.modal')
 
 			<div class="row margin-bottom-20">
 				<div class="col-md-3">

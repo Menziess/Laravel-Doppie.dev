@@ -19,7 +19,11 @@
 						</thead>
 					<tbody>
 					@foreach($users as $user)
-						<tr class="clickable-row" data-href="{{ url('/user/show/' . $user->id) }}">
+						@if($user->trashed())
+						<tr class="clickable-row bg-warning" data-href="{{ url('/admin/show/' . $user->id) }}">
+						@else
+						<tr class="clickable-row" data-href="{{ url('/admin/show/' . $user->id) }}">
+						@endif
 							<td>{{ $user->id }}</td>
 							<td><img src="{{ asset('images/profile/' . $user->id) }}" class="img-circle width-100 profile-picture-small" style="width: 50px;" alt="" ></td>
 							<td>{{ $user->first_name }} {{ $user->last_name }}</td>

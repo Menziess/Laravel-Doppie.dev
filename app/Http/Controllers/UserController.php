@@ -22,28 +22,35 @@ class UserController extends Controller
 		return view('auth.user.settings', compact('user'));
 	}
 
-	public function getShow($id)
+	/*
+	 * Restores a user and sets is_active on true.
+	 */
+	public function getActivate($id)
 	{
-		if ($id && Auth::user()->is_admin) {
-			$user = User::find($id);
-		} else {
-			return redirect('home');
-		}
-		return view('auth.user.profile', compact('user'));
-	}
-
-	public function getDeactivate($id)
-	{
-		if (Auth::user()->getKey() === $id || Auth::user()->is_admin) {
-			User::find($id)->delete();
+		if (Auth::user()->is_admin) {
+			User::withTrashed()->find($id)->activate();
 		}
 		return redirect()->back();
 	}
 
+	/*
+	 * Soft deletes user and sets is_active on false.
+	 */
+	public function getDeactivate($id)
+	{
+		if (Auth::user()->is_admin) {
+			User::withTrashed()->find($id)->deactivate();
+		}
+		return redirect()->back();
+	}
+
+	/*
+	 * Hard deletes a user and all its data.
+	 */
 	public function getDelete($id)
 	{
 		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
-			User::find($id)->forceDelete();
+			User::find($id)->deleteAllPrivateData();
 		}
 		return redirect()->back();
 	}

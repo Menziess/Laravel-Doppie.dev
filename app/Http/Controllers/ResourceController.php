@@ -18,7 +18,7 @@ class ResourceController extends Controller
    	public function picture($userID)
 	{
 		$resource = User::find($userID)->profile->resource;
-		$path = $resource ? storage_path() . '\app\public\images\\' . $resource->original_name . $resource->original_extension : null;
+		$path = $resource ? storage_path() . '/app/public/images/' . $resource->original_name . $resource->original_extension : null;
 		return response()->file($path);
 	}
 }

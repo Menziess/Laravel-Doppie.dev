@@ -11,8 +11,6 @@ class Resource extends Model
 {
 	use SoftDeletes;
 
-	const PROFILE_STORAGE = 'public/images/';
-
 	/**
 	 * The table associated with the model.
 	 *
@@ -78,9 +76,8 @@ class Resource extends Model
 		$this->original_extension = pathinfo($path, PATHINFO_EXTENSION)
 			?: $this->getExtension($this->original_mime_type);
 
-		// $file = file_get_contents($path);
 		$filepath = 'public/images/' . $this->original_name . $this->original_extension;
-		$image->save(storage_path('app\public\images\\' . $this->original_name . $this->original_extension));
+		$image->save(storage_path('app/' . $filepath));
 
 		return $filepath;
 	}

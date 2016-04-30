@@ -11,8 +11,8 @@
 				<p>One fine body&hellip;</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="button" class="btn btn-secondary-outline" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary-outline">Save</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

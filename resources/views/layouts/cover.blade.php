@@ -20,7 +20,7 @@
 
 	<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
 	<p class="card-text col-centered">With supporting text below as a natural lead-in to additional content.</p>
-	<a href="#" class="btn btn-primary">Go somewhere</a>
+	<a href="#" class="btn btn-primary-outline">Go somewhere</a>
 	</div>
 
 

@@ -13,21 +13,23 @@
 								<th>#</th>
 								<th>Picture</th>
 								<th>Name</th>
-								<th>Email</th>
+								<th class="hidden-xs-down">Email</th>
 								<th class="hidden-xs-down">Creation Date</th>
 							</tr>
 						</thead>
 					<tbody>
 					@foreach($users as $user)
-						@if($user->trashed())
-						<tr class="clickable-row bg-warning" data-href="{{ url('/admin/show/' . $user->id) }}">
-						@else
 						<tr class="clickable-row" data-href="{{ url('/admin/show/' . $user->id) }}">
-						@endif
 							<td>{{ $user->id }}</td>
 							<td><img src="{{ asset('images/profile/' . $user->id) }}" class="img-circle width-100 profile-picture-small" style="width: 50px;" alt="" ></td>
-							<td>{{ $user->first_name }} {{ $user->last_name }}</td>
-							<td>{{ $user->email }}</td>
+							<td>{{ $user->first_name }} {{ $user->last_name }}<br>
+								@if($user->is_active)
+								<span class="label label-pill label-success">active</span>
+								@else
+								<span class="label label-pill label-warning">inactive</span>
+								@endif
+							</td>
+							<td class="hidden-xs-down">{{ $user->email }}</td>
 							<td class="hidden-xs-down">{{ $user->created_at }}</td>
 						</tr>
 					@endforeach
@@ -35,7 +37,6 @@
 					</table>
 
 					{!! $users !!}
-
 				@else
 					No users... Sorry!
 				@endif

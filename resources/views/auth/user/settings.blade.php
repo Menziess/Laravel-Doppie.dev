@@ -40,9 +40,11 @@
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 
+			<div class="btn-group btn-group-justified">
 			<a data-toggle="modal" data-target="#modal" href="#" class="btn btn-danger">Delete account</a>
 			</div>
-			@endif
+		</div>
+		@endif
 
 
 

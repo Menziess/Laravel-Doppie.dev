@@ -8,7 +8,8 @@
 
 		@if($user && $user->profile)
 		<div class="card card-block">
-			<h4 class="card-title">Profile {{ $user->id }} {{ $user->is_active ? 'active' : 'deactivated'}}</h4>
+			<h4 class="card-title">Profile {{ $user->id }}</h4>
+
 			<div class="row margin-bottom-20">
 				<div class="col-md-6">
 				<p class="card-text">Name: {{ $user->first_name . ' ' . $user->last_name ?: '#' }}</p>
@@ -43,7 +44,15 @@
 
 
 		<div class="card card-block">
-			<h4 class="card-title">Account</h4>
+			<h4 class="card-title">
+				Account
+				@if($user->is_active)
+				<span class="label label-pill label-success">active</span>
+				@else
+				<span class="label label-pill label-warning">inactive</span>
+				@endif
+			</h4>
+			<p>A user will be soft-deleted, and wont be able to log in.</p>
 			<div id="modal" class="modal fade">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -55,7 +64,7 @@
 						</div>
 						<div class="modal-body">
 							<p>
-								Deleting this account will also remove all associated private data.
+								Deleting this account will also remove all associated private data, are you sure? :(
 							</p>
 						</div>
 						<div class="modal-footer">
@@ -65,9 +74,15 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
+			<div class="btn-group btn-group-justified">
+			<a href="{{ url('/admin/activate/' . $user->getKey()) }}" class="btn btn-success-outline" role="button">Activate</a>
+			<a href="{{ url('/admin/deactivate/' . $user->getKey()) }}" class="btn btn-warning-outline" role="button">Deactivate</a>
+			</div>
+		</div>
 
-			<a href="{{ url('/user/activate/' . $user->getKey()) }}" class="btn btn-secondary-outline" role="button">Activate</a>
-			<a href="{{ url('/user/deactivate/' . $user->getKey()) }}" class="btn btn-warning-outline" role="button">Deactivate</a>
+		<div class="card card-block">
+			<h4 class="card-title">Hard delete</h4>
+			<p>All user related data will be removed, and can't be restored.</p>
 			<a data-toggle="modal" data-target="#modal" href="#" class="btn btn-danger">Delete</a>
 		</div>
 

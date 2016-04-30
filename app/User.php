@@ -100,7 +100,9 @@ class User extends Authenticatable
 	public function deleteAllPrivateData()
 	{
 		# delete additional private data
-
+		if ($this->profile->resource) {
+			$this->profile->resource->removeFromStorage();
+		}
 		$this->forceDelete();
 	}
 }

@@ -19,7 +19,8 @@ class Profile extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		//
+		'date_of_birth',
+		'gender',
 	];
 
 	/**

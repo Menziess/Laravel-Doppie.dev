@@ -45,15 +45,18 @@
 			@if($user && $user->profile)
 			<h4 class="card-title">Profile</h4>
 			<div class="row margin-bottom-20">
-				<div class="col-md-10">
+				<div class="col-md-7">
 
-				<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+				<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/user/profile') }}">
 					{!! csrf_field() !!}
+					{{ method_field('PUT') }}
+
+					<input name="id" value="{{ $user->getKey() }}" type="hidden" class="form-control">
 
 					<div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">First:</span>
-							<input name="first_name" value="{{ $user->first_name }}" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+							<input name="first_name" required value="{{ $user->first_name }}" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
 						</div>
 
 						@if ($errors->has('first_name'))
@@ -66,7 +69,7 @@
 					<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">Last:</span>
-							<input name="last_name" value="{{ $user->last_name }}" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+							<input name="last_name" required value="{{ $user->last_name }}" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
 						</div>
 
 						@if ($errors->has('last_name'))
@@ -79,7 +82,7 @@
 					<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">@</span>
-							<input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" value="{{ $user->email ?: '#' }}">
+							<input name="email" required type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" value="{{ $user->email ?: '#' }}">
 						</div>
 
 					@if ($errors->has('email'))
@@ -90,29 +93,16 @@
 					</div>
 
 					<div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-						<div class="btn-group btn-group-justified">
-							<select class="form-control" id="sel1">
-							<option>Male</option>
-							<option>Female</option>
+						<div class="btn-group">
+							<select class="form-control" id="sel1" form="form" name="gender">
+							<option value="male">Male</option>
+							<option value="female">Female</option>
 							</select>
 						</div>
 
 					@if ($errors->has('gender'))
 						<span class="help-block">
 							<strong>{{ $errors->first('gender') }}</strong>
-						</span>
-					@endif
-					</div>
-
-					<div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1">Birthday</span>
-							<input name="birthday" type="date" class="form-control" aria-describedby="basic-addon1" value="{{ $user->profile->date_of_birth ? $user->profile->date_of_birth->toDateString() : '' }}">
-						</div>
-
-					@if ($errors->has('birthday'))
-						<span class="help-block">
-							<strong>{{ $errors->first('birthday') }}</strong>
 						</span>
 					@endif
 					</div>
@@ -132,6 +122,19 @@
 					@if ($errors->has('location'))
 						<span class="help-block">
 							<strong>{{ $errors->first('location') }}</strong>
+						</span>
+					@endif
+					</div>
+
+					<div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">Birthday</span>
+							<input name="birthday" required type="date" class="form-control" aria-describedby="basic-addon1" value="{{ $user->profile->date_of_birth ? $user->profile->date_of_birth->toDateString() : '' }}">
+						</div>
+
+					@if ($errors->has('birthday'))
+						<span class="help-block">
+							<strong>{{ $errors->first('birthday') }}</strong>
 						</span>
 					@endif
 					</div>

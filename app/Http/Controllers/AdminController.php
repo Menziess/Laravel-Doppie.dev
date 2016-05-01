@@ -10,45 +10,44 @@ use App\Http\Requests;
 
 class AdminController extends Controller
 {
-    public function getIndex(Request $request)
-    {
-    	if (\Auth::guest() || !\Auth::user()->is_admin) {
-    		return redirect()->action('HomeController@getIndex');
-    	}
-
-    	$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
-    	return view('auth.admin.users', compact('users'));
-    }
-
-    public function getShow($id)
+	public function getIndex(Request $request)
 	{
-		if ($id && Auth::user()->is_admin) {
-			$user = User::withTrashed()->find($id);
-		} else {
+		if (!\Auth::user()->is_admin) {
+			return redirect('home');
+		}
+
+		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
+		return view('auth.admin.users', compact('users'));
+	}
+
+	public function getShow($id)
+	{
+		$user = User::withTrashed()->find($id);
+		if (!$user || !Auth::user()->is_admin) {
 			return redirect('home');
 		}
 		return view('auth.user.profile', compact('user'));
 	}
 
-    /*
-     * Restores a user and sets is_active on true.
-     */
-    public function getActivate($id)
-    {
-        if (Auth::user()->is_admin) {
-            User::withTrashed()->find($id)->activate();
-        }
-        return redirect()->back();
-    }
+	/*
+	 * Restores a user and sets is_active on true.
+	 */
+	public function getActivate($id)
+	{
+		if (Auth::user()->is_admin) {
+			User::withTrashed()->find($id)->activate();
+		}
+		return redirect()->back();
+	}
 
-    /*
-     * Soft deletes user and sets is_active on false.
-     */
-    public function getDeactivate($id)
-    {
-        if (Auth::user()->is_admin) {
-            User::withTrashed()->find($id)->deactivate();
-        }
-        return redirect()->back();
-    }
+	/*
+	 * Soft deletes user and sets is_active on false.
+	 */
+	public function getDeactivate($id)
+	{
+		if (Auth::user()->is_admin) {
+			User::withTrashed()->find($id)->deactivate();
+		}
+		return redirect()->back();
+	}
 }

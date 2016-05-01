@@ -27,7 +27,7 @@ class AdminController extends Controller
 		} else {
 			return redirect('home');
 		}
-		return view('auth.admin.profile', compact('user'));
+		return view('auth.user.profile', compact('user'));
 	}
 
     /*

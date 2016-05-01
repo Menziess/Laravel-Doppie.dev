@@ -32,6 +32,15 @@ class Profile extends Model
 	];
 
 	/**
+	 * Cast dates to Carbon instance.
+	 *
+	 * @var array
+	 */
+	protected $dates = [
+		'date_of_birth',
+	];
+
+	/**
 	 * Define relation.
 	 */
 	public function user()

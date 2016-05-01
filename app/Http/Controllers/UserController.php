@@ -31,7 +31,7 @@ class UserController extends Controller
 		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
 			User::find($id)->deleteAllPrivateData();
 		}
-		return redirect()->back();
+		return redirect('home');
 	}
 
 	/*
@@ -42,9 +42,9 @@ class UserController extends Controller
 		// dd($request->all());
 		$validator = \Validator::make($request->all(), [
 			'id' => 'required|exists:users',
-			'first_name' => 'required|max:255',
-			'last_name' => 'required|max:255',
-			'email' => 'required|email|max:255|unique:users,email,' . $request->id,
+			'first_name' => 'required|max:35|regex:/^[(a-zA-Z\s)]+$/u',
+			'last_name' => 'required|max:35|regex:/^[(a-zA-Z\s)]+$/u',
+			'email' => 'required|email|max:254|unique:users,email,' . $request->id,
 			'gender' => 'in:male,female',
 			'birthday' => 'required',
 		]);
@@ -63,7 +63,7 @@ class UserController extends Controller
 			abort(403, 'Unauthorized action.');
 		}
 
-		$user = User::find($request->id);
+		$user = User::withTrashed()->find($request->id);
 		$user->update([
 			'first_name' => $request->first_name,
 			'last_name' => $request->last_name,

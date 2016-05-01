@@ -95,8 +95,13 @@
 					<div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
 						<div class="btn-group">
 							<select class="form-control" id="sel1" form="form" name="gender">
-							<option value="male">Male</option>
+							@if($user->profile->gender == 'male')
+							<option value="male" selected>Male</option>
 							<option value="female">Female</option>
+							@else
+							<option value="male">Male</option>
+							<option value="female" selected>Female</option>
+							@endif
 							</select>
 						</div>
 

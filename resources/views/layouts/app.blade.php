@@ -46,10 +46,4 @@
 
 </body>
 
-<!--
-<footer>
-	@include('layouts.footer')
-</footer>
--->
-
 </html>

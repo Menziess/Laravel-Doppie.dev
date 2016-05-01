@@ -15,13 +15,21 @@
 		</div>
 	</div> -->
 
-	<div class"row row-centered">
+	<div class"row">
 		<div class="card">
 			<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 			<div class="card-block">
-				<h4 class="card-title">Random title</h4>
-				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				<a href="#" class="btn btn-primary">Button</a>
+				<h4 class="card-title">Welcome to your feed</h4>
+				<p class="card-body">
+					Here you will find interesting projects and goals of other people around the world!
+				</p>
+				<p>
+					You will find that other people have similar goals!
+				</p>
+				<blockquote class="blockquote-reverse">
+					<p class="m-b-0">"Power is gained by sharing knowledge, not hoarding it"</p>
+					<footer class="blockquote-footer"><cite title="Source Title">-Unknown</cite></footer>
+				</blockquote>
 			</div>
 		</div>
 	</div>

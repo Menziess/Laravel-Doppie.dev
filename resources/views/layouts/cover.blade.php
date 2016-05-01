@@ -8,7 +8,7 @@
 		@if(!Auth::user()->profile->resource)
 		<img src="{{ asset('img/placeholder.jpg') }}" class="img-circle max-width-100 profile-picture-small" alt="" >
 		@else
-		<img src="{{ asset('images/profile/' . Auth::user()->getKey()) }}" class="img-circle width-100 profile-picture-small" alt="" >
+		<img src="{{ asset('storage/images/' . Auth::user()->profile->resource->original_name . Auth::user()->profile->resource->original_extension) }}" class="img-circle width-100 profile-picture-small" alt="" >
 		@endif
 	</a>
 	</div>

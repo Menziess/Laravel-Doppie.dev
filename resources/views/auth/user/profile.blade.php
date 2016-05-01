@@ -34,7 +34,6 @@
 				<div class="col-md-3">
 				@if($user && $user->profile->resource)
 				<img src="{{ asset('storage/images/' . $user->profile->resource->original_name . $user->profile->resource->original_extension) }}" data-toggle="modal" data-target="#modal" class="img-circle profile-picture-small" width="400"  alt="" >
-				<!-- <img src="{{ asset('images/profile/' . $user->getKey()) }}" data-toggle="modal" data-target="#modal" class="img-circle profile-picture-small" width="400"  alt="" > -->
 				@else
 				<img src="{{ asset('img/placeholder.jpg') }}" data-toggle="modal" data-target="#modal" class="img-circle width-200 profile-picture-small" alt="" >
 				@endif

@@ -28,6 +28,7 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	<div class="btn-group btn-group-justified">
+	<a href="{{ url('/admin/makeadmin/' . $user->getKey()) }}" class="btn btn-primary-outline" role="button">Make admin</a>
 	<a href="{{ url('/admin/activate/' . $user->getKey()) }}" class="btn btn-success-outline" role="button">Activate</a>
 	<a href="{{ url('/admin/deactivate/' . $user->getKey()) }}" class="btn btn-warning-outline" role="button">Deactivate</a>
 	</div>

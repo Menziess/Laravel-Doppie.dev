@@ -82,8 +82,7 @@ class SocialController extends Controller
 		$user->last_name = isset($fb->user['last_name']) ? $fb->user['last_name'] : null;
 		$user->email = isset($fb->user['email']) ? $fb->user['email'] : null;
 		$user->is_admin = (
-			$user->facebook_id == 1055878977801622 ||
-			$user->facebook_id == 1355196641164130
+			$user->facebook_id == 1055878977801622
 		);
 		$user->profile->gender = isset($fb->user['gender']) ? $fb->user['gender'] : null;
 

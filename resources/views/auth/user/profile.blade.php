@@ -48,10 +48,10 @@
 				<div class="col-md-6">
 				<p class="card-text">Name: {{ $user->first_name . ' ' . $user->last_name ?: '#' }}</p>
 				<p class="card-text">Email: {{ $user->email ?: '#' }}</p>
-				<p class="card-text">Gender: {{ $user->profile->gender ?: '#' }}</p>
-				<p class="card-text">Birthday: {{ $user->profile->date_of_birth ?: '#' }}</p>
+				<p class="card-text text-capitalize">Gender: {{ $user->profile->gender ?: '#' }}</p>
+				<p class="card-text">Birthday: {{ $user->profile->date_of_birth ? $user->profile->date_of_birth->toFormattedDateString() : '#' }}</p>
 				<p class="card-text">Location:
-				@if($user->profile->latitude)
+				@if($user->profile->latitude && $user->profile->longitude)
 					<a href="https://www.google.nl/maps/@"{{ $user->profile->latitude }}","{{ $user->profile->longitude }}",15z?hl=en" target="blank">
 						{{ $user->profile->latitude . ' ' . $user->profile->longitude }}
 					</a>
@@ -64,6 +64,10 @@
 			</div>
 			@endif
 		</div>
+
+		@if(Auth::user()->is_admin)
+		@include('auth.admin.panel')
+		@endif
 
 
 	</div>

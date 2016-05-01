@@ -26,7 +26,8 @@
 									<span class="input-group-addon" id="basic-addon1">@</span>
 									<input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" value="{{ old('email') }}">
 								<span class="input-group-btn">
-									<button class="btn btn-primary" type="submit">Send!</button>
+									<!-- <button class="btn btn-primary" type="submit">Send!</button> -->
+									<button class="btn btn-primary" type="button">Send!</button>
 								</span>
 								</div>
 

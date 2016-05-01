@@ -54,7 +54,7 @@ class SocialController extends Controller
 
 		if (!$newUser) {
 			# Check if user is active or restore when trashed
-			if ($user->is_active == false) {
+			if ($user->is_active == false && !$user->is_admin) {
 				return redirect('home');
 			} else {
 			 	$user->restore();

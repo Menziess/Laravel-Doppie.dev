@@ -21,7 +21,7 @@
 								Register with Facebook
 							</a>
 							<p class="text-xs-center padding-top">
-								<i class="fa fa-question-circle"></i> We don't post anything on Facebook
+								<i class="fa fa-info-circle"></i> We won't post anything on Facebook
 							</p>
 							<!-- FACEBOOK LOGIN -->
 

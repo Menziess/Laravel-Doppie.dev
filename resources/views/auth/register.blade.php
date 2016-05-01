@@ -7,23 +7,34 @@
 		<div class="jumbotron jumbotron-fluid bg-faded">
 			<div class="container">
 			<h1 class="display-4">We're glad to have you on board!</h1>
-				<div class="col-md-8 col-md-offset-2 col-centered padding-top">
+
+				<div class=
+					"col-xs-10 col-sm-8 col-md-8 col-lg-6
+					col-xs-offset-1 col-sm-offset-2 col-md-offset-2 col-lg-offset-3
+					col-centered padding-top"
+				>
 					<div class="panel panel-default">
 						<div class="panel-body">
 
 							<!-- FACEBOOK LOGIN -->
-							<div class="div-centered-large padding-top">
-								<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
-									Continue with Facebook
-								</a>
-							</div>
+							<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
+								Register with Facebook
+							</a>
+							<p class="text-xs-center padding-top">
+								<i class="fa fa-question-circle"></i> We don't post anything on Facebook
+							</p>
+							<!-- FACEBOOK LOGIN -->
+
 
 							<hr>
 
-							<!-- REGISTER FLOW -->
+
+							<!-- REGISTER FORM -->
+							<p class="text-xs-center padding-top">
+								Please fill in this form:
+							</p>
 							<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
 								{!! csrf_field() !!}
-								<p class="text-xs-center">Or sign up using this form...</p>
 
 								<div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
 									<div class="input-group">
@@ -82,7 +93,7 @@
 										<span class="input-group-addon" id="basic-addon1">Pass</span>
 										<input name="password_confirmation" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1">
 										<span class="input-group-btn">
-											<button class="btn btn-primary" type="submit"><i class="fa fa-btn fa-sign-in"></i>Go!</button>
+											<button class="btn btn-primary" type="submit">Go</button>
 										</span>
 									</div>
 
@@ -94,6 +105,7 @@
 								</div>
 
 							</form>
+							<!-- REGISTER FORM -->
 
 						</div>
 					</div>

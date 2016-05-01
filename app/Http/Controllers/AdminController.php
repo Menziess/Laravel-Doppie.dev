@@ -30,6 +30,19 @@ class AdminController extends Controller
 	}
 
 	/*
+	 * Soft deletes user and sets is_active on false.
+	 */
+	public function getMakeadmin($id)
+	{
+		if (Auth::user()->is_admin) {
+			$user = User::withTrashed()->find($id);
+			$user->is_admin = true;
+			$user->save();
+		}
+		return redirect()->back();
+	}
+
+	/*
 	 * Restores a user and sets is_active on true.
 	 */
 	public function getActivate($id)

@@ -15,7 +15,6 @@ class AdminController extends Controller
 		if (!\Auth::user()->is_admin) {
 			return redirect('home');
 		}
-
 		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
 		return view('auth.admin.users', compact('users'));
 	}
@@ -26,20 +25,19 @@ class AdminController extends Controller
 		if (!$user || !Auth::user()->is_admin) {
 			return redirect('home');
 		}
-		return view('auth.user.profile', compact('user'));
+		return view('auth.user.settings', compact('user'));
 	}
 
 	/*
 	 * Soft deletes user and sets is_active on false.
 	 */
-	public function getMakeadmin($id)
+	public function getToggleadmin($id)
 	{
 		if (Auth::user()->is_admin) {
 			$user = User::withTrashed()->find($id);
-			$user->is_admin = true;
-			$user->save();
+			$user->makeAdmin();
 		}
-		return redirect()->back();
+		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
 	/*
@@ -50,7 +48,7 @@ class AdminController extends Controller
 		if (Auth::user()->is_admin) {
 			User::withTrashed()->find($id)->activate();
 		}
-		return redirect()->back();
+		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
 	/*
@@ -61,6 +59,6 @@ class AdminController extends Controller
 		if (Auth::user()->is_admin) {
 			User::withTrashed()->find($id)->deactivate();
 		}
-		return redirect()->back();
+		return redirect()->to(\URL::previous() . '#permissions');
 	}
 }

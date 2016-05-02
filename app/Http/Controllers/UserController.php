@@ -26,10 +26,10 @@ class UserController extends Controller
 	/*
 	 * Hard deletes a user and all its data.
 	 */
-	public function getDelete($id)
+	public function deleteDelete($id)
 	{
 		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
-			User::find($id)->deleteAllPrivateData();
+			User::withTrashed()->find($id)->deleteAllPrivateData();
 		}
 		return redirect('home');
 	}
@@ -37,9 +37,35 @@ class UserController extends Controller
 	/*
 	 * Update profile.
 	 */
+	public function putPassword(Request $request)
+	{
+		$validator = \Validator::make($request->all(), [
+			'id' => 'required|exists:users',
+			'password' => 'required|min:6|confirmed',
+		]);
+
+		$editorIsAdmin = Auth::user()->is_admin;
+		$path = $editorIsAdmin
+			? '/admin/show/' . $request->id
+			: '/user/settings';
+
+		if ($validator->fails()) {
+			return redirect($path)
+						->withErrors($validator)
+						->withInput();
+		}
+		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
+			abort(403, 'Unauthorized action.');
+		}
+
+		return redirect($path . '#password');
+	}
+
+	/*
+	 * Update profile.
+	 */
 	public function putProfile(Request $request)
 	{
-		// dd($request->all());
 		$validator = \Validator::make($request->all(), [
 			'id' => 'required|exists:users',
 			'first_name' => 'required|max:35|regex:/^[(a-zA-Z\s)]+$/u',
@@ -52,7 +78,7 @@ class UserController extends Controller
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
 			? '/admin/show/' . $request->id
-			: '/user/profile#form';
+			: '/user/settings';
 
 		if ($validator->fails()) {
 			return redirect($path)
@@ -76,6 +102,6 @@ class UserController extends Controller
 		]);
 		$user->profile->save();
 
-		return redirect($path);
+		return redirect($path . '#profile');
 	}
 }

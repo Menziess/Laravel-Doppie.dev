@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
-	<h4 class="card-title">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h4>
+	<h4 class="card-title">{{ Auth::user()->getName() }}</h4>
 	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 	</div>
 

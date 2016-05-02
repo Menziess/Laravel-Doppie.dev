@@ -26,12 +26,14 @@
 							@else
 							<td><img src="{{ asset('img/placeholder.jpg') }}" class="img-circle width-100 profile-picture-small" style="width: 50px;" alt="" ></td>
 							@endif
-							<td>{{ $user->first_name }} {{ $user->last_name }}<br>
-								@if($user->is_active)
-								<span class="label label-pill label-success">active</span>
-								@else
-								<span class="label label-pill label-warning">inactive</span>
-								@endif
+							<td>
+								{{ $user->getName() }}<br>
+								{!! $user->is_active
+									? '<span class="label label-pill label-success">active</span>'
+									: '<span class="label label-pill label-warning">inactive</span>' !!}
+								{!! $user->is_admin
+									? '<span class="label label-pill label-primary">admin</span>'
+									: '' !!}
 							</td>
 							<td class="hidden-xs-down">{{ $user->email }}</td>
 							<td class="hidden-xs-down">{{ $user->created_at }}</td>

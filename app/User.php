@@ -68,6 +68,14 @@ class User extends Authenticatable
 		return $this->hasMany(Resource::class);
 	}
 
+	/*
+	 * Gets user full name.
+	 */
+	public function getName()
+	{
+		return $this->first_name . ' ' . $this->last_name;
+	}
+
 	/**
 	 * Activates a user.
 	 *
@@ -90,6 +98,17 @@ class User extends Authenticatable
 		$this->is_active = false;
 		$this->save();
 		$this->delete();
+	}
+
+	/**
+	 * Makes this user admin.
+	 *
+	 * @return void
+	 */
+	public function makeAdmin()
+	{
+		$this->is_admin = !$this->is_admin;
+		$this->save();
 	}
 
 	/**

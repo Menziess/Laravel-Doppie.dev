@@ -46,8 +46,8 @@ class UserController extends Controller
 
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
-			? '/admin/show/' . $request->id
-			: '/user/settings';
+			? '/admin/show/' . $request->id . '#password'
+			: '/user/settings' . '#password';
 
 		if ($validator->fails()) {
 			return redirect($path)
@@ -57,8 +57,11 @@ class UserController extends Controller
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
 			abort(403, 'Unauthorized action.');
 		}
+		$user = User::withTrashed()->find($request->id);
+		$user->password = bcrypt($request->password);
+		$user->save();
 
-		return redirect($path . '#password');
+		return redirect($path);
 	}
 
 	/*
@@ -77,8 +80,8 @@ class UserController extends Controller
 
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
-			? '/admin/show/' . $request->id
-			: '/user/settings';
+			? '/admin/show/' . $request->id . '#profile'
+			: '/user/settings' . '#profile';
 
 		if ($validator->fails()) {
 			return redirect($path)
@@ -95,13 +98,13 @@ class UserController extends Controller
 			'last_name' => $request->last_name,
 			'email' => $request->email,
 		]);
-		$user->save();
 		$user->profile->update([
 			'date_of_birth' => Carbon::parse($request->birthday)->toDateTimeString(),
 			'gender' => $request->gender,
+			'latitude' => $request->latitude,
+			'longitude' => $request->longitude,
 		]);
-		$user->profile->save();
 
-		return redirect($path . '#profile');
+		return redirect($path);
 	}
 }

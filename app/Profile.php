@@ -21,6 +21,8 @@ class Profile extends Model
 	protected $fillable = [
 		'date_of_birth',
 		'gender',
+		'latitude',
+		'longitude',
 	];
 
 	/**

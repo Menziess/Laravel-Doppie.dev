@@ -44,36 +44,36 @@ class User extends Authenticatable
 	 */
 	protected $dates = ['deleted_at'];
 
-	/**
-	 * Define relation.
-	 */
+	# Profile relation
 	public function profile()
 	{
 		return $this->hasOne(Profile::class);
 	}
 
-	/**
-	 * Define relation.
-	 */
+	# Setting relation
 	public function setting()
 	{
 		return $this->hasOne(Setting::class);
 	}
 
-	/**
-	 * Define relation.
-	 */
+	# Resource relation
 	public function resource()
 	{
 		return $this->hasMany(Resource::class);
 	}
 
-	/*
-	 * Gets user full name.
-	 */
+	# Get first and last name
 	public function getName()
 	{
 		return $this->first_name . ' ' . $this->last_name;
+	}
+
+	# Get profile picture
+	public function getPicture()
+	{
+		return $this->profile->resource
+			? 'storage/images/' . $this->profile->resource->original_name . $this->profile->resource->original_extension
+			: 'img/placeholder.jpg';
 	}
 
 	/**

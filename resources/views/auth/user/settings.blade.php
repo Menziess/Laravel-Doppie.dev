@@ -33,11 +33,7 @@
 
 			<div class="row margin-bottom-20">
 				<div class="col-md-3">
-				@if($user && $user->profile->resource)
-				<img src="{{ asset('storage/images/' . $user->profile->resource->original_name . $user->profile->resource->original_extension) }}" data-toggle="modal" data-target="#modal-upload" class="img-circle profile-picture-small" width="400"  alt="" >
-				@else
-				<img src="{{ asset('img/placeholder.jpg') }}" data-toggle="modal" data-target="#modal-upload" class="img-circle width-200 profile-picture-small" alt="" >
-				@endif
+					<img src="{{ asset(Auth::user()->getPicture()) }}" class="img-circle max-width-100 profile-picture-small" data-toggle="modal" data-target="#modal-upload" alt="" >
 				</div>
 			</div>
 		</div>
@@ -203,7 +199,7 @@
 		</div>
 
 
-		@if(Auth::user()->is_admin)
+		@if(Auth::user()->is_admin && Auth::user()->getKey() != $user->getKey())
 		@include('auth.admin.panel')
 		@else
 		<div class="card card-block">

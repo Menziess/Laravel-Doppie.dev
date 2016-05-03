@@ -21,11 +21,7 @@
 					@foreach($users as $user)
 						<tr class="clickable-row" data-href="{{ url('/admin/show/' . $user->id) }}">
 							<td>{{ $user->id }}</td>
-							@if($user->profile->resource)
-							<td><img src="{{ asset('storage/images/' . $user->profile->resource->original_name . $user->profile->resource->original_extension) }}" class="img-circle width-100 profile-picture-small" style="width: 50px;" alt="" ></td>
-							@else
-							<td><img src="{{ asset('img/placeholder.jpg') }}" class="img-circle width-100 profile-picture-small" style="width: 50px;" alt="" ></td>
-							@endif
+							<td><img src="{{ asset($user->getPicture()) }}" class="img-circle width-100 profile-picture-small" style="width: 50px;" alt="" ></td>
 							<td>
 								{{ $user->getName() }}<br>
 								{!! $user->is_active

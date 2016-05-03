@@ -18,7 +18,7 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Deleting this account will also remove all associated private data, are you sure? :(
+						Deleting this account will also remove all associated private data, are you sure?
 					</p>
 				</div>
 				<div class="modal-footer">
@@ -38,12 +38,12 @@
 	<a href="{{ url('/admin/deactivate/' . $user->getKey()) }}" class="btn btn-warning-outline" role="button">Deactivate</a>
 	</div>
 	<div class="padding-top">
-	<a href="{{ url('/admin/toggleadmin/' . $user->getKey()) }}" class="btn btn-primary-outline" role="button">Toggle admin</a>
+	<a href="{{ url('/admin/toggleadmin/' . $user->getKey()) }}" class="btn btn-primary{{ $user->is_admin ? '' : '-outline' }}" role="button">Admin: {{ $user->is_admin ? 'true' : 'false' }}</a>
 	</div>
 </div>
 
 <div id="account" class="card card-block card-inverse" style="background-color: #333; border-color: #333;">
 	<h4 class="card-title">Account</h4>
-	<p class="card-text">User #{{ $user->id }} is currently not deleted. A deleted user will lose all related data, this data can't be restored.</p>
+	<p class="card-text">Deleting User #{{ $user->id }} will also remove all associated private data.</p>
 	<a data-toggle="modal" data-target="#modal-delete" href="#" class="btn btn-danger">Delete</a>
 </div>

@@ -3,18 +3,6 @@
 @section('content')
 <div class="container">
 
-	<!-- <div class="row row-centered">
-		<div class="col-md-10 col-md-offset-1 col-centered">
-			<div class="panel panel-default">
-				<div class="panel-heading">Dashboard</div>
-
-				<div class="panel-body">
-					You are logged in!
-				</div>
-			</div>
-		</div>
-	</div> -->
-
 	<div class"row">
 		<div class="card">
 			<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->

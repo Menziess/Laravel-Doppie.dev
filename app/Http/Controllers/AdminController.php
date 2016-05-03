@@ -12,9 +12,6 @@ class AdminController extends Controller
 {
 	public function getIndex(Request $request)
 	{
-		if (!\Auth::user()->is_admin) {
-			return redirect('home');
-		}
 		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
 		return view('auth.admin.users', compact('users'));
 	}
@@ -22,7 +19,7 @@ class AdminController extends Controller
 	public function getShow($id)
 	{
 		$user = User::withTrashed()->find($id);
-		if (!$user || !Auth::user()->is_admin) {
+		if (!$user) {
 			return redirect('home');
 		}
 		return view('auth.user.settings', compact('user'));
@@ -33,10 +30,8 @@ class AdminController extends Controller
 	 */
 	public function getToggleadmin($id)
 	{
-		if (Auth::user()->is_admin) {
-			$user = User::withTrashed()->find($id);
-			$user->makeAdmin();
-		}
+		$user = User::withTrashed()->find($id);
+		$user->makeAdmin();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
@@ -45,9 +40,7 @@ class AdminController extends Controller
 	 */
 	public function getActivate($id)
 	{
-		if (Auth::user()->is_admin) {
-			User::withTrashed()->find($id)->activate();
-		}
+		User::withTrashed()->find($id)->activate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
@@ -56,9 +49,7 @@ class AdminController extends Controller
 	 */
 	public function getDeactivate($id)
 	{
-		if (Auth::user()->is_admin) {
-			User::withTrashed()->find($id)->deactivate();
-		}
+		User::withTrashed()->find($id)->deactivate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 }

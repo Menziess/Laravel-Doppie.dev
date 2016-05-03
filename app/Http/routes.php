@@ -31,11 +31,15 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::controller('/home', 'HomeController');
 
-	Route::controller('/admin', 'AdminController');
-
 	Route::controller('/user', 'UserController');
 
+
+	Route::group(['middleware' => 'admin'], function () {
+		Route::controller('/admin', 'AdminController');
+	});
+
 });
+
 
 # CATCH-ALL ROUTE
 Route::group(['prefix' => ''], function () {

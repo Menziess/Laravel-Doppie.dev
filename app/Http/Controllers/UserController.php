@@ -51,8 +51,9 @@ class UserController extends Controller
 
 		if ($validator->fails()) {
 			return redirect($path)
-						->withErrors($validator)
-						->withInput();
+					->withErrors($validator)
+					->with('password-status', ['message' => 'Please try again.', 'color' => 'warning']);
+
 		}
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
 			abort(403, 'Unauthorized action.');
@@ -61,7 +62,8 @@ class UserController extends Controller
 		$user->password = bcrypt($request->password);
 		$user->save();
 
-		return redirect($path);
+		return redirect($path)
+				->with('password-status', ['message' => 'Password Successfully set.', 'color' => 'success']);
 	}
 
 	/*
@@ -71,8 +73,8 @@ class UserController extends Controller
 	{
 		$validator = \Validator::make($request->all(), [
 			'id' => 'required|exists:users',
-			'first_name' => 'required|max:35|regex:/^[(a-zA-Z\s)]+$/u',
-			'last_name' => 'required|max:35|regex:/^[(a-zA-Z\s)]+$/u',
+			'first_name' => 'required|max:35|regex:/^[(a-zA-Z\s-)]+$/u',
+			'last_name' => 'required|max:35|regex:/^[(a-zA-Z\s-)]+$/u',
 			'email' => 'required|email|max:254|unique:users,email,' . $request->id,
 			'gender' => 'in:male,female',
 			'birthday' => 'required',
@@ -85,8 +87,9 @@ class UserController extends Controller
 
 		if ($validator->fails()) {
 			return redirect($path)
-						->withErrors($validator)
-						->withInput();
+					->withErrors($validator)
+					->withInput()
+					->with('profile-status', ['message' => 'Please try again.', 'color' => 'warning']);
 		}
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
 			abort(403, 'Unauthorized action.');
@@ -101,10 +104,10 @@ class UserController extends Controller
 		$user->profile->update([
 			'date_of_birth' => Carbon::parse($request->birthday)->toDateTimeString(),
 			'gender' => $request->gender,
-			'latitude' => $request->latitude,
-			'longitude' => $request->longitude,
+			# 'latitude' => $request->latitude,		// not allowed yet
+			# 'longitude' => $request->longitude, 	// not allowed yet
 		]);
 
-		return redirect($path);
+		return redirect($path)->with('profile-status', ['message' => 'Profile successfully updated.', 'color' => 'success']);
 	}
 }

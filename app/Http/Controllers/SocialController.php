@@ -66,7 +66,8 @@ class SocialController extends Controller
 			self::fillUser($user, $fb);
 		}
 
-		Auth::login($user);
+		# Logs user in with remember me set on true
+		Auth::login($user, true);
 
 		return redirect('home');
 	}

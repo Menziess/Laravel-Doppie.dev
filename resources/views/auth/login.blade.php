@@ -4,7 +4,7 @@
 
 <div class="jumbotron jumbotron-fluid bg-faded">
 
-	<div class="row">
+	<div class="container">
 
 	<h1 class="display-4">Well hello there!</h1>
 

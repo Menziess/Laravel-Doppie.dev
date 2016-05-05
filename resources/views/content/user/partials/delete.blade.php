@@ -1,9 +1,9 @@
 <div id="delete" class="card card-block">
-	<div class="row">
+	<div class="row row-centered">
 		<h4 class="card-title">Account</h4>
-		<div class="col-md-6 col-md-offset-3 col-centered">
+		<div class="col-md-6 col-md-offset-3">
 
-			<p>All user related data will be lost forever.</p>
+			<p>All your data will be lost forever.</p>
 
 			<div id="modal-delete" class="modal fade">
 				<div class="modal-dialog" role="document">

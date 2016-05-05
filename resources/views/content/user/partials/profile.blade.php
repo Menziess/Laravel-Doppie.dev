@@ -42,7 +42,7 @@
 				</div>
 
 				<div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-					<div class="btn-group ">
+					<div class="btn-group">
 						<label class="radio-inline">
 							<input type="radio" name="gender" value="male" {{ $user->profile->gender == 'male' ? 'checked' : '' }} />
 							Male

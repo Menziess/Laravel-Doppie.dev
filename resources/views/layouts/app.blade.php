@@ -35,7 +35,7 @@
 	@include('layouts.nav')
 
 	<!-- HEADER -->
-	@if (Auth::user())
+	@if(Auth::user())
 	@include('layouts.header')
 	@endif
 

@@ -11,17 +11,6 @@
 |
 */
 
-
-# Register and login routes
-Route::auth();
-
-
-# Landing page
-Route::get('/', function () {
-	return view('welcome');
-});
-
-
 # Redirect routes for facebook login
 Route::controller('/facebook', 'SocialController');
 
@@ -33,16 +22,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::controller('/user', 'UserController');
 
-
 	Route::group(['middleware' => 'admin'], function () {
 		Route::controller('/admin', 'AdminController');
 	});
-
 });
 
+# Register and login routes
+Route::auth();
 
-# CATCH-ALL ROUTE
-Route::group(['prefix' => ''], function () {
-	Route::options('{path?}', 'Controller@actionOk')->where('path', '.+');
-});
-
+# GUEST PAGES
+Route::controller('/', 'PagesController');

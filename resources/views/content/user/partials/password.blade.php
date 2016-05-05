@@ -2,12 +2,6 @@
 
 <div id="password" class="card card-block">
 	<h4 class="card-title">Password</h4>
-	<div class="row margin-bottom-20">
-		<div class="col-md-7">
-
-		@if(Session::has('password-status'))
-		@include('vendor.alert', ['data' => Session::get('password-status')])
-		@endif
 
 		<form id="form-password" class="form-horizontal" role="form" method="POST" action="{{ url('/user/password') }}">
 			{!! csrf_field() !!}
@@ -46,6 +40,5 @@
 			<button class="btn btn-primary-outline" type="submit">Update</button>
 		</form>
 
-		</div>
-	</div>
+
 </div>

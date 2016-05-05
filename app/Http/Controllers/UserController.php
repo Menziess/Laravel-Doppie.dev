@@ -51,9 +51,7 @@ class UserController extends Controller
 
 		if ($validator->fails()) {
 			return redirect($path)
-					->withErrors($validator)
-					->with('password-status', ['message' => 'Please try again.', 'color' => 'warning']);
-
+					->withErrors($validator);
 		}
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
 			abort(403, 'Unauthorized action.');
@@ -63,7 +61,7 @@ class UserController extends Controller
 		$user->save();
 
 		return redirect($path)
-				->with('password-status', ['message' => 'Password Successfully set.', 'color' => 'success']);
+				->with('password', 'Password set');
 	}
 
 	/*
@@ -77,7 +75,6 @@ class UserController extends Controller
 			'last_name' => 'required|max:35|regex:/^[(a-zA-Z\s-)]+$/u',
 			'email' => 'required|email|max:254|unique:users,email,' . $request->id,
 			'gender' => 'in:male,female',
-			'birthday' => 'required',
 		]);
 
 		$editorIsAdmin = Auth::user()->is_admin;
@@ -88,8 +85,7 @@ class UserController extends Controller
 		if ($validator->fails()) {
 			return redirect($path)
 					->withErrors($validator)
-					->withInput()
-					->with('profile-status', ['message' => 'Please try again.', 'color' => 'warning']);
+					->withInput();
 		}
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
 			abort(403, 'Unauthorized action.');
@@ -102,12 +98,12 @@ class UserController extends Controller
 			'email' => $request->email,
 		]);
 		$user->profile->update([
-			'date_of_birth' => Carbon::parse($request->birthday)->toDateTimeString(),
+			# 'date_of_birth' => Carbon::parse($request->birthday)->toDateTimeString(), // not required
 			'gender' => $request->gender,
 			# 'latitude' => $request->latitude,		// not allowed yet
 			# 'longitude' => $request->longitude, 	// not allowed yet
 		]);
 
-		return redirect($path)->with('profile-status', ['message' => 'Profile successfully updated.', 'color' => 'success']);
+		return redirect($path)->with('profile', 'Profile updated');
 	}
 }

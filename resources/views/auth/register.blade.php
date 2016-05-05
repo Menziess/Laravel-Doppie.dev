@@ -2,9 +2,10 @@
 
 @section('content')
 
-
 <div class="jumbotron jumbotron-fluid bg-faded">
-	<div class="container">
+
+	<div class="row">
+
 	<h1 class="display-4">Welcome aboard!</h1>
 
 		<div class="col-md-6 col-md-offset-3 col-centered padding-top">

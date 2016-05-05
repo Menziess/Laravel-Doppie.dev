@@ -7,6 +7,7 @@
 		: '<span class="text-warning">inactive</span> and is unable to login. This content of this user is not vsible for other users.' !!}
 	</p>
 
+	<div class="container">
 	<div id="modal-delete" class="modal fade">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -32,6 +33,7 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+	</div>
 
 	<div class="btn-group btn-group-justified">
 	<a href="{{ url('/admin/activate/' . $user->getKey()) }}" class="btn btn-success-outline" role="button">Activate</a>
@@ -44,6 +46,9 @@
 
 <div id="account" class="card card-block card-inverse" style="background-color: #333; border-color: #333;">
 	<h4 class="card-title">Account</h4>
+
 	<p class="card-text">Deleting User #{{ $user->id }} will also remove all associated private data.</p>
+	<div>
 	<a data-toggle="modal" data-target="#modal-delete" href="#" class="btn btn-danger">Delete</a>
+	</div>
 </div>

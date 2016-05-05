@@ -1,44 +1,51 @@
-
-
 <div id="password" class="card card-block">
-	<h4 class="card-title">Password</h4>
+	<div class="row">
+		<h4 class="card-title">Password</h4>
+		<div class="col-md-6 col-md-offset-3 col-centered">
 
-		<form id="form-password" class="form-horizontal" role="form" method="POST" action="{{ url('/user/password') }}">
-			{!! csrf_field() !!}
-			{{ method_field('PUT') }}
+			@if (Session::has('password'))
+				<div class="alert alert-success" role="alert">
+					{{ Session::get('password') }}
+				</div>
+			@endif
 
-			<input name="id" value="{{ $user->getKey() }}" type="hidden" class="form-control">
+			<form id="form-password" class="form-horizontal" role="form" method="POST" action="{{ url('/user/password') }}">
+				{!! csrf_field() !!}
+				{{ method_field('PUT') }}
 
-			<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1">Pass</span>
-					<input name="password" type="password" class="form-control" placeholder="{{ $user->password ? '********' : 'new password' }}" aria-describedby="basic-addon1">
+				<input name="id" value="{{ $user->getKey() }}" type="hidden" class="form-control">
+
+				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">Pass</span>
+						<input name="password" type="password" class="form-control" placeholder="{{ $user->password ? 'password set' : 'new password' }}" aria-describedby="basic-addon1">
+					</div>
+
+					@if ($errors->has('password'))
+						<div class="alert alert-warning" role="alert">
+							{{ $errors->first('password') }}
+						</div>
+					@endif
 				</div>
 
-			@if ($errors->has('password'))
-				<span class="help-block">
-					<strong>{{ $errors->first('password') }}</strong>
-				</span>
-			@endif
-			</div>
+				<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">Pass</span>
+						<input name="password_confirmation" type="password" class="form-control" placeholder="{{ $user->password ? 'password set' : 'new password' }}" aria-describedby="basic-addon1">
+					</div>
 
-			<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-				<div class="input-group">
-					<span class="input-group-addon" id="basic-addon1">Pass</span>
-					<input name="password_confirmation" type="password" class="form-control" placeholder="{{ $user->password ? '********' : 'new password' }}" aria-describedby="basic-addon1">
+					@if ($errors->has('password-confirmation'))
+						<div class="alert alert-warning" role="alert">
+							{{ $errors->first('password-confirmation') }}
+						</div>
+					@endif
 				</div>
 
-			@if ($errors->has('password_confirmation'))
-				<span class="help-block">
-					<strong>{{ $errors->first('password_confirmation') }}</strong>
-				</span>
-			@endif
-			</div>
+				<hr>
 
-			<hr>
+				<button class="btn btn-primary-outline center-block" type="submit">Update</button>
+			</form>
 
-			<button class="btn btn-primary-outline" type="submit">Update</button>
-		</form>
-
-
+		</div>
+	</div>
 </div>

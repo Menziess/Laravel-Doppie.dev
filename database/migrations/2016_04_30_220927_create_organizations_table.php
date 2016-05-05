@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfilesTable extends Migration
+class CreateOrganizationsTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -12,10 +12,11 @@ class CreateProfilesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('profiles', function (Blueprint $table) {
+		Schema::create('organizations', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id')
-				  ->unsigned();
+				  ->unsigned()
+				  ->nullable();
 			$table->integer('resource_id')
 				  ->unsigned()
 				  ->nullable();
@@ -23,21 +24,18 @@ class CreateProfilesTable extends Migration
 			$table->foreign('user_id')
 				  ->references('id')
 				  ->on('users')
-				  ->onDelete('cascade');
+				  ->onDelete('set null');
 			$table->foreign('resource_id')
 				  ->references('id')
 				  ->on('resources')
 				  ->onDelete('set null');
 
-			$table->string('gender')
-				  ->nullable();
-			$table->timestamp('date_of_birth')
-				  ->nullable();
-			$table->string('latitude')
-				->nullable();
-			$table->string('longitude')
-				->nullable();
+			$table->string('name');
 
+			$table->boolean('is_active')->default(true);
+			$table->boolean('is_public')->default(true);
+
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}
@@ -49,6 +47,6 @@ class CreateProfilesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('profiles');
+		Schema::dropIfExists('organizations');
 	}
 }

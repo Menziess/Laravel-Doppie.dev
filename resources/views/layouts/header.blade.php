@@ -1,11 +1,11 @@
 
-<div id="progress" class="container fluid padding-top">
+<div id="progress" class="padding-top div-centered-large">
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header">
 	<progress class="progress progress-success" value="25" max="100"></progress>
 	</a>
 </div>
 
-<div id="header" class="collapse">
+<div id="header" class="collapse {{ isset($in) ? 'in' : '' }}">
 	<div class="container fluid">
 		<div class="row row-centered">
 
@@ -24,7 +24,7 @@
 				@if(isset($links))
 				<div class="btn-group-vertical padding-top">
 					@foreach($links as $link)
-						<a class="btn btn-primary-outline" href="{{ $link['href'] }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
+						<a class="btn btn-primary-outline" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
 					@endforeach
 				</div>
 				@else

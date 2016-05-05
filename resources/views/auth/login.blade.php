@@ -42,11 +42,11 @@
 						</span>
 					</div>
 
-				@if ($errors->has('email'))
-					<span class="help-block">
-						<strong>{{ $errors->first('email') }}</strong>
-					</span>
-				@endif
+					@if ($errors->has('email'))
+					<div class="alert alert-warning" role="alert">
+						{{ $errors->first('email') }}
+					</div>
+					@endif
 				</div>
 
 				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -58,11 +58,11 @@
 						</span>
 					</div>
 
-				@if ($errors->has('password'))
-					<span class="help-block">
-						<strong>{{ $errors->first('password') }}</strong>
-					</span>
-				@endif
+					@if ($errors->has('password'))
+					<div class="alert alert-warning" role="alert">
+						{{ $errors->first('password') }}
+					</div>
+					@endif
 				</div>
 
 				<div class="hidden-sm-up">

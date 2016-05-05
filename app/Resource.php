@@ -43,20 +43,22 @@ class Resource extends Model
 	 */
 	protected $dates = ['deleted_at'];
 
-	/**
-	 * Define relation.
-	 */
+	# Define relation
 	public function user()
 	{
 		return $this->belongsTo(User::class);
 	}
 
-	/**
-	 * Define relation.
-	 */
+	# Define relation
 	public function profile()
 	{
 		return $this->hasOne(Profile::class);
+	}
+
+	# Define relation
+	public function organization()
+	{
+		return $this->hasOne(Organization::class);
 	}
 
 	/**

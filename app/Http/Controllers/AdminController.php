@@ -13,7 +13,7 @@ class AdminController extends Controller
 	public function getIndex(Request $request)
 	{
 		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('auth.admin.users', compact('users'));
+		return view('content.admin.users', compact('users'));
 	}
 
 	public function getShow($id)
@@ -22,7 +22,7 @@ class AdminController extends Controller
 		if (!$user) {
 			return redirect('home');
 		}
-		return view('auth.user.settings', compact('user'));
+		return view('content.user.settings', compact('user'));
 	}
 
 	/*

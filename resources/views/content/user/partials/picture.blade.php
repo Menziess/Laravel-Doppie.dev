@@ -25,7 +25,7 @@
 
 	<div class="row margin-bottom-20">
 		<div class="col-md-3">
-			<img src="{{ asset($user->getPicture()) }}" class="img-circle max-width-100 profile-picture-small" data-toggle="modal" data-target="#modal-upload" alt="" >
+			<img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" data-toggle="modal" data-target="#modal-upload" alt="" >
 		</div>
 	</div>
 </div>

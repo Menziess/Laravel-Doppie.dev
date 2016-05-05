@@ -31,13 +31,16 @@
 
 <body id="app-layout">
 
+	<!-- NAVIGATION -->
 	@include('layouts.nav')
 
+	<!-- HEADER -->
 	@if (Auth::user())
-	@include('layouts.cover')
+	@include('layouts.header')
 	@endif
 
-	@yield('content')
+	<!-- BODY -->
+	@include('layouts.body')
 
 	<!-- JavaScripts -->
 	<script src="https://cdn.jsdelivr.net/tether/1.3.1/tether.min.js"></script>

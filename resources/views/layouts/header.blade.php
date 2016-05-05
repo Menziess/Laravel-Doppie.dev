@@ -5,7 +5,7 @@
 
 	<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
 	<a href="{{ url('/user/profile') }}" class="over round">
-		<img src="{{ asset(Auth::user()->getPicture()) }}" class="img-circle max-width-100 profile-picture-small" alt="" >
+		<img src="{{ asset(Auth::user()->getPicture()) }}" class="img-circle profile-picture-small" alt="" >
 	</a>
 	</div>
 

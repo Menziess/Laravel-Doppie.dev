@@ -14,13 +14,13 @@ class UserController extends Controller
 	public function getProfile()
 	{
 		$user = Auth::user();
-		return view('auth.user.profile', compact('user'));
+		return 'Profile';
 	}
 
 	public function getSettings()
 	{
 		$user = Auth::user();
-		return view('auth.user.settings', compact('user'));
+		return view('content.user.settings', compact('user'));
 	}
 
 	/*
@@ -31,7 +31,7 @@ class UserController extends Controller
 		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
 			User::withTrashed()->find($id)->deleteAllPrivateData();
 		}
-		return redirect('home');
+		return redirect('admin');
 	}
 
 	/*

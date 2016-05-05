@@ -2,9 +2,6 @@
 
 namespace App;
 
-use Storage;
-use App\Profile;
-use App\Resource;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -55,6 +52,18 @@ class User extends Authenticatable
 	{
 		return $this->hasOne(Setting::class);
 	}
+
+	# Profile relation
+	public function organization()
+	{
+		return $this->hasOne(Organization::class);
+	}
+
+    # The organizations that belong to the user.
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class);
+    }
 
 	# Resource relation
 	public function resource()

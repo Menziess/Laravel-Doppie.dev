@@ -43,17 +43,13 @@ class Profile extends Model
 		'date_of_birth',
 	];
 
-	/**
-	 * Define relation.
-	 */
+	# Define relation
 	public function user()
 	{
 		return $this->belongsTo(User::class);
 	}
 
-	/**
-	 * Define relation.
-	 */
+	# Define relation
 	public function resource()
 	{
 		return $this->belongsTo(Resource::class);

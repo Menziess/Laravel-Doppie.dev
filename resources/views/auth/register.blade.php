@@ -37,9 +37,9 @@
 					</div>
 
 					@if ($errors->has('first_name'))
-						<span class="help-block">
-							<strong>{{ $errors->first('first_name') }}</strong>
-						</span>
+					<div class="alert alert-warning" role="alert">
+						{{ $errors->first('first_name') }}
+					</div>
 					@endif
 				</div>
 
@@ -50,9 +50,9 @@
 					</div>
 
 					@if ($errors->has('last_name'))
-						<span class="help-block">
-							<strong>{{ $errors->first('last_name') }}</strong>
-						</span>
+					<div class="alert alert-warning" role="alert">
+						{{ $errors->first('last_name') }}
+					</div>
 					@endif
 				</div>
 
@@ -62,11 +62,11 @@
 						<input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" value="{{ old('email') }}">
 					</div>
 
-				@if ($errors->has('email'))
-					<span class="help-block">
-						<strong>{{ $errors->first('email') }}</strong>
-					</span>
-				@endif
+					@if ($errors->has('email'))
+					<div class="alert alert-warning" role="alert">
+						{{ $errors->first('email') }}
+					</div>
+					@endif
 				</div>
 
 				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -75,11 +75,11 @@
 						<input name="password" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1">
 					</div>
 
-				@if ($errors->has('password'))
-					<span class="help-block">
-						<strong>{{ $errors->first('password') }}</strong>
-					</span>
-				@endif
+					@if ($errors->has('password'))
+					<div class="alert alert-warning" role="alert">
+						{{ $errors->first('password') }}
+					</div>
+					@endif
 				</div>
 
 				<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
@@ -91,11 +91,11 @@
 						</span>
 					</div>
 
-				@if ($errors->has('password_confirmation'))
-					<span class="help-block">
-						<strong>{{ $errors->first('password_confirmation') }}</strong>
-					</span>
-				@endif
+					@if ($errors->has('password-confirmation'))
+					<div class="alert alert-warning" role="alert">
+						{{ $errors->first('password-confirmation') }}
+					</div>
+					@endif
 				</div>
 			</form>
 

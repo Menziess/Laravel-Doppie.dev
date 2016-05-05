@@ -18,7 +18,7 @@
 
 	@if(Auth::user()->is_admin && Auth::user()->getKey() != $user->getKey())
 
-		@include('content.admin.partials.panel')
+		@include('content.admin.partials.userpanel')
 
 	@else
 

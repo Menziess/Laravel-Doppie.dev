@@ -46,7 +46,7 @@ class UserController extends Controller
 
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
-			? '/admin/show/' . $request->id . '#password'
+			? '/admin/user/' . $request->id . '#password'
 			: '/user/settings' . '#password';
 
 		if ($validator->fails()) {
@@ -79,7 +79,7 @@ class UserController extends Controller
 
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
-			? '/admin/show/' . $request->id . '#profile'
+			? '/admin/user/' . $request->id . '#profile'
 			: '/user/settings' . '#profile';
 
 		if ($validator->fails()) {

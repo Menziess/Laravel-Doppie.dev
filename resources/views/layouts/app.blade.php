@@ -14,7 +14,6 @@
 	<!-- Styles -->
 	<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-	{{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
 	<style>
 		body {
@@ -43,9 +42,8 @@
 
 	<!-- JavaScripts -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/tether/1.3.1/tether.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/tether/1.3.2/tether.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-	{{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
 	@stack('scripts')
 

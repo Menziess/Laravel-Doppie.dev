@@ -30,7 +30,7 @@
 				Login with email and password:
 			</p>
 
-			<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+			<form id="form" class="form-horizontal" method="POST" action="{{ url('/login') }}">
 				{!! csrf_field() !!}
 
 				<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -51,8 +51,8 @@
 
 				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">Pass</span>
-						<input name="password" type="password" class="form-control" aria-describedby="basic-addon1">
+						<span class="input-group-addon" id="basic-addon2">Pass</span>
+						<input name="password" type="password" class="form-control" aria-describedby="basic-addon2">
 						<span class="input-group-btn">
 							<button class="btn btn-primary" type="submit">Login</button>
 						</span>

@@ -40,7 +40,9 @@
 
 </div>
 
+@endsection
 
+@push('scripts')
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".clickable-row").click(function() {
@@ -48,5 +50,4 @@
 		});
 	});
 </script>
-
-@endsection
+@endpush

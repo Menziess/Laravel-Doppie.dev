@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="col fluid">
 
 	@if($users->count() > 0)
@@ -44,7 +43,10 @@
 
 </div>
 
+@endsection
 
+
+@push('scripts')
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".clickable-row").click(function() {
@@ -52,5 +54,4 @@
 		});
 	});
 </script>
-
-@endsection
+@endpush

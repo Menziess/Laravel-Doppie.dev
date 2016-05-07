@@ -30,10 +30,9 @@
 	</div>
 </div>
 
-    <a id="popover" class="btn" href="#" data-content="Popover with data-trigger" rel="popover" data-placement="bottom" data-original-title="Title" data-trigger="hover">Test</a>
 <div id="progress" class="padding-top div-centered-large">
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header">
-	<progress class="progress progress-success" value="25" max="100"></progress>
+	<progress id="popover" class="progress progress-success" value="25" max="100" href="#" data-content="25%" rel="popover" data-placement="bottom" data-original-title="XP bar" data-trigger="hover"></progress>
 	</a>
 </div>
 
@@ -41,8 +40,14 @@
 @push('scripts')
 <script>
 	jQuery(document).ready(function($) {
-		$('#popover').popover();
-		$('#popover').popover({ trigger: "hover" });
+		$('[data-toggle="popover"]').popover();
+		$('#popover').popover({
+			trigger: "hover",
+			delay: {
+            	show: 500,
+            	hide: 100
+		    },
+		});
 	});
 </script>
 @endpush

@@ -9,7 +9,7 @@
 				</div>
 			@endif
 
-			<form id="form-profile" class="form-horizontal" role="form" method="POST" action="{{ url('/user/profile') }}">
+			<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/user/profile') }}">
 				{!! csrf_field() !!}
 				{{ method_field('PUT') }}
 
@@ -30,8 +30,8 @@
 
 				<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">Last:</span>
-						<input name="last_name" value="{{ old('last_name') ?: $user->last_name}}" type="text" class="form-control" aria-describedby="basic-addon1">
+						<span class="input-group-addon" id="basic-addon2">Last:</span>
+						<input name="last_name" value="{{ old('last_name') ?: $user->last_name}}" type="text" class="form-control" aria-describedby="basic-addon2">
 					</div>
 
 					@if ($errors->has('last_name'))
@@ -62,8 +62,8 @@
 
 				<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">@</span>
-						<input name="email" value="{{ old('email') ?: $user->email ?: '#' }}" type="email" class="form-control" aria-describedby="basic-addon1" >
+						<span class="input-group-addon" id="basic-addon3">@</span>
+						<input name="email" value="{{ old('email') ?: $user->email ?: '#' }}" type="email" class="form-control" aria-describedby="basic-addon3" >
 					</div>
 
 					@if ($errors->has('email'))

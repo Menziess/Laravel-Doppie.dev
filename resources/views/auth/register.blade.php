@@ -27,7 +27,7 @@
 			<p class="text-xs-center">
 				Register your account:
 			</p>
-			<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+			<form id="form" class="form-horizontal" method="POST" action="{{ url('/register') }}">
 				{!! csrf_field() !!}
 
 				<div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
@@ -45,8 +45,8 @@
 
 				<div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">Last:</span>
-						<input name="last_name" value="{{ old('last_name') }}" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+						<span class="input-group-addon" id="basic-addon2">Last:</span>
+						<input name="last_name" value="{{ old('last_name') }}" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon2">
 					</div>
 
 					@if ($errors->has('last_name'))
@@ -58,8 +58,8 @@
 
 				<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 					<div class="input-group padding-top">
-						<span class="input-group-addon" id="basic-addon1">@</span>
-						<input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" value="{{ old('email') }}">
+						<span class="input-group-addon" id="basic-addon3">@</span>
+						<input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon3" value="{{ old('email') }}">
 					</div>
 
 					@if ($errors->has('email'))
@@ -71,8 +71,8 @@
 
 				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">Pass</span>
-						<input name="password" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1">
+						<span class="input-group-addon" id="basic-addon4">Pass</span>
+						<input name="password" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon4">
 					</div>
 
 					@if ($errors->has('password'))
@@ -84,8 +84,8 @@
 
 				<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">Pass</span>
-						<input name="password_confirmation" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1">
+						<span class="input-group-addon" id="basic-addon5">Pass</span>
+						<input name="password_confirmation" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon5">
 						<span class="input-group-btn">
 							<button class="btn btn-primary" type="submit">Go</button>
 						</span>

@@ -17,8 +17,8 @@
 
 				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">Pass</span>
-						<input name="password" type="password" class="form-control" placeholder="{{ $user->password ? 'password set' : 'new password' }}" aria-describedby="basic-addon1">
+						<span class="input-group-addon" id="basic-addon-password-1">Pass</span>
+						<input name="password" type="password" class="form-control" placeholder="{{ $user->password ? 'password set' : 'new password' }}" aria-describedby="basic-addon-password-1">
 					</div>
 
 					@if ($errors->has('password'))
@@ -30,8 +30,8 @@
 
 				<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">Pass</span>
-						<input name="password_confirmation" type="password" class="form-control" placeholder="{{ $user->password ? 'password set' : 'new password' }}" aria-describedby="basic-addon1">
+						<span class="input-group-addon" id="basic-addon-password-2">Pass</span>
+						<input name="password_confirmation" type="password" class="form-control" placeholder="{{ $user->password ? 'password set' : 'new password' }}" aria-describedby="basic-addon-password-2">
 					</div>
 
 					@if ($errors->has('password-confirmation'))

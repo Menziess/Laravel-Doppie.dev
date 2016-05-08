@@ -65,9 +65,34 @@ class Organization extends Model
 		return $this->name;
 	}
 
+	# Get owner name
 	public function getOwnerName()
 	{
 		return $this->user ? $this->user->getName() : 'No owner';
+	}
+
+	/**
+	 * Activates an organization.
+	 *
+	 * @return void
+	 */
+	public function activate()
+	{
+		$this->restore();
+		$this->is_active = true;
+		$this->save();
+	}
+
+	/**
+	 * Deactivates an organization.
+	 *
+	 * @return void
+	 */
+	public function deactivate()
+	{
+		$this->is_active = false;
+		$this->save();
+		$this->delete();
 	}
 
 	# Get profile picture
@@ -78,4 +103,17 @@ class Organization extends Model
 			: 'img/organization.jpg';
 	}
 
+	/**
+	 * Force delete organization and all related private data.
+	 *
+	 * @return bool
+	 */
+	public function deleteAllPrivateData()
+	{
+		# delete additional private data
+		if ($this->resource) {
+			$this->resource->removeFromStorage();
+		}
+		$this->forceDelete();
+	}
 }

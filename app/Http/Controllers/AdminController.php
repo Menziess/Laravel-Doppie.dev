@@ -3,71 +3,109 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 use Auth;
 use App\User;
+use App\Project;
 use App\Organization;
 use App\Http\Requests;
 
 class AdminController extends Controller
 {
-	const LINKS = [
-			['title' => 'Users', 'href' => 'admin/users', 'text' => ''],
-			['title' => 'Organizations', 'href' => 'admin/organizations', 'text' => ''],
-		];
+	const RESOURCES = [
+		['title' => 'Users', 'href' => 'admin/users', 'text' => ''],
+		['title' => 'Projects', 'href' => 'admin/projects', 'text' => ''],
+		['title' => 'Organizations', 'href' => 'admin/organizations', 'text' => ''],
+	];
+	const USER = [
+		['title' => 'Back', 'href' => 'admin/users', 'text' => ''],
+	];
+	const PROJECT = [
+		['title' => 'Back', 'href' => 'admin/projects', 'text' => ''],
+	];
+	const ORGANIZATION = [
+		['title' => 'Back', 'href' => 'admin/organizations', 'text' => ''],
+	];
+
+	public function getIndex()
+	{
+		return redirect('admin/users');
+	}
 
 	public function getUsers()
 	{
-		$in = true;
-		$links = self::LINKS;
+		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.admin.users', compact('users', 'subject', 'links', 'in'));
+		return view('content.user.users', compact('users', 'subject', 'links'));
+	}
+
+	public function getProjects()
+	{
+		$links = self::RESOURCES;
+		$subject = Auth::user();
+		$projects = Project::withTrashed()->orderBy('id', 'desc')->paginate(15);
+		return view('content.project.projects', compact('projects', 'subject', 'links'));
 	}
 
 	public function getOrganizations()
 	{
-		$in = true;
-		$links = self::LINKS;
+		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$organizations = Organization::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.admin.organizations', compact('organizations', 'subject', 'links', 'in'));
+		return view('content.organization.organizations', compact('organizations', 'subject', 'links'));
 	}
 
 	public function getUser($id)
 	{
-		$links = self::LINKS;
+		$in = true;
+		$links = self::USER;
 		$user = User::withTrashed()->find($id);
+		$subject = $user;
 		if (!$user) {
-			return redirect('admin/users');
+			abort(404);
 		}
-		return view('content.user.settings', compact('user', 'links'));
+		return view('content.user.settings', compact('subject', 'user', 'links', 'in'));
+	}
+
+	public function getProject($id)
+	{
+		$in = true;
+		$links = self::PROJECT;
+		$project = Project::withTrashed()->find($id);
+		$subject = $project;
+		if (!$project) {
+			abort(404);
+		}
+		return view('content.project.settings', compact('subject', 'project', 'links', 'in'));
 	}
 
 	public function getOrganization($id)
 	{
-		$links = self::LINKS;
+		$in = true;
+		$links = self::ORGANIZATION;
 		$organization = Organization::withTrashed()->find($id);
+		$subject = $organization;
 		if (!$organization) {
-			return redirect('admin/organizations');
+			abort(404);
 		}
-		return view('content.organization.settings', compact('organization', 'links'));
+		return view('content.organization.settings', compact('subject', 'organization', 'links', 'in'));
 	}
 
 	/*
-	 * Soft deletes user and sets is_active on false.
+	 * Toggles user is admin.
 	 */
-	public function getToggleadmin($id)
+	public function putToggleadmin($id)
 	{
-		$user = User::withTrashed()->find($id);
-		$user->makeAdmin();
+		User::withTrashed()->find($id)->makeAdmin();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
 	/*
 	 * Restores a user and sets is_active on true.
 	 */
-	public function getActivate($id)
+	public function putActivateUser($id)
 	{
 		User::withTrashed()->find($id)->activate();
 		return redirect()->to(\URL::previous() . '#permissions');
@@ -76,9 +114,45 @@ class AdminController extends Controller
 	/*
 	 * Soft deletes user and sets is_active on false.
 	 */
-	public function getDeactivate($id)
+	public function putDeactivateUser($id)
 	{
 		User::withTrashed()->find($id)->deactivate();
+		return redirect()->to(\URL::previous() . '#permissions');
+	}
+
+	/*
+	 * Restores a project and sets is_active on true.
+	 */
+	public function putActivateProject($id)
+	{
+		Project::withTrashed()->find($id)->activate();
+		return redirect()->to(\URL::previous() . '#permissions');
+	}
+
+	/*
+	 * Soft deletes project and sets is_active on false.
+	 */
+	public function putDeactivateProject($id)
+	{
+		Project::withTrashed()->find($id)->deactivate();
+		return redirect()->to(\URL::previous() . '#permissions');
+	}
+
+	/*
+	 * Restores a organization and sets is_active on true.
+	 */
+	public function putActivateOrganization($id)
+	{
+		Organization::withTrashed()->find($id)->activate();
+		return redirect()->to(\URL::previous() . '#permissions');
+	}
+
+	/*
+	 * Soft deletes organization and sets is_active on false.
+	 */
+	public function putDeactivateOrganization($id)
+	{
+		Organization::withTrashed()->find($id)->deactivate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 }

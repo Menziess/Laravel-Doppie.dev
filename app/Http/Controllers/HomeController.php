@@ -26,7 +26,7 @@ class HomeController extends Controller
 	 */
 	public function getIndex()
 	{
-		$in = true;
-		return view('home', compact('in'));
+		$subject = Auth::user();
+		return view('home', compact('subject'));
 	}
 }

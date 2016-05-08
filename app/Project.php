@@ -77,7 +77,7 @@ class Project extends Model
 		return $this->name;
 	}
 
-	# Gets the name of the owner
+	# Get owner name
 	public function getOwnerName()
 	{
 		return $this->user ? $this->user->getName() : 'No owner';
@@ -89,11 +89,49 @@ class Project extends Model
 		return $this->organization ? $this->organization->getName() : 'No organization';
 	}
 
+	/**
+	 * Activates a project.
+	 *
+	 * @return void
+	 */
+	public function activate()
+	{
+		$this->restore();
+		$this->is_active = true;
+		$this->save();
+	}
+
+	/**
+	 * Deactivates a project.
+	 *
+	 * @return void
+	 */
+	public function deactivate()
+	{
+		$this->is_active = false;
+		$this->save();
+		$this->delete();
+	}
+
 	# Get profile picture
 	public function getPicture()
 	{
 		return $this->resource
 			? 'storage/images/' . $this->resource->original_name . $this->resource->original_extension
 			: 'img/project.jpg';
+	}
+
+	/**
+	 * Force delete project and all related private data.
+	 *
+	 * @return bool
+	 */
+	public function deleteAllPrivateData()
+	{
+		# delete additional private data
+		if ($this->resource) {
+			$this->resource->removeFromStorage();
+		}
+		$this->forceDelete();
 	}
 }

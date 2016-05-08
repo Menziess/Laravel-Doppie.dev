@@ -30,7 +30,8 @@ class AdminController extends Controller
 
 	public function getIndex(Request $request)
 	{
-		$search = '%' . $request->search . '%' ?: '%';
+		$input = $request->search;
+		$search = '%' . $input . '%' ?: '%';
 		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$users = User::withTrashed()
@@ -42,7 +43,7 @@ class AdminController extends Controller
 			->orderBy('id', 'desc')->paginate(7);
 		$organizations = Organization::withTrashed()->where('name', 'like', $search)
 			->orderBy('id', 'desc')->paginate(7);
-		return view('content.subject.list', compact('users', 'projects', 'organizations', 'subject', 'links'));
+		return view('content.subject.list', compact('users', 'projects', 'organizations', 'subject', 'links', 'input'));
 	}
 
 	public function getUsers()

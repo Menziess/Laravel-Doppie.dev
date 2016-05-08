@@ -22,7 +22,7 @@
 
 <div id="progress" class="padding-top div-centered-large">
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header">
-	<progress class="progress progress-success" value="25" max="100"></progress>
+	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="100"></progress>
 	</a>
 </div>
 

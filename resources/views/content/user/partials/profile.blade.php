@@ -63,7 +63,7 @@
 				<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon3">@</span>
-						<input name="email" value="{{ old('email') ?: $user->email ?: '#' }}" type="email" class="form-control" aria-describedby="basic-addon3" >
+						<input name="email" value="{{ old('email') ?: $user->email ?: '' }}" type="email" class="form-control" aria-describedby="basic-addon3" >
 					</div>
 
 					@if ($errors->has('email'))

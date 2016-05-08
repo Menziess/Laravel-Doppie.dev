@@ -1,0 +1,140 @@
+@extends('layouts.app')
+
+@section('content')
+
+@if(isset($users))
+<div class="card">
+	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
+	<div class="card-block">
+		<h4 class="card-title">Users</h4>
+
+		<table class="table table-hover table-large text-small text-xs-left">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Picture</th>
+					<th>Name</th>
+					<th class="hidden-xs-down">Email</th>
+					<th class="hidden-xs-down">Creation Date</th>
+				</tr>
+			</thead>
+		<tbody>
+		@foreach($users as $user)
+			<tr class="clickable-row" data-href="{{ url('/admin/user/' . $user->id) }}">
+				<td>{{ $user->id }}</td>
+				<td><img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
+				<td>
+					{{ $user->getName() }}<br>
+					{!! $user->is_active && Auth::user()->is_admin
+						? '<span class="label label-pill label-success">active</span>'
+						: '<span class="label label-pill label-warning">inactive</span>' !!}
+					{!! $user->is_admin && Auth::user()->is_admin
+						? '<span class="label label-pill label-primary">admin</span>'
+						: '' !!}
+				</td>
+				<td class="hidden-xs-down">{{ $user->email }}</td>
+				<td class="hidden-xs-down">{{ $user->created_at }}</td>
+			</tr>
+		@endforeach
+		</tbody>
+		</table>
+
+		{!! $users !!}
+
+	</div>
+</div>
+@endif
+
+
+@if(isset($projects))
+<div class="card">
+	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
+	<div class="card-block">
+		<h4 class="card-title">Projects</h4>
+
+		<table class="table table-hover table-large text-small text-xs-left">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Picture</th>
+					<th>Name</th>
+					<th>Owner name</th>
+					<th class="hidden-xs-down">Creation Date</th>
+				</tr>
+			</thead>
+		<tbody>
+		@foreach($projects as $project)
+			<tr class="clickable-row" data-href="{{ url('/admin/project/' . $project->id) }}">
+				<td>{{ $project->id }}</td>
+				<td><img src="{{ asset($project->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
+				<td>
+					{{ $project->getName() }}<br>
+					{!! $project->is_active && Auth::user()->is_admin
+						? '<span class="label label-pill label-success">active</span>'
+						: '<span class="label label-pill label-warning">inactive</span>' !!}
+				</td>
+				<td>{{ $project->getOwnerName() }}</td>
+				<td class="hidden-xs-down">{{ $project->created_at }}</td>
+			</tr>
+		@endforeach
+		</tbody>
+		</table>
+
+		{!! $projects !!}
+
+	</div>
+</div>
+@endif
+
+@if(isset($organizations))
+<div class="card">
+	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
+	<div class="card-block">
+		<h4 class="card-title">Organizations</h4>
+
+		<table class="table table-hover table-large text-small text-xs-left">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Picture</th>
+					<th>Name</th>
+					<th>Owner name</th>
+					<th class="hidden-xs-down">Creation Date</th>
+				</tr>
+			</thead>
+		<tbody>
+		@foreach($organizations as $organization)
+			<tr class="clickable-row" data-href="{{ url('/admin/organization/' . $organization->id) }}">
+				<td>{{ $organization->id }}</td>
+				<td><img src="{{ asset($organization->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
+				<td>
+					{{ $organization->getName() }}<br>
+					{!! $organization->is_active && Auth::user()->is_admin
+						? '<span class="label label-pill label-success">active</span>'
+						: '<span class="label label-pill label-warning">inactive</span>' !!}
+				</td>
+				<td>{{ $organization->getOwnerName() }}</td>
+				<td class="hidden-xs-down">{{ $organization->created_at }}</td>
+			</tr>
+		@endforeach
+		</tbody>
+		</table>
+
+		{!! $organizations !!}
+
+	</div>
+</div>
+@endif
+
+@endsection
+
+
+@push('scripts')
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".clickable-row").click(function() {
+			window.document.location = $(this).data("href");
+		});
+	});
+</script>
+@endpush

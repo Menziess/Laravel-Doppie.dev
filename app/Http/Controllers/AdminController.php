@@ -28,9 +28,14 @@ class AdminController extends Controller
 		['title' => 'Back', 'href' => 'admin/organizations', 'text' => ''],
 	];
 
-	public function getIndex()
+	public function getIndex(Request $request)
 	{
-		return redirect('admin/users');
+		$links = self::RESOURCES;
+		$subject = Auth::user();
+		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(7);
+		$projects = Project::withTrashed()->orderBy('id', 'desc')->paginate(7);
+		$organizations = Organization::withTrashed()->orderBy('id', 'desc')->paginate(7);
+		return view('content.subject.subjects', compact('users', 'projects', 'organizations', 'subject', 'links'));
 	}
 
 	public function getUsers()
@@ -38,7 +43,7 @@ class AdminController extends Controller
 		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.user.users', compact('users', 'subject', 'links'));
+		return view('content.subject.subjects', compact('users', 'subject', 'links'));
 	}
 
 	public function getProjects()
@@ -46,7 +51,7 @@ class AdminController extends Controller
 		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$projects = Project::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.project.projects', compact('projects', 'subject', 'links'));
+		return view('content.subject.subjects', compact('projects', 'subject', 'links'));
 	}
 
 	public function getOrganizations()
@@ -54,7 +59,7 @@ class AdminController extends Controller
 		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$organizations = Organization::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.organization.organizations', compact('organizations', 'subject', 'links'));
+		return view('content.subject.subjects', compact('organizations', 'subject', 'links'));
 	}
 
 	public function getUser($id)

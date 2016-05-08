@@ -19,7 +19,7 @@
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
 
 				@if(Auth::user()->is_admin)
-					<a class="dropdown-item" href="{{ url('/admin/users') }}">Admin</a>
+					<a class="dropdown-item" href="{{ url('/admin') }}">Admin</a>
 				@endif
 
 				<a class="dropdown-item" href="{{ url('/user/profile') }}">Profile</a>

@@ -4,43 +4,47 @@
 
 <div class="col fluid">
 
-	@if($organizations->count() > 0)
+	@if($users->count() > 0)
 		<table class="table table-hover table-large text-small text-xs-left">
 			<thead>
 				<tr>
 					<th>#</th>
 					<th>Picture</th>
 					<th>Name</th>
-					<th>Owner name</th>
+					<th class="hidden-xs-down">Email</th>
 					<th class="hidden-xs-down">Creation Date</th>
 				</tr>
 			</thead>
 		<tbody>
-		@foreach($organizations as $organization)
-			<tr class="clickable-row" data-href="{{ url('/admin/organization/' . $organization->id) }}">
-				<td>{{ $organization->id }}</td>
-				<td><img src="{{ asset($organization->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
+		@foreach($users as $user)
+			<tr class="clickable-row" data-href="{{ url('/admin/user/' . $user->id) }}">
+				<td>{{ $user->id }}</td>
+				<td><img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
 				<td>
-					{{ $organization->getName() }}<br>
-					{!! $organization->is_active
+					{{ $user->getName() }}<br>
+					{!! $user->is_active && Auth::user()->is_admin
 						? '<span class="label label-pill label-success">active</span>'
 						: '<span class="label label-pill label-warning">inactive</span>' !!}
+					{!! $user->is_admin && Auth::user()->is_admin
+						? '<span class="label label-pill label-primary">admin</span>'
+						: '' !!}
 				</td>
-				<td>{{ $organization->getOwnerName() }}</td>
-				<td class="hidden-xs-down">{{ $organization->created_at }}</td>
+				<td class="hidden-xs-down">{{ $user->email }}</td>
+				<td class="hidden-xs-down">{{ $user->created_at }}</td>
 			</tr>
 		@endforeach
 		</tbody>
 		</table>
 
-		{!! $organizations !!}
+		{!! $users !!}
 	@else
-		No organizations... Sorry!
+		No users... Sorry!
 	@endif
 
 </div>
 
 @endsection
+
 
 @push('scripts')
 <script type="text/javascript">

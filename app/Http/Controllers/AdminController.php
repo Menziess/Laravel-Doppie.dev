@@ -28,9 +28,21 @@ class AdminController extends Controller
 		['title' => 'Back', 'href' => 'admin/organizations', 'text' => ''],
 	];
 
-	public function getIndex()
+	public function getIndex(Request $request)
 	{
-		return redirect('admin/users');
+		$search = '%' . $request->search . '%' ?: '%';
+		$links = self::RESOURCES;
+		$subject = Auth::user();
+		$users = User::withTrashed()
+			->where('first_name', 'like', $search)
+			->orWhere('last_name', 'like', $search)
+			->orWhere('email', 'like', $search)
+			->orderBy('id', 'desc')->paginate(7);
+		$projects = Project::withTrashed()->where('name', 'like', $search)
+			->orderBy('id', 'desc')->paginate(7);
+		$organizations = Organization::withTrashed()->where('name', 'like', $search)
+			->orderBy('id', 'desc')->paginate(7);
+		return view('content.subject.list', compact('users', 'projects', 'organizations', 'subject', 'links'));
 	}
 
 	public function getUsers()
@@ -38,7 +50,7 @@ class AdminController extends Controller
 		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.user.users', compact('users', 'subject', 'links'));
+		return view('content.subject.list', compact('users', 'subject', 'links'));
 	}
 
 	public function getProjects()
@@ -46,7 +58,7 @@ class AdminController extends Controller
 		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$projects = Project::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.project.projects', compact('projects', 'subject', 'links'));
+		return view('content.subject.list', compact('projects', 'subject', 'links'));
 	}
 
 	public function getOrganizations()
@@ -54,10 +66,46 @@ class AdminController extends Controller
 		$links = self::RESOURCES;
 		$subject = Auth::user();
 		$organizations = Organization::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.organization.organizations', compact('organizations', 'subject', 'links'));
+		return view('content.subject.list', compact('organizations', 'subject', 'links'));
 	}
 
-	public function getUser($id)
+	public function getUserProfile($id)
+	{
+		$in = true;
+		$links = self::USER;
+		$user = User::withTrashed()->find($id);
+		$subject = $user;
+		if (!$user) {
+			abort(404);
+		}
+		return view('content.user.profile', compact('subject', 'user', 'links', 'in'));
+	}
+
+	public function getProjectProfile($id)
+	{
+		$in = true;
+		$links = self::PROJECT;
+		$project = Project::withTrashed()->find($id);
+		$subject = $project;
+		if (!$project) {
+			abort(404);
+		}
+		return view('content.project.profile', compact('subject', 'project', 'links', 'in'));
+	}
+
+	public function getOrganizationProfile($id)
+	{
+		$in = true;
+		$links = self::ORGANIZATION;
+		$organization = Organization::withTrashed()->find($id);
+		$subject = $organization;
+		if (!$organization) {
+			abort(404);
+		}
+		return view('content.organization.profile', compact('subject', 'organization', 'links', 'in'));
+	}
+
+	public function getUserSettings($id)
 	{
 		$in = true;
 		$links = self::USER;
@@ -69,7 +117,7 @@ class AdminController extends Controller
 		return view('content.user.settings', compact('subject', 'user', 'links', 'in'));
 	}
 
-	public function getProject($id)
+	public function getProjectSettings($id)
 	{
 		$in = true;
 		$links = self::PROJECT;
@@ -81,7 +129,7 @@ class AdminController extends Controller
 		return view('content.project.settings', compact('subject', 'project', 'links', 'in'));
 	}
 
-	public function getOrganization($id)
+	public function getOrganizationSettings($id)
 	{
 		$in = true;
 		$links = self::ORGANIZATION;

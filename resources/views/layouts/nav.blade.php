@@ -19,9 +19,10 @@
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
 
 				@if(Auth::user()->is_admin)
-					<a class="dropdown-item" href="{{ url('/admin/users') }}">Admin</a>
+					<a class="dropdown-item" href="{{ url('/admin') }}">Admin</a>
 				@endif
 
+				<a class="dropdown-item" href="{{ url('/user/profile') }}">Profile</a>
 				<a class="dropdown-item" href="{{ url('/user/settings') }}">Settings</a>
 				<a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
 				</div>
@@ -29,8 +30,8 @@
 
 		@endif
 
-		<form class="form-inline pull-xs-right hidden-xs-down">
-		<input class="form-control" type="text" placeholder="Search">
+		<form class="form-inline pull-xs-right hidden-xs-down" method="GET" action="{{ Auth::user()->is_admin ? url('/admin/') : url('/subject/') }}">
+		<input class="form-control" type="text" placeholder="Search" name="search" value="">
 		<button class="btn btn-success-outline" type="submit">Search</button>
 		</form>
 

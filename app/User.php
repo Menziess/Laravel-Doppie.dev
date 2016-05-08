@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -83,6 +84,13 @@ class User extends Authenticatable
 		return $this->profile->resource
 			? 'storage/images/' . $this->profile->resource->original_name . $this->profile->resource->original_extension
 			: 'img/placeholder.jpg';
+	}
+
+	# Get link to profile
+	public function getProfileUrl()
+	{
+		$url = Auth::user()->is_admin ? '/admin/user-profile/' . $this->getKey() : '/subject/user-profile/' . $this->getKey();
+		return $url;
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -101,6 +102,13 @@ class Organization extends Model
 		return $this->resource
 			? 'storage/images/' . $this->resource->original_name . $this->resource->original_extension
 			: 'img/organization.jpg';
+	}
+
+	# Get link to profile
+	public function getProfileUrl()
+	{
+		$url = Auth::user()->is_admin ? '/admin/organization-profile/' . $this->getKey() : '/subject/organization-profile/' . $this->getKey();
+		return $url;
 	}
 
 	/**

@@ -5,7 +5,7 @@
 		<div class="row row-centered">
 
 			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
-			<a href="{{ url('/user/profile') }}" class="over round">
+			<a href="{{ url($subject->getProfileUrl()) }}" class="over round">
 				<img id="picture" src="{{ asset($subject->getPicture()) }}" class="img-circle profile-picture-small" alt="" href="#" data-content="" rel="popover" data-placement="right" data-original-title="" data-trigger="hover">
 			</a>
 			</div>
@@ -28,10 +28,10 @@
 
 <div class="container fluid">
 @if(isset($links))
-	<div class="row">
+	<div class="row center-text">
 		@foreach($links as $link)
-		<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 padding-top">
-			<a class="btn btn-block btn-primary-outline" role="button" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
+		<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 padding-bottom">
+			<a class="btn btn-block btn-secondary" role="button" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
 		</div>
 		@endforeach
 	</div>

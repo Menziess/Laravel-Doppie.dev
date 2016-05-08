@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -87,6 +88,13 @@ class Project extends Model
 	public function getOrganizationName()
 	{
 		return $this->organization ? $this->organization->getName() : 'No organization';
+	}
+
+	# Get link to profile
+	public function getProfileUrl()
+	{
+		$url = Auth::user()->is_admin ? '/admin/project-profile/' . $this->getKey() : '/subject/project-profile/' . $this->getKey();
+		return $url;
 	}
 
 	/**

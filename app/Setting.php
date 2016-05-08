@@ -38,4 +38,20 @@ class Setting extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
+
+	/**
+	 * Define relation.
+	 */
+	public function project()
+	{
+		return $this->belongsTo(Project::class);
+	}
+
+	/**
+	 * Define relation.
+	 */
+	public function organization()
+	{
+		return $this->belongsTo(Organization::class);
+	}
 }

@@ -60,10 +60,22 @@ class Organization extends Model
 		return $this->belongsTo(Resource::class);
 	}
 
+	# Setting relation
+	public function setting()
+	{
+		return $this->hasOne(Setting::class);
+	}
+
 	# Get first and last name
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	# Get amount of xp aquired
+	public function getXp()
+	{
+		return $this->setting->xp;
 	}
 
 	# Get owner name

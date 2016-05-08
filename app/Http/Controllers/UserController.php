@@ -11,16 +11,25 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
+	public function getIndex($id)
+	{
+		$user = User::find($id);
+		$subject = $user;
+		return view('content.user.profile', compact('subject', 'user'));
+	}
+
 	public function getProfile()
 	{
 		$user = Auth::user();
-		return 'Profile';
+		$subject = $user;
+		return view('content.user.profile', compact('subject', 'user'));
 	}
 
 	public function getSettings()
 	{
 		$user = Auth::user();
-		return view('content.user.settings', compact('user'));
+		$subject = $user;
+		return view('content.user.settings', compact('subject', 'user'));
 	}
 
 	/*
@@ -29,9 +38,12 @@ class UserController extends Controller
 	public function deleteDelete($id)
 	{
 		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
-			User::withTrashed()->find($id)->deleteAllPrivateData();
+			$user = User::withTrashed()->find($id);
+			if ($user) {
+				$user->deleteAllPrivateData();
+			}
 		}
-		return redirect('admin');
+		return redirect('admin/users');
 	}
 
 	/*
@@ -54,7 +66,7 @@ class UserController extends Controller
 					->withErrors($validator);
 		}
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
-			abort(403, 'Unauthorized action.');
+			abort(403);
 		}
 		$user = User::withTrashed()->find($request->id);
 		$user->password = bcrypt($request->password);
@@ -88,7 +100,7 @@ class UserController extends Controller
 					->withInput();
 		}
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
-			abort(403, 'Unauthorized action.');
+			abort(403);
 		}
 
 		$user = User::withTrashed()->find($request->id);

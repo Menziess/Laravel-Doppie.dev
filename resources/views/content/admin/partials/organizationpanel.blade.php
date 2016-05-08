@@ -7,7 +7,6 @@
 		: '<span class="text-warning">inactive</span> and is hidden for other users.' !!}
 	</p>
 
-	<div class="container">
 	<div id="modal-delete" class="modal fade">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -33,11 +32,21 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+
+	<div class="btn-group btn-group-justified">
+	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/activate-organization/' . $organization->getKey()) }}">
+		{!! csrf_field() !!}
+		{{ method_field('PUT') }}
+		<button class="btn btn-success-outline" type="submit">Activate</a>
+	</form>
 	</div>
 
 	<div class="btn-group btn-group-justified">
-	<a href="{{ url('/admin/activate/' . $organization->getKey()) }}" class="btn btn-success-outline" role="button">Activate</a>
-	<a href="{{ url('/admin/deactivate/' . $organization->getKey()) }}" class="btn btn-warning-outline" role="button">Deactivate</a>
+	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/deactivate-organization/' . $organization->getKey()) }}">
+		{!! csrf_field() !!}
+		{{ method_field('PUT') }}
+		<button class="btn btn-warning-outline" type="submit">Deactivate</a>
+	</form>
 	</div>
 </div>
 

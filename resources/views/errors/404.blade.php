@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Be right back</title>
+        <title>Resource not found</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -40,8 +40,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">503</div>
-                <h2>Be right back</h2>
+                <div class="title">404</div>
+                <h2>Resource not found</h2>
             </div>
         </div>
     </body>

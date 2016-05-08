@@ -26,7 +26,7 @@
 				<img src="{{ asset($user->getPicture()) }}" class=" img-circle profile-picture-small center-block" data-toggle="modal" data-target="#modal-upload" alt="" >
 			</div>
 			<hr>
-			<button class="btn btn-primary-outline center-block" type="button" data-toggle="modal" data-target="#modal-upload">Upload</button>
+			<button class="btn btn-primary-outline center-block" type="button" data-toggle="modal" data-target="#modal-upload">Change</button>
 		</div>
 	</div>
 </div>

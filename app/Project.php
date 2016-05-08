@@ -5,16 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Organization extends Model
+class Project extends Model
 {
-	use SoftDeletes;
+    use SoftDeletes;
 
 	/**
 	 * The table associated with the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'organizations';
+	protected $table = 'projects';
 
 	/**
 	 * The attributes that are mass assignable.
@@ -54,6 +54,18 @@ class Organization extends Model
 	}
 
 	# Define relation
+	public function organization()
+	{
+		return $this->belongsTo(Organization::class);
+	}
+
+	# Define relation
+	public function organizations()
+	{
+		return $this->belongsToMany(Organization::class);
+	}
+
+	# Define relation
 	public function resource()
 	{
 		return $this->belongsTo(Resource::class);
@@ -71,8 +83,14 @@ class Organization extends Model
 		return $this->user ? $this->user->getName() : 'No owner';
 	}
 
+	# Gets the name of the organization
+	public function getOrganizationName()
+	{
+		return $this->organization ? $this->organization->getName() : 'No organization';
+	}
+
 	/**
-	 * Activates an organization.
+	 * Activates a project.
 	 *
 	 * @return void
 	 */
@@ -84,7 +102,7 @@ class Organization extends Model
 	}
 
 	/**
-	 * Deactivates an organization.
+	 * Deactivates a project.
 	 *
 	 * @return void
 	 */
@@ -100,11 +118,11 @@ class Organization extends Model
 	{
 		return $this->resource
 			? 'storage/images/' . $this->resource->original_name . $this->resource->original_extension
-			: 'img/organization.jpg';
+			: 'img/project.jpg';
 	}
 
 	/**
-	 * Force delete organization and all related private data.
+	 * Force delete project and all related private data.
 	 *
 	 * @return bool
 	 */

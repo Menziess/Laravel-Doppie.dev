@@ -26,11 +26,8 @@ class CreateSettingsTable extends Migration
 				->onDelete('cascade');
 
 			// Data
-			$table->integer('integer_setting')
-				->default(1)
-				->nullable();
-			$table->boolean('boolean_setting')
-				->default(true);
+			$table->integer('xp')
+				->default(1);
 
 			// Tokens & statistics
 			$table->timestamps();

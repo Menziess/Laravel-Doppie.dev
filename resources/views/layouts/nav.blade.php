@@ -30,8 +30,8 @@
 
 		@endif
 
-		<form class="form-inline pull-xs-right hidden-xs-down">
-		<input class="form-control" type="text" placeholder="Search">
+		<form class="form-inline pull-xs-right hidden-xs-down" method="GET" action="{{ Auth::user()->is_admin ? url('/admin/') : url('/subject/') }}">
+		<input class="form-control" type="text" placeholder="Search" name="search" value="">
 		<button class="btn btn-success-outline" type="submit">Search</button>
 		</form>
 

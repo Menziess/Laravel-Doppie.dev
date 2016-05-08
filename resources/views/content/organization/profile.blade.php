@@ -10,7 +10,7 @@
 			<div class="card-block">
 				<h4 class="card-title">{{ $subject->getName() }}</h4>
 				<p class="card-body">
-					This is {{ $subject->first_name }}'s public profile.
+					This is the public organization page of {{ $subject->name }}.
 				</p>
 			</div>
 		</div>

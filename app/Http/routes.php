@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/home', 'HomeController');
 
 	Route::controller('/user', 'UserController');
+	Route::controller('/project', 'ProjectController');
+	Route::controller('/organization', 'OrganizationController');
 
 	Route::group(['middleware' => 'admin'], function () {
 		Route::controller('/admin', 'AdminController');

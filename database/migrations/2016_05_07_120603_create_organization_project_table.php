@@ -18,6 +18,11 @@ class CreateOrganizationProjectTable extends Migration
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->integer('project_id')->unsigned()->index();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+
+            $table->string('role')->nullable();
+
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_public')->default(true);
         });
     }
 

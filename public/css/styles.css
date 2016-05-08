@@ -64,14 +64,13 @@
 	padding-right: 3px;
 }
 
+.padding-top {
+	padding-top: 13px;
+}
+
 input[type=date]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     display: none;
-}
-
-.padding-top {
-	padding-top: 13px;
-	padding-bottom: 13px;
 }
 
 /* Pagination styling */

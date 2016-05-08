@@ -18,6 +18,11 @@ class CreateProjectUserTable extends Migration
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('role')->nullable();
+
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_public')->default(true);
         });
     }
 

@@ -38,6 +38,7 @@ class CreateProjectsTable extends Migration
                   ->onDelete('set null');
 
             $table->string('name');
+            $table->text('header');
 
             $table->boolean('is_active')->default(true);
             $table->boolean('is_public')->default(true);

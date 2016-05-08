@@ -7,6 +7,7 @@
 	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Users</h4>
+		@if($users->count() > 0)
 
 		<table class="table table-hover table-large text-small text-xs-left">
 			<thead>
@@ -44,6 +45,10 @@
 
 		{!! $users !!}
 
+		@else
+		No users found...
+		@endif
+
 	</div>
 </div>
 @endif
@@ -54,6 +59,7 @@
 	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Projects</h4>
+		@if($projects->count() > 0)
 
 		<table class="table table-hover table-large text-small text-xs-left">
 			<thead>
@@ -88,6 +94,10 @@
 
 		{!! $projects !!}
 
+		@else
+		No projects found...
+		@endif
+
 	</div>
 </div>
 @endif
@@ -97,6 +107,7 @@
 	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Organizations</h4>
+		@if($organizations->count() > 0)
 
 		<table class="table table-hover table-large text-small text-xs-left">
 			<thead>
@@ -130,6 +141,10 @@
 		</table>
 
 		{!! $organizations !!}
+
+		@else
+		No organizations found...
+		@endif
 
 	</div>
 </div>

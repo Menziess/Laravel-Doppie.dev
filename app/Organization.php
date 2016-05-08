@@ -23,7 +23,7 @@ class Organization extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		//
+		'name',
 	];
 
 	/**
@@ -54,16 +54,16 @@ class Organization extends Model
 		return $this->belongsToMany(User::class);
 	}
 
+	# Project relation
+	public function projects()
+	{
+		return $this->hasMany(Project::class);
+	}
+
 	# Define relation
 	public function resource()
 	{
 		return $this->belongsTo(Resource::class);
-	}
-
-	# Setting relation
-	public function setting()
-	{
-		return $this->hasOne(Setting::class);
 	}
 
 	# Get first and last name
@@ -75,7 +75,7 @@ class Organization extends Model
 	# Get amount of xp aquired
 	public function getXp()
 	{
-		return $this->setting->xp;
+		return $this->xp;
 	}
 
 	# Get owner name

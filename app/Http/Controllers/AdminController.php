@@ -19,13 +19,13 @@ class AdminController extends Controller
 		['title' => 'Organizations', 'href' => 'admin/organizations', 'text' => ''],
 	];
 	const USER = [
-		['title' => 'Back', 'href' => 'admin/users', 'text' => ''],
+		['title' => 'Users', 'href' => 'admin/users', 'text' => ''],
 	];
 	const PROJECT = [
-		['title' => 'Back', 'href' => 'admin/projects', 'text' => ''],
+		['title' => 'Projects', 'href' => 'admin/projects', 'text' => ''],
 	];
 	const ORGANIZATION = [
-		['title' => 'Back', 'href' => 'admin/organizations', 'text' => ''],
+		['title' => 'Organizations', 'href' => 'admin/organizations', 'text' => ''],
 	];
 
 	public function getIndex(Request $request)

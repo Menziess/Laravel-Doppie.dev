@@ -63,7 +63,7 @@
 </div>
 
 <div id="account" class="card card-block card-inverse" style="background-color: #333; border-color: #333;">
-	<h4 class="card-title">Account</h4>
+	<h4 class="card-title">User</h4>
 
 	<p class="card-text">Deleting User #{{ $user->id }} will also remove all associated private data.</p>
 	<div>

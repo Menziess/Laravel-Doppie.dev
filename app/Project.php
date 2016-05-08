@@ -23,7 +23,8 @@ class Project extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		//
+		'name',
+		'header',
 	];
 
 	/**
@@ -72,12 +73,6 @@ class Project extends Model
 		return $this->belongsTo(Resource::class);
 	}
 
-	# Setting relation
-	public function setting()
-	{
-		return $this->hasOne(Setting::class);
-	}
-
 	# Get first and last name
 	public function getName()
 	{
@@ -87,7 +82,7 @@ class Project extends Model
 	# Get amount of xp aquired
 	public function getXp()
 	{
-		return $this->settings->xp;
+		return $this->xp;
 	}
 
 	# Get owner name

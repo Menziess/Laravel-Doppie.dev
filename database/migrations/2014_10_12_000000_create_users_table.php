@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
 				->nullable()
 				->unique();
 
+			$table->integer('xp')->default(1);
+
 			$table->string('password')->nullable();
 			$table->boolean('is_admin')->default(false);
 			$table->boolean('is_active')->default(true);

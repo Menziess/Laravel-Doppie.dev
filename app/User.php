@@ -48,10 +48,10 @@ class User extends Authenticatable
 		return $this->hasOne(Profile::class);
 	}
 
-	# Setting relation
-	public function setting()
+	# Project relation
+	public function projects()
 	{
-		return $this->hasOne(Setting::class);
+		return $this->hasMany(Project::class);
 	}
 
 	# Profile relation
@@ -81,7 +81,7 @@ class User extends Authenticatable
 	# Get amount of xp aquired
 	public function getXp()
 	{
-		return $this->setting->xp;
+		return $this->xp;
 	}
 
 	# Get profile picture

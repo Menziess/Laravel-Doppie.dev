@@ -78,6 +78,12 @@ class User extends Authenticatable
 		return $this->first_name . ' ' . $this->last_name;
 	}
 
+	# Get amount of xp aquired
+	public function getXp()
+	{
+		return $this->setting->xp;
+	}
+
 	# Get profile picture
 	public function getPicture()
 	{

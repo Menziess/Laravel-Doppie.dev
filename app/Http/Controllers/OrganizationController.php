@@ -21,6 +21,6 @@ class OrganizationController extends Controller
 				$organization->deleteAllPrivateData();
 			}
 		}
-		return redirect('admin/users');
+		return redirect('admin');
 	}
 }

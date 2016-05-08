@@ -32,6 +32,8 @@ class CreateOrganizationsTable extends Migration
 
 			$table->string('name');
 
+			$table->integer('xp')->default(1);
+
 			$table->boolean('is_active')->default(true);
 			$table->boolean('is_public')->default(true);
 

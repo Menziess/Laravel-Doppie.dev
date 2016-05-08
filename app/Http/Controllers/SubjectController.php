@@ -13,18 +13,18 @@ use App\Http\Requests;
 class SubjectController extends Controller
 {
     const RESOURCES = [
-		['title' => 'Users', 'href' => 'subject/users', 'text' => ''],
-		['title' => 'Projects', 'href' => 'subject/projects', 'text' => ''],
-		['title' => 'Organizations', 'href' => 'subject/organizations', 'text' => ''],
+		// ['title' => 'Users', 'href' => 'subject/users', 'text' => ''],
+		// ['title' => 'Projects', 'href' => 'subject/projects', 'text' => ''],
+		// ['title' => 'Organizations', 'href' => 'subject/organizations', 'text' => ''],
 	];
 	const USER = [
-		['title' => 'Link', 'href' => '#', 'text' => ''],
+		// ['title' => 'New Project', 'href' => '#', 'text' => ''],
 	];
 	const PROJECT = [
-		['title' => 'Link', 'href' => '#', 'text' => ''],
+		// ['title' => 'Link', 'href' => '#', 'text' => ''],
 	];
 	const ORGANIZATION = [
-		['title' => 'Link', 'href' => '#', 'text' => ''],
+		// ['title' => 'Link', 'href' => '#', 'text' => ''],
 	];
 
 	public function getIndex(Request $request)

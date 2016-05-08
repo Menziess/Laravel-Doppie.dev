@@ -21,6 +21,6 @@ class ProjectController extends Controller
 				$project->deleteAllPrivateData();
 			}
 		}
-		return redirect('admin/users');
+		return redirect('admin');
 	}
 }

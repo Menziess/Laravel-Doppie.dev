@@ -11,6 +11,12 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
+	const PROFILE = [
+		['title' => 'New Project', 'href' => '#', 'text' => ''],
+		// ['title' => 'Projects', 'href' => 'subject/projects', 'text' => ''],
+		// ['title' => 'Organizations', 'href' => 'subject/organizations', 'text' => ''],
+	];
+
 	public function getIndex($id)
 	{
 		$user = User::find($id);
@@ -20,9 +26,10 @@ class UserController extends Controller
 
 	public function getProfile()
 	{
+		$links = self::PROFILE;
 		$user = Auth::user();
 		$subject = $user;
-		return view('content.user.profile', compact('subject', 'user'));
+		return view('content.user.profile', compact('subject', 'user', 'links'));
 	}
 
 	public function getSettings()
@@ -43,7 +50,7 @@ class UserController extends Controller
 				$user->deleteAllPrivateData();
 			}
 		}
-		return redirect('admin/users');
+		return redirect('admin');
 	}
 
 	/*

@@ -33,7 +33,7 @@
 
 			<hr>
 
-			<button class="btn btn-danger center-block" type="submit" data-toggle="modal" data-target="#modal-delete">Delete account</button>
+			<button class="btn btn-danger center-block" type="submit" data-toggle="modal" data-target="#modal-delete">Delete</button>
 		</div>
 	</div>
 </div>

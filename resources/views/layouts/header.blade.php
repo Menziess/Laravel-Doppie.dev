@@ -28,10 +28,10 @@
 
 <div class="container fluid">
 @if(isset($links))
-	<div class="row">
+	<div class="row center-text">
 		@foreach($links as $link)
-		<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 padding-top">
-			<a class="btn btn-block btn-primary-outline" role="button" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
+		<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 padding-bottom">
+			<a class="btn btn-block btn-secondary" role="button" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
 		</div>
 		@endforeach
 	</div>

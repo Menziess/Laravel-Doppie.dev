@@ -8,6 +8,9 @@
 		@foreach($subject->projects as $project)
 
 		<div class="card">
+			<div class="card-header">
+			Project
+			</div>
 			<div class="card-block">
 				<div class="row row-centered">
 

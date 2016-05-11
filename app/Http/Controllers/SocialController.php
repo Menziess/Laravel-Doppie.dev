@@ -62,7 +62,7 @@ class SocialController extends Controller
 		}
 
 		# See if user needs to be updated
-		if ($fb->user['updated_time'] > $user->updated_at || $newUser) {
+		if (Carbon::parse($fb->user['updated_time'])->lt($user->updated_at) || $newUser) {
 			self::fillUser($user, $fb);
 		}
 
@@ -94,8 +94,8 @@ class SocialController extends Controller
 		};
 
 		# Avatar
-		if (!$user->profile->resource) {
-			if (isset($fb->avatar_original) || isset($fb->avatar)) {
+		if (isset($fb->avatar_original) || isset($fb->avatar)) {
+			if (!$user->profile->resource) {
 				self::uploadAvatar($user, $fb);
 			}
 		}

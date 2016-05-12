@@ -11,13 +11,18 @@
 						</button>
 							<h4 class="modal-title">Upload</h4>
 						</div>
-						<div class="modal-body">
-							<p> // </p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary-outline" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary-outline">Save</button>
-						</div>
+						<form id="form-picture" class="form-horizontal" method="POST" action="{{ url('/user/picture') }}" enctype="multipart/form-data">
+							<div class="modal-body">
+								<p>Select your new profile picture</p>
+								<span class="btn btn-secondary-outline btn-file">
+									<input type="file" name="fileToUpload">
+								</span>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary-outline" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary-outline" name="submit">Save</button>
+							</div>
+						</form>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->

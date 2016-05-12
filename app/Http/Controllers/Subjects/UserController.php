@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Subjects;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
 use Auth;
@@ -11,27 +12,13 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
-	const PROFILE = [
-		['title' => 'New Project', 'href' => '#', 'text' => ''],
-		// ['title' => 'Projects', 'href' => 'subject/projects', 'text' => ''],
-		// ['title' => 'Organizations', 'href' => 'subject/organizations', 'text' => ''],
-	];
-
-	public function getIndex($id)
+	# Get profile
+	public function getIndex()
 	{
-		$user = User::find($id);
-		$subject = $user;
-		return view('content.user.profile', compact('subject', 'user'));
+		return redirect('user/profile');
 	}
 
-	public function getProfile()
-	{
-		$links = self::PROFILE;
-		$user = Auth::user();
-		$subject = $user;
-		return view('content.user.profile', compact('subject', 'user', 'links'));
-	}
-
+	# Get settings
 	public function getSettings()
 	{
 		$user = Auth::user();
@@ -39,23 +26,29 @@ class UserController extends Controller
 		return view('content.user.settings', compact('subject', 'user'));
 	}
 
-	/*
-	 * Hard deletes a user and all its data.
-	 */
-	public function deleteDelete($id)
+	# Get profile
+	public function getProfile()
 	{
-		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
-			$user = User::withTrashed()->find($id);
-			if ($user) {
-				$user->deleteAllPrivateData();
-			}
-		}
-		return redirect('admin');
+		$user = Auth::user();
+		$subject = $user;
+		return view('content.user.profile', compact('subject', 'user'));
 	}
 
-	/*
-	 * Update profile.
-	 */
+	# Get profile
+	public function getUserProfile($id)
+	{
+		# Check if user is visiting own profile
+		if (Auth::user()->id == $id) {
+			redirect('user/profile');
+		}
+
+		$in = true;
+		$user = User::findOrFail($id);
+		$subject = $user;
+		return view('content.user.profile', compact('subject', 'user', 'in'));
+	}
+
+	# Update password
 	public function putPassword(Request $request)
 	{
 		$validator = \Validator::make($request->all(), [
@@ -83,9 +76,7 @@ class UserController extends Controller
 				->with('password', 'Password set');
 	}
 
-	/*
-	 * Update profile.
-	 */
+	# Update profile
 	public function putProfile(Request $request)
 	{
 		$validator = \Validator::make($request->all(), [
@@ -124,5 +115,17 @@ class UserController extends Controller
 		]);
 
 		return redirect($path)->with('profile', 'Profile updated');
+	}
+
+	# Hard delete user and related data
+	public function deleteDelete($id)
+	{
+		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
+			$user = User::withTrashed()->find($id);
+			if ($user) {
+				$user->deleteAllPrivateData();
+			}
+		}
+		return redirect('admin');
 	}
 }

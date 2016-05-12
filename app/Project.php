@@ -100,7 +100,7 @@ class Project extends Model
 	# Get link to profile
 	public function getProfileUrl()
 	{
-		$url = Auth::user()->is_admin ? '/admin/project-profile/' . $this->getKey() : '/subject/project-profile/' . $this->getKey();
+		$url = Auth::user()->is_admin ? '/admin/project-profile/' . $this->getKey() : '/project/profile/' . $this->getKey();
 		return $url;
 	}
 

@@ -20,17 +20,23 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::controller('/home', 'HomeController');
 
-	Route::controller('/user', 'UserController');
-	Route::controller('/project', 'ProjectController');
-	Route::controller('/organization', 'OrganizationController');
-	Route::controller('/subject', 'SubjectController');
+	# SUBJECTS
+	Route::group(['namespace' => 'Subjects'], function () {
 
+		Route::controller('/user', 'UserController');
+		Route::controller('/project', 'ProjectController');
+		Route::controller('/organization', 'OrganizationController');
+		Route::controller('/subject', 'SubjectController');
+	});
+
+	# ADMIN
 	Route::group(['middleware' => 'admin'], function () {
+
 		Route::controller('/admin', 'AdminController');
 	});
 });
 
-# Register and login routes
+# REGISTER AND LOGIN
 Route::auth();
 
 # GUEST PAGES

@@ -21,7 +21,7 @@
 			</thead>
 		<tbody>
 		@foreach($users as $user)
-			<tr class="clickable-row" data-href="{{ url((Auth::user()->is_admin ? 'admin/user-settings/' : 'subject/user-profile/') . $user->id) }}">
+			<tr class="clickable-row" data-href="{{ url(Auth::user()->is_admin ? 'admin/user-settings/' . $user->id : $user->getProfileUrl()) }}">
 				<td>{{ $user->id }}</td>
 				<td><img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
 				<td>
@@ -73,7 +73,7 @@
 			</thead>
 		<tbody>
 		@foreach($projects as $project)
-			<tr class="clickable-row" data-href="{{ url((Auth::user()->is_admin ? 'admin/project-settings/' : 'subject/project-profile/') . $project->id) }}">
+			<tr class="clickable-row" data-href="{{ url(Auth::user()->is_admin ? 'admin/project-settings/' . $project->id : $project->getProfileUrl()) }}">
 				<td>{{ $project->id }}</td>
 				<td><img src="{{ asset($project->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
 				<td>
@@ -121,7 +121,7 @@
 			</thead>
 		<tbody>
 		@foreach($organizations as $organization)
-			<tr class="clickable-row" data-href="{{ url((Auth::user()->is_admin ? 'admin/organization-settings/' : 'subject/organization-profile/') . $organization->id) }}">
+			<tr class="clickable-row" data-href="{{ url(Auth::user()->is_admin ? 'admin/organization-settings/' . $organization->id : $organization->getProfileUrl()) }}">
 				<td>{{ $organization->id }}</td>
 				<td><img src="{{ asset($organization->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
 				<td>

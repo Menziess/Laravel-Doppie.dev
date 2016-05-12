@@ -119,7 +119,7 @@ class Organization extends Model
 	# Get link to profile
 	public function getProfileUrl()
 	{
-		$url = Auth::user()->is_admin ? '/admin/organization-profile/' . $this->getKey() : '/subject/organization-profile/' . $this->getKey();
+		$url = Auth::user()->is_admin ? '/admin/organization-profile/' . $this->getKey() : '/organization/profile/' . $this->getKey();
 		return $url;
 	}
 

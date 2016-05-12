@@ -95,7 +95,7 @@ class User extends Authenticatable
 	# Get link to profile
 	public function getProfileUrl()
 	{
-		$url = Auth::user()->is_admin ? '/admin/user-profile/' . $this->getKey() : '/subject/user-profile/' . $this->getKey();
+		$url = Auth::user()->is_admin ? '/admin/user-profile/' . $this->getKey() : '/user/profile/' . $this->getKey();
 		return $url;
 	}
 

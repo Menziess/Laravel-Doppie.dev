@@ -18,15 +18,6 @@ class AdminController extends Controller
 		['title' => 'Projects', 'href' => 'admin/projects', 'text' => ''],
 		['title' => 'Organizations', 'href' => 'admin/organizations', 'text' => ''],
 	];
-	const USER = [
-		['title' => 'Users', 'href' => 'admin/users', 'text' => ''],
-	];
-	const PROJECT = [
-		['title' => 'Projects', 'href' => 'admin/projects', 'text' => ''],
-	];
-	const ORGANIZATION = [
-		['title' => 'Organizations', 'href' => 'admin/organizations', 'text' => ''],
-	];
 
 	public function getIndex(Request $request)
 	{
@@ -73,132 +64,94 @@ class AdminController extends Controller
 	public function getUserProfile($id)
 	{
 		$in = true;
-		$links = self::USER;
-		$user = User::withTrashed()->find($id);
+		$links = [['title' => 'Settings', 'href' => '/admin/user-settings/' . $id, 'text' => '']];
+		$user = User::withTrashed()->findOrFail($id);
 		$subject = $user;
-		if (!$user) {
-			abort(404);
-		}
 		return view('content.user.profile', compact('subject', 'user', 'links', 'in'));
 	}
 
 	public function getProjectProfile($id)
 	{
 		$in = true;
-		$links = self::PROJECT;
-		$project = Project::withTrashed()->find($id);
+		$links = [['title' => 'Settings', 'href' => '/admin/project-settings/' . $id, 'text' => '']];
+		$project = Project::withTrashed()->findOrFail($id);
 		$subject = $project;
-		if (!$project) {
-			abort(404);
-		}
 		return view('content.project.profile', compact('subject', 'project', 'links', 'in'));
 	}
 
 	public function getOrganizationProfile($id)
 	{
 		$in = true;
-		$links = self::ORGANIZATION;
-		$organization = Organization::withTrashed()->find($id);
+		$links = [['title' => 'Settings', 'href' => '/admin/organization-settings/' . $id, 'text' => '']];
+		$organization = Organization::withTrashed()->findOrFail($id);
 		$subject = $organization;
-		if (!$organization) {
-			abort(404);
-		}
 		return view('content.organization.profile', compact('subject', 'organization', 'links', 'in'));
 	}
 
 	public function getUserSettings($id)
 	{
 		$in = true;
-		$links = self::USER;
-		$user = User::withTrashed()->find($id);
+		$links = [['title' => 'Profile', 'href' => '/admin/user-profile/' . $id, 'text' => '']];
+		$user = User::withTrashed()->findOrFail($id);
 		$subject = $user;
-		if (!$user) {
-			abort(404);
-		}
 		return view('content.user.settings', compact('subject', 'user', 'links', 'in'));
 	}
 
 	public function getProjectSettings($id)
 	{
 		$in = true;
-		$links = self::PROJECT;
-		$project = Project::withTrashed()->find($id);
+		$links = [['title' => 'Profile', 'href' => '/admin/project-profile/' . $id, 'text' => '']];
+		$project = Project::withTrashed()->findOrFail($id);
 		$subject = $project;
-		if (!$project) {
-			abort(404);
-		}
 		return view('content.project.settings', compact('subject', 'project', 'links', 'in'));
 	}
 
 	public function getOrganizationSettings($id)
 	{
 		$in = true;
-		$links = self::ORGANIZATION;
-		$organization = Organization::withTrashed()->find($id);
+		$links = [['title' => 'Profile', 'href' => '/admin/organization-profile/' . $id, 'text' => '']];
+		$organization = Organization::withTrashed()->findOrFail($id);
 		$subject = $organization;
-		if (!$organization) {
-			abort(404);
-		}
+
 		return view('content.organization.settings', compact('subject', 'organization', 'links', 'in'));
 	}
 
-	/*
-	 * Toggles user is admin.
-	 */
 	public function putToggleadmin($id)
 	{
 		User::withTrashed()->find($id)->makeAdmin();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
-	/*
-	 * Restores a user and sets is_active on true.
-	 */
 	public function putActivateUser($id)
 	{
 		User::withTrashed()->find($id)->activate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
-	/*
-	 * Soft deletes user and sets is_active on false.
-	 */
 	public function putDeactivateUser($id)
 	{
 		User::withTrashed()->find($id)->deactivate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
-	/*
-	 * Restores a project and sets is_active on true.
-	 */
 	public function putActivateProject($id)
 	{
 		Project::withTrashed()->find($id)->activate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
-	/*
-	 * Soft deletes project and sets is_active on false.
-	 */
 	public function putDeactivateProject($id)
 	{
 		Project::withTrashed()->find($id)->deactivate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
-	/*
-	 * Restores a organization and sets is_active on true.
-	 */
 	public function putActivateOrganization($id)
 	{
 		Organization::withTrashed()->find($id)->activate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
-	/*
-	 * Soft deletes organization and sets is_active on false.
-	 */
 	public function putDeactivateOrganization($id)
 	{
 		Organization::withTrashed()->find($id)->deactivate();

@@ -120,7 +120,7 @@ class SocialController extends Controller
 		$path =  $fb->avatar_original ?: $path =  $fb->avatar;
 
 		$resource = new Resource;
-		$filepath = $resource->saveToStorage($path, 522, 522);
+		$filepath = $resource->uploadImagePath($path, 522, 522);
 
 		# Persist if uploaded succesfully
 		if (\Storage::exists($filepath)) {

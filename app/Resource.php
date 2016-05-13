@@ -62,23 +62,53 @@ class Resource extends Model
 	}
 
 	/**
-	 * Create new image.
+	 * Create new image from file.
+	 *
+	 * @param  File    $file
+	 * @param  integer $width
+	 * @param  integer $height
+	 * @return string  $filepath
+	 */
+	public function uploadImageFile($file, $width = 1000, $height = 1000)
+	{
+		$image = Image::make($file)->fit($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+		$this->original_name = self::generateName();
+		$this->original_mime_type = $file->getClientMimeType();
+		$this->original_extension = '.' . $file->getClientOriginalExtension();
+		return self::storeImage($image);
+	}
+
+	/**
+	 * Create new image from path.
 	 *
 	 * @param  string  $path
 	 * @param  integer $width
 	 * @param  integer $height
-	 * @return string  $folderPath
+	 * @return string  $filepath
 	 */
-	public function saveToStorage($path, $width = 1000, $height = 1000)
+	public function uploadImagePath($path, $width = 1000, $height = 1000)
 	{
 		$image = Image::make($path)->resize($width, $height);
-
 		$this->original_name = self::generateName();
 		$this->original_mime_type = $image->mime();
 		$this->original_extension = pathinfo($path, PATHINFO_EXTENSION)
 			?: $this->getExtension($this->original_mime_type);
+		return self::storeImage($image);
+	}
 
+	/**
+	 * Store image in storage.
+	 *
+	 * @param  Image 	$image
+	 * @return string 	$filepath
+	 */
+	private function storeImage($image)
+	{
 		$filepath = 'public/images/' . $this->original_name . $this->original_extension;
+		$image->interlace();
 		$image->save(storage_path('app/' . $filepath));
 
 		return $filepath;

@@ -6,19 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Carbon\Carbon;
+use Input;
 use Auth;
 use App\User;
+use App\Resource;
 use App\Http\Requests;
 
 class UserController extends Controller
 {
-	# Get profile
 	public function getIndex()
 	{
-		return redirect('user/profile');
+		return redirect('user/your-profile');
 	}
 
-	# Get settings
 	public function getYourSettings()
 	{
 		$user = Auth::user();
@@ -26,7 +26,6 @@ class UserController extends Controller
 		return view('content.user.settings', compact('subject', 'user'));
 	}
 
-	# Get profile
 	public function getYourProfile()
 	{
 		$in = true;
@@ -35,7 +34,6 @@ class UserController extends Controller
 		return view('content.user.profile', compact('subject', 'user', 'in'));
 	}
 
-	# Get profile
 	public function getProfile($id)
 	{
 		# Check if user is visiting own profile
@@ -49,7 +47,40 @@ class UserController extends Controller
 		return view('content.user.profile', compact('subject', 'user', 'in'));
 	}
 
-	# Update password
+	public function postPicture(Request $request)
+	{
+		$validator = \Validator::make($request->all(), [
+			'file' => 'mimes:jpeg,jpg,png,gif|required|max:500',
+		]);
+
+		$editorIsAdmin = Auth::user()->is_admin;
+		$path = $editorIsAdmin
+			? '/admin/user-settings/' . $request->id . '#picture'
+			: '/user/your-settings' . '#picture';
+
+		if ($validator->fails()) {
+				return redirect($path)->withErrors($validator);
+		}
+		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
+			abort(403);
+		}
+
+		$resource = new Resource;
+		$filepath = $resource->uploadImageFile($request->file('file'), 522, 522);
+		$user = User::withTrashed()->find($request->id);
+
+		# Persist if uploaded succesfully
+		if (\Storage::exists($filepath)) {
+			$resource->user_id = $user->id;
+			$resource->save();
+			$user->profile->resource->removeFromStorage();
+			$user->profile->resource_id = $resource->getKey();
+			$user->profile->save();
+		}
+
+		return redirect($path)->with('picture', 'Updated profile picture');
+	}
+
 	public function putPassword(Request $request)
 	{
 		$validator = \Validator::make($request->all(), [
@@ -60,11 +91,10 @@ class UserController extends Controller
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
 			? '/admin/user-settings/' . $request->id . '#password'
-			: '/user/settings' . '#password';
+			: '/user/your-settings' . '#password';
 
 		if ($validator->fails()) {
-			return redirect($path)
-					->withErrors($validator);
+			return redirect($path)->withErrors($validator);
 		}
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
 			abort(403);
@@ -73,11 +103,9 @@ class UserController extends Controller
 		$user->password = bcrypt($request->password);
 		$user->save();
 
-		return redirect($path)
-				->with('password', 'Password set');
+		return redirect($path)->with('password', 'Password set');
 	}
 
-	# Update profile
 	public function putProfile(Request $request)
 	{
 		$validator = \Validator::make($request->all(), [
@@ -91,7 +119,7 @@ class UserController extends Controller
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
 			? '/admin/user-settings/' . $request->id . '#profile'
-			: '/user/settings' . '#profile';
+			: '/user/your-settings' . '#profile';
 
 		if ($validator->fails()) {
 			return redirect($path)
@@ -118,7 +146,6 @@ class UserController extends Controller
 		return redirect($path)->with('profile', 'Profile updated');
 	}
 
-	# Hard delete user and related data
 	public function deleteDelete($id)
 	{
 		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {

@@ -71,9 +71,11 @@ class UserController extends Controller
 
 		# Persist if uploaded succesfully
 		if (\Storage::exists($filepath)) {
+			if ($user->profile->resource) {
+				$user->profile->resource->removeFromStorage();
+			}
 			$resource->user_id = $user->id;
 			$resource->save();
-			$user->profile->resource->removeFromStorage();
 			$user->profile->resource_id = $resource->getKey();
 			$user->profile->save();
 		}

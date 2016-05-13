@@ -137,16 +137,22 @@ class Project extends Model
 	}
 
 	/**
-	 * Force delete project and all related private data.
+	 * Force delete project and all related private data if it doesn't have
+	 * related users or organizations.
 	 *
 	 * @return bool
 	 */
 	public function deleteAllPrivateData()
 	{
-		# delete additional private data
-		if ($this->resource) {
-			$this->resource->removeFromStorage();
+		if ($this->users || $this->organizations) {
+			$this->delete();
+		} else {
+			# Delete additional private data
+			if ($this->resource) {
+				$this->resource->removeFromStorage();
+			}
+			# Delete Project
+			$this->forceDelete();
 		}
-		$this->forceDelete();
 	}
 }

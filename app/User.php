@@ -141,10 +141,18 @@ class User extends Authenticatable
 	 */
 	public function deleteAllPrivateData()
 	{
-		# delete additional private data
+		# Delete additional private data
 		if ($this->profile->resource) {
 			$this->profile->resource->removeFromStorage();
 		}
+		# Delete all projects if not related to other subjects
+		if ($this->projects) {
+			foreach ($this->projects as $project) {
+				$project->forceDelete();
+			}
+		}
+
+		# Delete user
 		$this->forceDelete();
 	}
 }

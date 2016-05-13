@@ -52,8 +52,8 @@ class SocialController extends Controller
 			$newUser = true;
 		}
 
+		# Check if user is active or restore when trashed
 		if (!$newUser) {
-			# Check if user is active or restore when trashed
 			if ($user->is_active == false && !$user->is_admin) {
 				return redirect('home');
 			} else {
@@ -61,8 +61,8 @@ class SocialController extends Controller
 			}
 		}
 
-		# See if user needs to be updated
-		if (Carbon::parse($fb->user['updated_time'])->lt($user->updated_at) || $newUser) {
+		# See if user needs to be updated when fb time is greater than user time
+		if (Carbon::parse($fb->user['updated_time'])->gt($user->updated_at) || $newUser) {
 			self::fillUser($user, $fb);
 		}
 

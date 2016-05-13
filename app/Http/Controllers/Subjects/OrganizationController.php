@@ -24,9 +24,8 @@ class OrganizationController extends Controller
 	public function getProfile($id)
 	{
 		$in = true;
-		$organization = Organization::findOrFail($id);
-		$subject = $organization;
-		return view('content.organization.profile', compact('subject', 'organization', 'in'));
+		$subject = Organization::findOrFail($id);
+		return view('content.organization.profile', compact('subject', 'in'));
 	}
 
 	public function deleteDelete($id)

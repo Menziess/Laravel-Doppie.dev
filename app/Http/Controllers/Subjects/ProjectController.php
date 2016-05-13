@@ -24,9 +24,8 @@ class ProjectController extends Controller
 	public function getProfile($id)
 	{
 		$in = true;
-		$project = Project::findOrFail($id);
-		$subject = $project;
-		return view('content.project.profile', compact('subject', 'project', 'in'));
+		$subject = Project::findOrFail($id);
+		return view('content.project.profile', compact('subject', 'in'));
 	}
 
 	public function deleteDelete($id)

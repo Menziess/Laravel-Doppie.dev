@@ -16,7 +16,7 @@ class OrganizationController extends Controller
 		return 'Make new organization';
 	}
 
-	public function postIndex($id)
+	public function postIndex()
 	{
 
 	}

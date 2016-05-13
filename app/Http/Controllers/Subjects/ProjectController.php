@@ -16,7 +16,7 @@ class ProjectController extends Controller
 		return 'Make new project';
 	}
 
-	public function postIndex($id)
+	public function postIndex()
 	{
 
 	}

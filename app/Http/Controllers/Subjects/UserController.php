@@ -19,7 +19,7 @@ class UserController extends Controller
 	}
 
 	# Get settings
-	public function getSettings()
+	public function getYourSettings()
 	{
 		$user = Auth::user();
 		$subject = $user;
@@ -27,15 +27,16 @@ class UserController extends Controller
 	}
 
 	# Get profile
-	public function getProfile()
+	public function getYourProfile()
 	{
+		$in = true;
 		$user = Auth::user();
 		$subject = $user;
-		return view('content.user.profile', compact('subject', 'user'));
+		return view('content.user.profile', compact('subject', 'user', 'in'));
 	}
 
 	# Get profile
-	public function getUserProfile($id)
+	public function getProfile($id)
 	{
 		# Check if user is visiting own profile
 		if (Auth::user()->id == $id) {

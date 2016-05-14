@@ -61,7 +61,7 @@ class UserController extends Controller
 	public function postPicture(Request $request)
 	{
 		$validator = \Validator::make($request->all(), [
-			'file' => 'mimes:jpeg,jpg,png,gif|required|max:500',
+			'file' => 'mimes:jpeg,jpg,png,gif|required|max:1200',
 		]);
 
 		$editorIsAdmin = Auth::user()->is_admin;

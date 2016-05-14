@@ -2,7 +2,7 @@
 
 	<h4 class="card-title">Permissions</h4>
 	<p class="card-text">
-		User #{{ $user->id }} is {!! $user->is_admin ? '<span class="text-primary">admin</span>,' : '' !!} {!! $user->is_active
+		User #{{ $subject->id }} is {!! $subject->is_admin ? '<span class="text-primary">admin</span>,' : '' !!} {!! $subject->is_active
 		? '<span class="text-success">active</span> and is able to login.'
 		: '<span class="text-warning">inactive</span> and is unable to login. This content of this user is not vsible for other users.' !!}
 	</p>
@@ -23,7 +23,7 @@
 					</p>
 				</div>
 				<div class="modal-footer">
-					<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/user/delete/' . $user->getKey()) }}">
+					<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/user/delete/' . $subject->getKey()) }}">
 					{!! csrf_field() !!}
 					{{ method_field('DELETE') }}
 					<button type="button" class="btn btn-secondary-outline" data-dismiss="modal">Close</button>
@@ -36,7 +36,7 @@
 
 
 	<div class="btn-group btn-group-justified">
-	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/activate-user/' . $user->getKey()) }}">
+	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/activate-user/' . $subject->getKey()) }}">
 		{!! csrf_field() !!}
 		{{ method_field('PUT') }}
 		<button class="btn btn-success-outline" type="submit">Activate</a>
@@ -44,7 +44,7 @@
 	</div>
 
 	<div class="btn-group btn-group-justified">
-	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/deactivate-user/' . $user->getKey()) }}">
+	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/deactivate-user/' . $subject->getKey()) }}">
 		{!! csrf_field() !!}
 		{{ method_field('PUT') }}
 		<button class="btn btn-warning-outline" type="submit">Deactivate</a>
@@ -53,19 +53,19 @@
 
 	<div class="padding-top">
 		<div class="btn-group btn-group-justified">
-		<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/toggleadmin/' . $user->getKey()) }}">
+		<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/toggleadmin/' . $subject->getKey()) }}">
 			{!! csrf_field() !!}
 			{{ method_field('PUT') }}
-			<button class="btn btn-primary{{ $user->is_admin ? '' : '-outline' }}" type="submit">Admin: {{ $user->is_admin ? 'true' : 'false' }}</a>
+			<button class="btn btn-primary{{ $subject->is_admin ? '' : '-outline' }}" type="submit">Admin: {{ $subject->is_admin ? 'true' : 'false' }}</a>
 		</form>
 		</div>
 	</div>
 </div>
 
-<div id="account" class="card card-block card-inverse" style="background-color: #333; border-color: #333;">
+<div id="delete" class="card card-block card-inverse" style="background-color: #333; border-color: #333;">
 	<h4 class="card-title">User</h4>
 
-	<p class="card-text">Deleting User #{{ $user->id }} will also remove all associated private data.</p>
+	<p class="card-text">Deleting User #{{ $subject->id }} will also remove all associated private data.</p>
 	<div>
 	<a data-toggle="modal" data-target="#modal-delete" href="#" class="btn btn-danger">Delete</a>
 	</div>

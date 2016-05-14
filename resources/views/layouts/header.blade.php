@@ -25,6 +25,8 @@
 						@foreach($links as $link)
 							<a class="dropdown-item" href="{{ url($link['href']) }}">{{ $link['title'] }}</a>
 						@endforeach
+					@else
+						<a class="dropdown-item" href="#">Sorry.. no contextual links</a>
 					@endif
 				</div>
 			</div>

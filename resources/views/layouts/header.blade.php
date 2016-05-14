@@ -16,22 +16,21 @@
 			</div>
 
 			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
-			<div class="dropdown pull-right">
-				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<i class="fa fa-btn fa-cog"></i>Options
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					@if(isset($links))
-						@foreach($links as $link)
-							<a class="dropdown-item" href="{{ url($link['href']) }}">{{ $link['title'] }}</a>
-						@endforeach
-					@else
-						<a class="dropdown-item" href="#">Sorry.. no contextual links</a>
-					@endif
+				<div class="dropdown pull-right padding-top">
+					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-btn fa-cog"></i>Navigate
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						@if(isset($links))
+							@foreach($links as $link)
+								<a class="dropdown-item" href="{{ url($link['href']) }}">{{ $link['title'] }}</a>
+							@endforeach
+						@else
+							<a class="dropdown-item" href="#">Sorry.. no contextual links</a>
+						@endif
+					</div>
 				</div>
 			</div>
-			</div>
-
 
 		</div>
 	</div>
@@ -42,6 +41,7 @@
 	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="100"></progress>
 	</a>
 </div>
+
 
 @push('scripts')
 <script>

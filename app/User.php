@@ -48,29 +48,29 @@ class User extends Authenticatable
 		return $this->hasOne(Profile::class);
 	}
 
-	# Project relation
-	public function projects()
-	{
-		return $this->hasMany(Project::class);
-	}
-
 	# Profile relation
 	public function organization()
 	{
 		return $this->hasOne(Organization::class);
 	}
 
-    # The organizations that belong to the user.
-    public function organizations()
-    {
-        return $this->belongsToMany(Organization::class);
-    }
-
 	# Resource relation
-	public function resource()
+	public function resources()
 	{
 		return $this->hasMany(Resource::class);
 	}
+
+	# Project relation
+	public function projects()
+	{
+		return $this->belongsToMany(Project::class);
+	}
+
+    # The organizations that belong to the user.
+    public function organizations()
+    {
+        return $this->hasMany(Organization::class);
+    }
 
 	# Get first and last name
 	public function getName()

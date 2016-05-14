@@ -14,6 +14,12 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
+	const LINKS = [
+		['title' => 'Profile', 'href' => '/user/your-profile', 'text' => ''],
+		['title' => 'Settings', 'href' => '/user/your-settings/', 'text' => ''],
+		['title' => 'Subjects', 'href' => '/user/your-subjects/', 'text' => ''],
+	];
+
 	public function getIndex()
 	{
 		return redirect('user/your-profile');
@@ -21,17 +27,23 @@ class UserController extends Controller
 
 	public function getYourSettings()
 	{
-		$user = Auth::user();
-		$subject = $user;
-		return view('content.user.settings', compact('subject', 'user'));
+		$subject = Auth::user();
+		$links = self::LINKS;
+		return view('content.user.settings', compact('links', 'subject'));
 	}
 
 	public function getYourProfile()
 	{
-		$in = true;
-		$user = Auth::user();
-		$subject = $user;
-		return view('content.user.profile', compact('subject', 'user', 'in'));
+		$subject = Auth::user();
+		$links = self::LINKS;
+		return view('content.user.profile', compact('links', 'subject'));
+	}
+
+	public function getYourSubjects()
+	{
+		$subject = Auth::user();
+		$links = self::LINKS;
+		return view('content.user.subjects', compact('links', 'subject'));
 	}
 
 	public function getProfile($id)
@@ -41,10 +53,9 @@ class UserController extends Controller
 			redirect('user/profile');
 		}
 
-		$in = true;
 		$user = User::findOrFail($id);
 		$subject = $user;
-		return view('content.user.profile', compact('subject', 'user', 'in'));
+		return view('content.user.profile', compact('subject', 'user'));
 	}
 
 	public function postPicture(Request $request)

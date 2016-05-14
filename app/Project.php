@@ -152,7 +152,7 @@ class Project extends Model
 				$this->resource->removeFromStorage();
 			}
 			# Delete Project
-			// $this->forceDelete();
+			$this->forceDelete();
 		}
 	}
 }

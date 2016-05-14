@@ -49,6 +49,12 @@ class Organization extends Model
 	}
 
 	# Define relation
+	public function resource()
+	{
+		return $this->belongsTo(Resource::class);
+	}
+
+	# Define relation
 	public function users()
 	{
 		return $this->belongsToMany(User::class);
@@ -57,13 +63,7 @@ class Organization extends Model
 	# Project relation
 	public function projects()
 	{
-		return $this->hasMany(Project::class);
-	}
-
-	# Define relation
-	public function resource()
-	{
-		return $this->belongsTo(Resource::class);
+		return $this->belongsToMany(Project::class);
 	}
 
 	# Get first and last name
@@ -124,16 +124,22 @@ class Organization extends Model
 	}
 
 	/**
-	 * Force delete organization and all related private data.
+	 * Force delete project and all related private data if it doesn't have
+	 * related users or projects.
 	 *
-	 * @return bool
+	 * @return string
 	 */
 	public function deleteAllPrivateData()
 	{
-		# delete additional private data
-		if ($this->resource) {
-			$this->resource->removeFromStorage();
+		if ($this->users->count() > 0 || $this->projects->count() > 0) {
+			return 'Cannot delete organization because it has other users or projects.';
+		} else {
+			# Delete additional private data
+			if ($this->resource) {
+				$this->resource->removeFromStorage();
+			}
+			# Delete Project
+			$this->forceDelete();
 		}
-		$this->forceDelete();
 	}
 }

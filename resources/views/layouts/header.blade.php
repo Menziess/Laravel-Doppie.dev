@@ -15,21 +15,23 @@
 			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 			</div>
 
-
-		</div>
-	</div>
-
-	<div class="container fluid">
-	@if(isset($links))
-		<div class="row center-text">
-			@foreach($links as $link)
-			<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 padding-bottom">
-				<a class="btn btn-block btn-secondary" role="button" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
+			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
+			<div class="dropdown pull-right">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-btn fa-cog"></i>Options
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					@if(isset($links))
+						@foreach($links as $link)
+							<a class="dropdown-item" href="{{ url($link['href']) }}">{{ $link['title'] }}</a>
+						@endforeach
+					@endif
+				</div>
 			</div>
-			@endforeach
+			</div>
+
+
 		</div>
-	@else
-	@endif
 	</div>
 </div>
 

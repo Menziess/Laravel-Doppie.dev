@@ -19,8 +19,8 @@
 							<input name="id" value="{{ $subject->getKey() }}" type="hidden" class="form-control">
 
 							<div class="modal-body">
-								<p>Select your new profile picture</p>
-								<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
+								<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }} div-centered-small">
+									<p>Select your new profile picture</p>
 									<div class="input-group">
 										<input name="file" data-max-size="500" accept="image/*" value="{{ old('file') ?: $subject->file}}" type="file" >
 									</div>

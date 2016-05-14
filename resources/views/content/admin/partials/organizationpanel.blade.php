@@ -54,6 +54,13 @@
 	<h4 class="card-title">Organization</h4>
 
 	<p class="card-text">Deleting organization #{{ $subject->id }} will also remove all associated private data.</p>
+
+	@if ($errors->has('organization'))
+		<div class="alert alert-warning" role="alert">
+			{{ $errors->first('organization') }}
+		</div>
+	@endif
+
 	<div>
 	<a data-toggle="modal" data-target="#modal-delete" href="#" class="btn btn-danger">Delete</a>
 	</div>

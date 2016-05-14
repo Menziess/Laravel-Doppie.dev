@@ -45,14 +45,14 @@
 
 		{!! $users !!}
 
-		@else
-		No users found...
-		@endif
-
 		@if (Session::has('users'))
 			<div class="alert alert-success" role="alert">
 				{{ Session::get('users') }}
 			</div>
+		@endif
+
+		@else
+		No users found...
 		@endif
 
 	</div>
@@ -100,14 +100,14 @@
 
 		{!! $projects !!}
 
-		@else
-		No projects found...
-		@endif
-
 		@if (Session::has('project'))
 			<div class="alert alert-success" role="alert">
 				{{ Session::get('project') }}
 			</div>
+		@endif
+
+		@else
+		No projects found...
 		@endif
 
 	</div>
@@ -154,14 +154,14 @@
 
 		{!! $organizations !!}
 
-		@else
-		No organizations found...
-		@endif
-
 		@if (Session::has('organizations'))
 			<div class="alert alert-success" role="alert">
 				{{ Session::get('organizations') }}
 			</div>
+		@endif
+
+		@else
+		No organizations found...
 		@endif
 
 	</div>

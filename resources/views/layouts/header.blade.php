@@ -1,6 +1,6 @@
 
 
-<div id="header" class="collapse {{ isset($in) ? 'in' : '' }}">
+<div id="header" class="collapse">
 	<div class="container fluid">
 		<div class="row row-centered">
 
@@ -18,25 +18,25 @@
 
 		</div>
 	</div>
+
+	<div class="container fluid">
+	@if(isset($links))
+		<div class="row center-text">
+			@foreach($links as $link)
+			<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 padding-bottom">
+				<a class="btn btn-block btn-secondary" role="button" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
+			</div>
+			@endforeach
+		</div>
+	@else
+	@endif
+	</div>
 </div>
 
 <div id="progress" class="padding-top div-centered-large">
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header">
 	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="100"></progress>
 	</a>
-</div>
-
-<div class="container fluid">
-@if(isset($links))
-	<div class="row center-text">
-		@foreach($links as $link)
-		<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 padding-bottom">
-			<a class="btn btn-block btn-secondary" role="button" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
-		</div>
-		@endforeach
-	</div>
-@else
-@endif
 </div>
 
 @push('scripts')
@@ -51,6 +51,9 @@
             	hide: 100
 		    },
 		});
+		if (!is_touch_device && !$('#header').hasClass('in')) {
+			$('#header').addClass('in');
+		}
 	});
 </script>
 @endpush

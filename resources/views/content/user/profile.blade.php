@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('content')
 
+@section('content')
 
 	@if($subject->projects)
 
@@ -9,8 +9,9 @@
 
 		<div class="card">
 			<div class="card-header">
-			Project
+				<h4 class="card-title">Project - {{ $project->getName() }}</h4>
 			</div>
+
 			<div class="card-block">
 				<div class="row row-centered">
 
@@ -26,11 +27,11 @@
 					</div>
 
 				</div>
+			</div>
 
+			<div class="card-footer">
 				<div id="progress" class="padding-top div-centered-large">
-					<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header">
 					<progress class="progress progress-success" value="{{ $project->getXp() }}" max="100"></progress>
-					</a>
 				</div>
 			</div>
 		</div>
@@ -38,7 +39,5 @@
 		@endforeach
 
 	@endif
-
-
 
 @endsection

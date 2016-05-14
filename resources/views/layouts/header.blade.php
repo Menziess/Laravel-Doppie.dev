@@ -1,6 +1,6 @@
 
 
-<div id="header" class="collapse {{ isset($in) ? 'in' : '' }}">
+<div id="header" class="collapse">
 	<div class="container fluid">
 		<div class="row row-centered">
 
@@ -15,6 +15,23 @@
 			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 			</div>
 
+			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
+			<div class="dropdown pull-right">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-btn fa-cog"></i>Options
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					@if(isset($links))
+						@foreach($links as $link)
+							<a class="dropdown-item" href="{{ url($link['href']) }}">{{ $link['title'] }}</a>
+						@endforeach
+					@else
+						<a class="dropdown-item" href="#">Sorry.. no contextual links</a>
+					@endif
+				</div>
+			</div>
+			</div>
+
 
 		</div>
 	</div>
@@ -24,19 +41,6 @@
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header">
 	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="100"></progress>
 	</a>
-</div>
-
-<div class="container fluid">
-@if(isset($links))
-	<div class="row center-text">
-		@foreach($links as $link)
-		<div class="col-xs-16 col-sm-4 col-md-4 col-lg-4 padding-bottom">
-			<a class="btn btn-block btn-secondary" role="button" href="{{ url($link['href']) }}">{{ $link['title'] }}</a> {!! $link['text'] !!}
-		</div>
-		@endforeach
-	</div>
-@else
-@endif
 </div>
 
 @push('scripts')
@@ -51,6 +55,9 @@
             	hide: 100
 		    },
 		});
+		if (!is_touch_device && !$('#header').hasClass('in')) {
+			$('#header').addClass('in');
+		}
 	});
 </script>
 @endpush

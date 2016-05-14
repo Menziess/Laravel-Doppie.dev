@@ -23,19 +23,31 @@ class OrganizationController extends Controller
 
 	public function getProfile($id)
 	{
-		$in = true;
 		$subject = Organization::findOrFail($id);
-		return view('content.organization.profile', compact('subject', 'in'));
+		return view('content.organization.profile', compact('subject'));
 	}
 
 	public function deleteDelete($id)
 	{
-		if (Auth::user()->is_admin) {
-			$organization = Organization::withTrashed()->find($id);
-			if ($organization) {
-				$organization->deleteAllPrivateData();
-			}
+		$editorIsAdmin = Auth::user()->is_admin;
+		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
+			abort(403);
 		}
-		return redirect('admin');
+
+		$fail = $editorIsAdmin
+			? '/admin/organization-settings/'. $id . '#delete'
+			: '/organization/settings' . '#delete';
+		$success = $editorIsAdmin
+			? '/admin' . '#organizations'
+			: '/user/your-profile';
+
+		$organization = Organization::withTrashed()->findOrFail($id);
+		$error = $organization->deleteAllPrivateData();
+
+		$error
+			? $redirect = redirect($fail)->withErrors(['organization' => $error])
+			: $redirect = redirect($success)->with('organization', 'Organization deleted');
+
+		return $redirect;
 	}
 }

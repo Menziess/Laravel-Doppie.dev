@@ -13,7 +13,7 @@ use App\Http\Requests;
 
 class AdminController extends Controller
 {
-	const RESOURCES = [
+	const SUBJECTS = [
 		['title' => 'Users', 'href' => 'admin/users', 'text' => ''],
 		['title' => 'Projects', 'href' => 'admin/projects', 'text' => ''],
 		['title' => 'Organizations', 'href' => 'admin/organizations', 'text' => ''],
@@ -23,7 +23,7 @@ class AdminController extends Controller
 	{
 		$input = $request->search;
 		$search = '%' . $input . '%' ?: '%';
-		$links = self::RESOURCES;
+		$links = self::SUBJECTS;
 		$subject = Auth::user();
 		$users = User::withTrashed()
 			->where('first_name', 'like', $search)
@@ -37,124 +37,184 @@ class AdminController extends Controller
 		return view('content.subject.list', compact('users', 'projects', 'organizations', 'subject', 'links', 'input'));
 	}
 
+	/**
+	 * Get links for a particular model to related pages.
+	 *
+	 * @param  int 		$id
+	 * @param  string 	$model
+	 * @return array
+	 */
+	private static function getSubjectLinks($id, $model)
+	{
+		return [
+			['title' => 'Profile', 'href' => '/admin/' . $model . '-profile/' . $id, 'text' => ''],
+			['title' => 'Settings', 'href' => '/admin/' . $model . '-settings/' . $id, 'text' => ''],
+			['title' => 'Subjects', 'href' => '/admin/' . $model . '-subjects/' . $id, 'text' => ''],
+		];
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| User routes
+	|--------------------------------------------------------------------------
+	|
+	| For getting and modifying user information as a administrator.
+	|
+	*/
+
 	public function getUsers()
 	{
-		$links = self::RESOURCES;
+		$links = self::SUBJECTS;
 		$subject = Auth::user();
 		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
 		return view('content.subject.list', compact('users', 'subject', 'links'));
 	}
 
-	public function getProjects()
-	{
-		$links = self::RESOURCES;
-		$subject = Auth::user();
-		$projects = Project::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.subject.list', compact('projects', 'subject', 'links'));
-	}
-
-	public function getOrganizations()
-	{
-		$links = self::RESOURCES;
-		$subject = Auth::user();
-		$organizations = Organization::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.subject.list', compact('organizations', 'subject', 'links'));
-	}
-
 	public function getUserProfile($id)
 	{
 		$in = true;
-		$links = [['title' => 'Settings', 'href' => '/admin/user-settings/' . $id, 'text' => '']];
-		$user = User::withTrashed()->findOrFail($id);
-		$subject = $user;
-		return view('content.user.profile', compact('subject', 'user', 'links', 'in'));
+		$links = self::getSubjectLinks($id, 'user');
+		$subject = User::withTrashed()->findOrFail($id);
+		return view('content.user.profile', compact('subject', 'links', 'in'));
 	}
 
-	public function getProjectProfile($id)
+	public function getUserSubjects($id)
 	{
 		$in = true;
-		$links = [['title' => 'Settings', 'href' => '/admin/project-settings/' . $id, 'text' => '']];
-		$project = Project::withTrashed()->findOrFail($id);
-		$subject = $project;
-		return view('content.project.profile', compact('subject', 'project', 'links', 'in'));
-	}
-
-	public function getOrganizationProfile($id)
-	{
-		$in = true;
-		$links = [['title' => 'Settings', 'href' => '/admin/organization-settings/' . $id, 'text' => '']];
-		$organization = Organization::withTrashed()->findOrFail($id);
-		$subject = $organization;
-		return view('content.organization.profile', compact('subject', 'organization', 'links', 'in'));
+		$links = self::getSubjectLinks($id, 'user');
+		$subject = User::withTrashed()->findOrFail($id);
+		return view('content.user.subjects', compact('subject', 'links', 'in'));
 	}
 
 	public function getUserSettings($id)
 	{
 		$in = true;
-		$links = [['title' => 'Profile', 'href' => '/admin/user-profile/' . $id, 'text' => '']];
-		$user = User::withTrashed()->findOrFail($id);
-		$subject = $user;
-		return view('content.user.settings', compact('subject', 'user', 'links', 'in'));
-	}
-
-	public function getProjectSettings($id)
-	{
-		$in = true;
-		$links = [['title' => 'Profile', 'href' => '/admin/project-profile/' . $id, 'text' => '']];
-		$project = Project::withTrashed()->findOrFail($id);
-		$subject = $project;
-		return view('content.project.settings', compact('subject', 'project', 'links', 'in'));
-	}
-
-	public function getOrganizationSettings($id)
-	{
-		$in = true;
-		$links = [['title' => 'Profile', 'href' => '/admin/organization-profile/' . $id, 'text' => '']];
-		$organization = Organization::withTrashed()->findOrFail($id);
-		$subject = $organization;
-
-		return view('content.organization.settings', compact('subject', 'organization', 'links', 'in'));
+		$links = self::getSubjectLinks($id, 'user');
+		$subject = User::withTrashed()->findOrFail($id);
+		return view('content.user.settings', compact('subject', 'links', 'in'));
 	}
 
 	public function putToggleadmin($id)
 	{
-		User::withTrashed()->find($id)->makeAdmin();
+		User::withTrashed()->findOrFail($id)->makeAdmin();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
 	public function putActivateUser($id)
 	{
-		User::withTrashed()->find($id)->activate();
+		User::withTrashed()->findOrFail($id)->activate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
 	public function putDeactivateUser($id)
 	{
-		User::withTrashed()->find($id)->deactivate();
+		User::withTrashed()->findOrFail($id)->deactivate();
 		return redirect()->to(\URL::previous() . '#permissions');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Project routes
+	|--------------------------------------------------------------------------
+	|
+	| For getting and modifying project information as a administrator.
+	|
+	*/
+
+	public function getProjects()
+	{
+		$links = self::SUBJECTS;
+		$subject = Auth::user();
+		$projects = Project::withTrashed()->orderBy('id', 'desc')->paginate(15);
+		return view('content.subject.list', compact('projects', 'subject', 'links'));
+	}
+
+	public function getProjectProfile($id)
+	{
+		$in = true;
+		$links = self::getSubjectLinks($id, 'project');
+		$subject = Project::withTrashed()->findOrFail($id);
+		return view('content.project.profile', compact('subject', 'links', 'in'));
+	}
+
+	public function getProjectSubjects($id)
+	{
+		$in = true;
+		$links = self::getSubjectLinks($id, 'project');
+		$subject = Project::withTrashed()->findOrFail($id);
+		return view('content.project.subjects', compact('subject', 'links', 'in'));
+	}
+
+	public function getProjectSettings($id)
+	{
+		$in = true;
+		$links = self::getSubjectLinks($id, 'project');
+		$subject = Project::withTrashed()->findOrFail($id);
+		return view('content.project.settings', compact('subject', 'links', 'in'));
 	}
 
 	public function putActivateProject($id)
 	{
-		Project::withTrashed()->find($id)->activate();
+		Project::withTrashed()->findOrFail($id)->activate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
 	public function putDeactivateProject($id)
 	{
-		Project::withTrashed()->find($id)->deactivate();
+		Project::withTrashed()->findOrFail($id)->deactivate();
 		return redirect()->to(\URL::previous() . '#permissions');
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Organization routes
+	|--------------------------------------------------------------------------
+	|
+	| For getting and modifying organization information as a administrator.
+	|
+	*/
+
+	public function getOrganizations()
+	{
+		$links = self::SUBJECTS;
+		$subject = Auth::user();
+		$organizations = Organization::withTrashed()->orderBy('id', 'desc')->paginate(15);
+		return view('content.subject.list', compact('organizations', 'subject', 'links'));
+	}
+
+	public function getOrganizationProfile($id)
+	{
+		$in = true;
+		$links = self::getSubjectLinks($id, 'organization');
+		$subject = Organization::withTrashed()->findOrFail($id);
+		return view('content.organization.profile', compact('subject', 'links', 'in'));
+	}
+
+	public function getOrganizationSubjects($id)
+	{
+		$in = true;
+		$links = self::getSubjectLinks($id, 'organization');
+		$subject = Organization::withTrashed()->findOrFail($id);
+		return view('content.organization.subjects', compact('subject', 'links', 'in'));
+	}
+
+	public function getOrganizationSettings($id)
+	{
+		$in = true;
+		$links = self::getSubjectLinks($id, 'organization');
+		$subject = Organization::withTrashed()->findOrFail($id);
+		return view('content.organization.settings', compact('subject', 'links', 'in'));
 	}
 
 	public function putActivateOrganization($id)
 	{
-		Organization::withTrashed()->find($id)->activate();
+		Organization::withTrashed()->findOrFail($id)->activate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 
 	public function putDeactivateOrganization($id)
 	{
-		Organization::withTrashed()->find($id)->deactivate();
+		Organization::withTrashed()->findOrFail($id)->deactivate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
 }

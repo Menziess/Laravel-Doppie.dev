@@ -3,7 +3,7 @@
 @section('content')
 
 @if(isset($users))
-<div class="card">
+<div id="users" class="card">
 	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Users</h4>
@@ -49,13 +49,19 @@
 		No users found...
 		@endif
 
+		@if (Session::has('users'))
+			<div class="alert alert-success" role="alert">
+				{{ Session::get('users') }}
+			</div>
+		@endif
+
 	</div>
 </div>
 @endif
 
 
 @if(isset($projects))
-<div class="card">
+<div id="projects" class="card">
 	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Projects</h4>
@@ -98,12 +104,18 @@
 		No projects found...
 		@endif
 
+		@if (Session::has('project'))
+			<div class="alert alert-success" role="alert">
+				{{ Session::get('project') }}
+			</div>
+		@endif
+
 	</div>
 </div>
 @endif
 
 @if(isset($organizations))
-<div class="card">
+<div id="organizations" class="card">
 	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Organizations</h4>
@@ -144,6 +156,12 @@
 
 		@else
 		No organizations found...
+		@endif
+
+		@if (Session::has('organizations'))
+			<div class="alert alert-success" role="alert">
+				{{ Session::get('organizations') }}
+			</div>
 		@endif
 
 	</div>

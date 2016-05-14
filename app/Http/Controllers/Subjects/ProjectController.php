@@ -30,12 +30,25 @@ class ProjectController extends Controller
 
 	public function deleteDelete($id)
 	{
-		if (Auth::user()->is_admin) {
-			$project = Project::withTrashed()->find($id);
-			if ($project) {
-				$project->deleteAllPrivateData();
-			}
+		$editorIsAdmin = Auth::user()->is_admin;
+		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
+			abort(403);
 		}
-		return redirect('admin');
+
+		$fail = $editorIsAdmin
+			? '/admin/project-settings/'. $id . '#delete'
+			: '/project/settings' . '#delete';
+		$success = $editorIsAdmin
+			? '/admin' . '#projects'
+			: '/user/your-profile';
+
+		$project = Project::withTrashed()->findOrFail($id);
+		$error = $project->deleteAllPrivateData();
+
+		$error
+			? $redirect = redirect($fail)->withErrors(['project' => $error])
+			: $redirect = redirect($success)->with('project', 'Project deleted');
+
+		return $redirect;
 	}
 }

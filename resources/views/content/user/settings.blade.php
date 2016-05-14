@@ -3,7 +3,7 @@
 @section('content')
 
 
-	@if($user && $user->profile)
+	@if($subject && $subject->profile)
 
 
 		@include('content.user.partials.picture')
@@ -16,7 +16,7 @@
 
 
 
-	@if(Auth::user()->is_admin && Auth::user()->getKey() != $user->getKey())
+	@if(Auth::user()->is_admin && Auth::user()->getKey() != $subject->getKey())
 
 		@include('content.admin.partials.userpanel')
 

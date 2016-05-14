@@ -16,13 +16,13 @@
 						<form id="form-picture" class="form-horizontal" method="POST" action="{{ url('/user/picture') }}" enctype="multipart/form-data">
 							{!! csrf_field() !!}
 
-							<input name="id" value="{{ $user->getKey() }}" type="hidden" class="form-control">
+							<input name="id" value="{{ $subject->getKey() }}" type="hidden" class="form-control">
 
 							<div class="modal-body">
 								<p>Select your new profile picture</p>
 								<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
 									<div class="input-group">
-										<input name="file" data-max-size="500" accept="image/*" value="{{ old('file') ?: $user->file}}" type="file" >
+										<input name="file" data-max-size="500" accept="image/*" value="{{ old('file') ?: $subject->file}}" type="file" >
 									</div>
 								</div>
 							</div>
@@ -36,7 +36,7 @@
 			</div><!-- /.modal -->
 
 			<div class="row margin-bottom-20">
-				<img src="{{ asset($user->getPicture()) }}" class=" img-circle profile-picture-large center-block" data-toggle="modal" data-target="#modal-upload" alt="" >
+				<img src="{{ asset($subject->getPicture()) }}" class=" img-circle profile-picture-large center-block" data-toggle="modal" data-target="#modal-upload" alt="" >
 			</div>
 
 			<hr>

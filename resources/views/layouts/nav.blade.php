@@ -22,7 +22,7 @@
 					<a class="dropdown-item" href="{{ url('/admin') }}">Admin</a>
 				@endif
 
-				<a class="dropdown-item" href="{{ url('/user/your-profile') }}">Profile</a>
+				<!-- <a class="dropdown-item" href="{{ url('/user/your-profile') }}">Profile</a> -->
 				<a class="dropdown-item" href="{{ url('/user/your-settings') }}">Settings</a>
 				<a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
 				</div>

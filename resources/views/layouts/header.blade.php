@@ -32,9 +32,9 @@
 <script>
 	function saveCollapseState() {
 		localStorage.setItem('in', $('#header').hasClass('in'));
-		console.log('set state: ' + localStorage.getItem('in'));
 	}
 	jQuery(document).ready(function($) {
+		(localStorage.getItem('in') == 'true') ? $('#header').removeClass('in') : $('#header').addClass('in');
 		var is_touch_device = ("ontouchstart" in window) || window.DocumentTouch && document instanceof DocumentTouch;
 		$('[data-toggle="popover"]').popover();
 		$('#picture').popover({
@@ -44,8 +44,6 @@
             	hide: 100
 		    },
 		});
-		console.log('true == ' + localStorage.getItem('in') + ' is ' + localStorage.getItem('in') == true);
-		localStorage.getItem('in') ? $('#header').addClass('in') : $('#header').removeClass('in');
 	});
 </script>
 @endpush

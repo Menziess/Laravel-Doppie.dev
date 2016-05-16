@@ -22,9 +22,10 @@
 					<a class="dropdown-item" href="{{ url('/admin') }}">Admin</a>
 				@endif
 
+				<a class="dropdown-item" href="{{ url('/user/your-profile') }}">Projects</a>
 				<a class="dropdown-item" href="{{ url('/user/your-settings') }}">Settings</a>
 
-				@if(isset($links))
+				@if(isset($links) && count($links) > 0)
 					<div class="dropdown-divider"></div>
 					@foreach($links as $link)
 						<a class="dropdown-item" href="{{ url($link['href']) }}">{{ $link['title'] }}</a>

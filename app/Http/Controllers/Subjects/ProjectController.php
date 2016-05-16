@@ -42,11 +42,13 @@ class ProjectController extends Controller
 			: '/user/your-profile';
 
 		$project = Project::withTrashed()->findOrFail($id);
+
+		$message = 'Project "' . $project->getName() . '" deleted';
 		$error = $project->deleteAllPrivateData();
 
 		$error
 			? $redirect = redirect($fail)->withErrors(['project' => $error])
-			: $redirect = redirect($success)->with('project', 'Project deleted');
+			: $redirect = redirect($success)->with('project', $message);
 
 		return $redirect;
 	}

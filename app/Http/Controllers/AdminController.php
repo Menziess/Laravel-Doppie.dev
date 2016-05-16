@@ -14,9 +14,9 @@ use App\Http\Requests;
 class AdminController extends Controller
 {
 	const SUBJECTS = [
-		['title' => 'Users', 'href' => 'admin/users', 'text' => ''],
-		['title' => 'Projects', 'href' => 'admin/projects', 'text' => ''],
-		['title' => 'Organizations', 'href' => 'admin/organizations', 'text' => ''],
+		['title' => 'All Users', 'href' => 'admin/users', 'text' => ''],
+		['title' => 'All Projects', 'href' => 'admin/projects', 'text' => ''],
+		['title' => 'All Organizations', 'href' => 'admin/organizations', 'text' => ''],
 	];
 
 	public function getIndex(Request $request)
@@ -47,9 +47,9 @@ class AdminController extends Controller
 	private static function getSubjectLinks($id, $model)
 	{
 		return [
-			['title' => 'Profile', 'href' => '/admin/' . $model . '-profile/' . $id, 'text' => ''],
-			['title' => 'Settings', 'href' => '/admin/' . $model . '-settings/' . $id, 'text' => ''],
-			['title' => 'Subjects', 'href' => '/admin/' . $model . '-subjects/' . $id, 'text' => ''],
+			['title' => ucwords($model) . ' Profile', 'href' => '/admin/' . $model . '-profile/' . $id, 'text' => ''],
+			['title' => ucwords($model) . ' Settings', 'href' => '/admin/' . $model . '-settings/' . $id, 'text' => ''],
+			['title' => ucwords($model) . ' Subjects', 'href' => '/admin/' . $model . '-subjects/' . $id, 'text' => ''],
 		];
 	}
 

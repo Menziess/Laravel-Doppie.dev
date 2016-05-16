@@ -151,7 +151,6 @@ class User extends Authenticatable
 				$project->forceDelete();
 			}
 		}
-
 		# Delete user
 		$this->forceDelete();
 	}

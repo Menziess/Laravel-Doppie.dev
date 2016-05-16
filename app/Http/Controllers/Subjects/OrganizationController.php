@@ -42,11 +42,13 @@ class OrganizationController extends Controller
 			: '/user/your-profile';
 
 		$organization = Organization::withTrashed()->findOrFail($id);
+
+		$message = 'Organization "' . $organization->getName() . '" deleted';
 		$error = $organization->deleteAllPrivateData();
 
 		$error
 			? $redirect = redirect($fail)->withErrors(['organization' => $error])
-			: $redirect = redirect($success)->with('organization', 'Organization deleted');
+			: $redirect = redirect($success)->with('organization', $message);
 
 		return $redirect;
 	}

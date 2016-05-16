@@ -4,9 +4,14 @@
 
 @if(isset($users))
 <div id="users" class="card">
-	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Users</h4>
+		@if (Session::has('user'))
+			<div class="alert alert-success" role="alert">
+				{{ Session::get('user') }}
+			</div>
+		@endif
+
 		@if($users->count() > 0)
 
 		<table class="table table-hover table-large text-small text-xs-left">
@@ -45,12 +50,6 @@
 
 		{!! $users !!}
 
-		@if (Session::has('users'))
-			<div class="alert alert-success" role="alert">
-				{{ Session::get('users') }}
-			</div>
-		@endif
-
 		@else
 		No users found...
 		@endif
@@ -62,9 +61,14 @@
 
 @if(isset($projects))
 <div id="projects" class="card">
-	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Projects</h4>
+		@if (Session::has('project'))
+			<div class="alert alert-success" role="alert">
+				{{ Session::get('project') }}
+			</div>
+		@endif
+
 		@if($projects->count() > 0)
 
 		<table class="table table-hover table-large text-small text-xs-left">
@@ -100,12 +104,6 @@
 
 		{!! $projects !!}
 
-		@if (Session::has('project'))
-			<div class="alert alert-success" role="alert">
-				{{ Session::get('project') }}
-			</div>
-		@endif
-
 		@else
 		No projects found...
 		@endif
@@ -116,9 +114,14 @@
 
 @if(isset($organizations))
 <div id="organizations" class="card">
-	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Organizations</h4>
+		@if (Session::has('organization'))
+			<div class="alert alert-success" role="alert">
+				{{ Session::get('organization') }}
+			</div>
+		@endif
+
 		@if($organizations->count() > 0)
 
 		<table class="table table-hover table-large text-small text-xs-left">
@@ -153,12 +156,6 @@
 		</table>
 
 		{!! $organizations !!}
-
-		@if (Session::has('organizations'))
-			<div class="alert alert-success" role="alert">
-				{{ Session::get('organizations') }}
-			</div>
-		@endif
 
 		@else
 		No organizations found...

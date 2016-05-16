@@ -15,8 +15,7 @@ use App\Http\Requests;
 class UserController extends Controller
 {
 	const LINKS = [
-		['title' => 'Profile', 'href' => '/user/your-profile', 'text' => ''],
-		['title' => 'Subjects', 'href' => '/user/your-subjects/', 'text' => ''],
+		// ['title' => 'Projects', 'href' => '/user/your-profile', 'text' => ''],
 	];
 
 	public function getIndex()
@@ -160,12 +159,27 @@ class UserController extends Controller
 
 	public function deleteDelete($id)
 	{
-		if ((Auth::user()->getKey() == $id) || Auth::user()->is_admin) {
-			$user = User::withTrashed()->find($id);
-			if ($user) {
-				$user->deleteAllPrivateData();
-			}
+		$editorIsAdmin = Auth::user()->is_admin;
+		if (!$editorIsAdmin && !Auth::user()->id == $id) {
+			abort(403);
 		}
-		return redirect('admin');
+
+		$fail = $editorIsAdmin
+			? '/admin/user-settings/'. $id . '#delete'
+			: '/user/your-settings' . '#delete';
+		$success = $editorIsAdmin
+			? '/admin' . '#users'
+			: '/user/your-settings';
+
+		$user = User::withTrashed()->findOrFail($id);
+
+		$message = 'User "' . $user->getName() . '" deleted';
+		$error = $user->deleteAllPrivateData();
+
+		$error
+			? $redirect = redirect($fail)->withErrors(['user' => $error])
+			: $redirect = redirect($success)->with('user', $message);
+
+		return $redirect;
 	}
 }

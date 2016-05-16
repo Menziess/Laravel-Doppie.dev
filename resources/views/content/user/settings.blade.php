@@ -2,6 +2,7 @@
 
 @section('content')
 
+<div class="container">
 
 	@if($subject && $subject->profile)
 
@@ -26,5 +27,6 @@
 
 	@endif
 
+</div>
 
 @endsection

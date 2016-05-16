@@ -131,7 +131,7 @@ class Organization extends Model
 	 */
 	public function deleteAllPrivateData()
 	{
-		if ($this->users->count() > 0 || $this->projects->count() > 0) {
+		if ($this->users->count() > 1 || $this->projects->count() > 1) {
 			return 'Cannot delete organization because it has other users or projects.';
 		} else {
 			# Delete additional private data

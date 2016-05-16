@@ -21,9 +21,7 @@
 				<div class="row row-centered">
 
 					<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
-					<a href="{{ url('/register') }}" class="over round">
 						<img id="picture" src="{{ asset('img/landing.gif') }}" class="img-circle profile-picture-small" alt="" href="#" data-content="" rel="popover" data-placement="right" data-original-title="" data-trigger="hover">
-					</a>
 					</div>
 
 					<div class="col-xs-18 col-sm-6 col-md-6 col-lg-6 col-centered">

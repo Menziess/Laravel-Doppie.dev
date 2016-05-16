@@ -14,10 +14,6 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
-	const LINKS = [
-		// ['title' => 'Projects', 'href' => '/user/your-profile', 'text' => ''],
-	];
-
 	public function getIndex()
 	{
 		return redirect('user/your-profile');
@@ -26,21 +22,23 @@ class UserController extends Controller
 	public function getYourSettings()
 	{
 		$subject = Auth::user();
-		$links = self::LINKS;
+		$links = [];
 		return view('content.user.settings', compact('links', 'subject'));
 	}
 
 	public function getYourProfile()
 	{
 		$subject = Auth::user();
-		$links = self::LINKS;
+		$links = [
+			['title' => 'New Project', 'href' => 'project', 'text' => '']
+		];
 		return view('content.user.profile', compact('links', 'subject'));
 	}
 
 	public function getYourSubjects()
 	{
 		$subject = Auth::user();
-		$links = self::LINKS;
+		$links = [];
 		return view('content.user.subjects', compact('links', 'subject'));
 	}
 

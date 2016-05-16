@@ -2,6 +2,8 @@
 
 @section('content')
 
+<div class="container">
+
 	@if($subject)
 
 		<div class="card">
@@ -14,5 +16,7 @@
 			</div>
 		</div>
 	@endif
+
+</div>
 
 @endsection

@@ -2,6 +2,8 @@
 
 @section('content')
 
+<div class="container">
+
 	@if($subject->projects)
 	<div id="projects" class="card">
 		<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
@@ -94,14 +96,16 @@
 	</div>
 	@endif
 
-	@push('scripts')
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$(".clickable-row").click(function() {
-				window.document.location = $(this).data("href");
-			});
+</div>
+
+@push('scripts')
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".clickable-row").click(function() {
+			window.document.location = $(this).data("href");
 		});
-	</script>
-	@endpush
+	});
+</script>
+@endpush
 
 @endsection

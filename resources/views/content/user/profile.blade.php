@@ -3,6 +3,8 @@
 
 @section('content')
 
+<div class="container">
+
 	@if($subject->projects)
 
 		@foreach($subject->projects as $project)
@@ -43,5 +45,7 @@
 		@endforeach
 
 	@endif
+
+</div>
 
 @endsection

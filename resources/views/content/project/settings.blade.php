@@ -2,6 +2,7 @@
 
 @section('content')
 
+<div class="container">
 
 	@if(Auth::user()->is_admin)
 
@@ -13,5 +14,6 @@
 
 	@endif
 
+</div>
 
 @endsection

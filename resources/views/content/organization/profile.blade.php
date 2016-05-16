@@ -2,6 +2,7 @@
 
 @section('content')
 
+<div class="container">
 
 	@if($subject)
 
@@ -17,5 +18,6 @@
 
 	@endif
 
+</div>
 
 @endsection

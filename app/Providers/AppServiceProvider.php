@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
             $user->projects()->create([
                 'name' => 'Bucketlist',
                 'header' => 'Here comes a list of things that I\'m about to achieve in my life!',
+                'user_id' => $user->id,
             ]);
         });
 
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
             $organization->projects()->create([
                 'name' => 'Setting up my organization',
                 'header' => 'Rolin\' rolin\' rolin\'...',
+                'organization_id' => $organization->id,
             ]);
         });
     }

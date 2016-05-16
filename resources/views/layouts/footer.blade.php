@@ -1,8 +1,7 @@
 <div class="container">
 
-	<div class"row row-centered">
+	<div class="row row-centered">
 
-		Footer
 
 	</div>
 

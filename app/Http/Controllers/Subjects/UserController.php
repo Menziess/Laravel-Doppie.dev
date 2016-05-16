@@ -16,7 +16,6 @@ class UserController extends Controller
 {
 	const LINKS = [
 		['title' => 'Profile', 'href' => '/user/your-profile', 'text' => ''],
-		['title' => 'Settings', 'href' => '/user/your-settings/', 'text' => ''],
 		['title' => 'Subjects', 'href' => '/user/your-subjects/', 'text' => ''],
 	];
 

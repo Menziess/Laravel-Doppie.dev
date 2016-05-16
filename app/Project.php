@@ -146,7 +146,7 @@ class Project extends Model
 	 */
 	public function deleteAllPrivateData()
 	{
-		if ($this->users->count() > 0 || $this->organizations->count() > 0) {
+		if ($this->users->count() > 1 || $this->organizations->count() > 1) {
 			return 'Cannot delete project because it has other users or organizations.';
 		} else {
 			# Delete additional private data

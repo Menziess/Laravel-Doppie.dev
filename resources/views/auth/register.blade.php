@@ -2,31 +2,28 @@
 
 @section('content')
 
-<div class="jumbotron jumbotron-fluid bg-faded">
+<div class="container">
 
-	<div class="container">
+	<div class="div-centered-large">
+		<h1 class="display-3 hidden-xs-down padding-top">Welcome aboard!</h1>
+		<h1 class="display-4 hidden-sm-up padding-top">Welcome aboard!</h1>
+	</div>
 
-	<h1 class="display-4">Welcome aboard!</h1>
+	<br />
 
-		<div class="col-md-6 col-md-offset-3 col-centered padding-top">
-
-			<p class="text-xs-center">
-				Register with Facebook:
-			</p>
+	<div class="row margin-top">
+		<div class="col-md-6 col-md-offset-3 col-centered">
 			<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
 				Continue with Facebook
 			</a>
 			<p class="text-xs-center padding-top">
 				<i class="fa fa-info-circle"></i> We won't post anything on Facebook
 			</p>
+		</div>
+	</div>
 
-
-			<hr>
-
-
-			<p class="text-xs-center">
-				Register your account:
-			</p>
+	<div class="row margin-top">
+		<div class="col-md-6 col-md-offset-3 col-centered">
 			<form id="form" class="form-horizontal" method="POST" action="{{ url('/register') }}">
 				{!! csrf_field() !!}
 
@@ -72,7 +69,7 @@
 				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon4">Pass</span>
-						<input name="password" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon4">
+						<input name="password" type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon4">
 					</div>
 
 					@if ($errors->has('password'))
@@ -85,9 +82,9 @@
 				<div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon5">Pass</span>
-						<input name="password_confirmation" type="password" class="form-control" placeholder="password" aria-describedby="basic-addon5">
+						<input name="password_confirmation" type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon5">
 						<span class="input-group-btn">
-							<button class="btn btn-primary" type="submit">Go</button>
+							<button class="btn btn-success" type="submit">Go</button>
 						</span>
 					</div>
 
@@ -102,18 +99,12 @@
 			<p class="text-xs-center">
 				<a class="btn btn-link" href="{{ url('/terms') }}">Terms and conditions</a>
 			</p>
-
-
-			<hr>
-
-
-
-			<a href="{{ url('/login') }}" class="btn btn-secondary btn-block">
-				Back to Login
-			</a>
-
 		</div>
 	</div>
+
+	<div class="margin-top">
+	</div>
+
 </div>
 
 @endsection

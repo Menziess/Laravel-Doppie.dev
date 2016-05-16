@@ -5,7 +5,7 @@
 }
 
 .card {
-	box-shadow: 0px 0px 50px #888888;
+	box-shadow: 0px 0px 100px #888888;
 }
 
 .card-img-top {
@@ -107,9 +107,18 @@ input[type=date]::-webkit-inner-spin-button {
     display: none;
 }
 
-ul {
+ul.no-dots {
     list-style-type: none;
     -webkit-transform:translateX(-2em);
+}
+
+hr.styled {
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
 }
 
 /* Pagination styling */

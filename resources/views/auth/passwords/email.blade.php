@@ -3,7 +3,12 @@
 
 @section('content')
 
-<h1 class="display-4">Restore password</h1>
+<div class="div-centered-large">
+	<h1 class="display-3 padding-top">Restore password</h1>
+</div>
+
+<hr class="styled" />
+<br />
 
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
@@ -25,8 +30,7 @@
 							<span class="input-group-addon" id="basic-addon1">@</span>
 							<input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" value="{{ old('email') }}">
 						<span class="input-group-btn">
-							<!-- <button class="btn btn-primary" type="submit">Send!</button> -->
-							<button class="btn btn-primary" type="button">Send!</button>
+							<button class="btn btn-success" type="button">Send!</button>
 						</span>
 						</div>
 

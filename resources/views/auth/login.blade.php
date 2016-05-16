@@ -2,34 +2,28 @@
 
 @section('content')
 
-<div class="jumbotron jumbotron-fluid bg-faded">
+<div class="container">
 
-	<div class="container">
+	<div class="div-centered-large">
+		<h1 class="display-3 hidden-xs-down padding-top">Well hello there!</h1>
+		<h1 class="display-4 hidden-sm-up padding-top">Well hello there!</h1>
+	</div>
 
-	<h1 class="display-4">Well hello there!</h1>
+	<br />
 
-		<div class="col-md-6 col-md-offset-3 col-centered padding-top">
-
-			<p class="text-xs-center">
-				Login with Facebook:
-			</p>
-
+	<div class="row margin-top">
+		<div class="col-md-6 col-md-offset-3 col-centered">
 			<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
 				Continue with Facebook
 			</a>
-
 			<p class="text-xs-center padding-top">
 				<i class="fa fa-info-circle"></i> We won't post anything on Facebook
 			</p>
+		</div>
+	</div>
 
-
-			<hr/>
-
-
-			<p class="text-xs-center">
-				Login with email and password:
-			</p>
-
+	<div class="row margin-top">
+		<div class="col-md-6 col-md-offset-3 col-centered">
 			<form id="form" class="form-horizontal" method="POST" action="{{ url('/login') }}">
 				{!! csrf_field() !!}
 
@@ -54,7 +48,7 @@
 						<span class="input-group-addon" id="basic-addon2">Pass</span>
 						<input name="password" type="password" class="form-control" aria-describedby="basic-addon2">
 						<span class="input-group-btn">
-							<button class="btn btn-primary" type="submit">Login</button>
+							<button class="btn btn-success" type="submit">Login</button>
 						</span>
 					</div>
 
@@ -73,20 +67,21 @@
 			<p class="text-xs-center">
 				<a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
 			</p>
-
-
-			<hr>
-
-
-			<a href="{{ url('/register') }}" class="btn btn-secondary btn-block">
-				Register
-			</a>
-
-
 		</div>
+	</div>
 
+	<hr class="styled" />
+
+	<div class="row margin-top">
+		<a href="{{ url('/register') }}" class="btn btn-secondary margin-top">
+			Register
+		</a>
+	</div>
+
+	<div class="margin-top">
 	</div>
 
 </div>
+
 
 @endsection

@@ -16,20 +16,6 @@
 			</div>
 
 			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
-				<div class="dropdown pull-right padding-top">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-btn fa-cog"></i>Navigate
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						@if(isset($links))
-							@foreach($links as $link)
-								<a class="dropdown-item" href="{{ url($link['href']) }}">{{ $link['title'] }}</a>
-							@endforeach
-						@else
-							<a class="dropdown-item" href="#">Sorry.. no contextual links</a>
-						@endif
-					</div>
-				</div>
 			</div>
 
 		</div>
@@ -37,14 +23,17 @@
 </div>
 
 <div id="progress" class="padding-top div-centered-large">
-	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header">
+	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header" onClick="saveCollapseState()">
 	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="100"></progress>
 	</a>
 </div>
 
-
 @push('scripts')
 <script>
+	function saveCollapseState() {
+		localStorage.setItem('in', $('#header').hasClass('in'));
+		console.log('set state: ' + localStorage.getItem('in'));
+	}
 	jQuery(document).ready(function($) {
 		var is_touch_device = ("ontouchstart" in window) || window.DocumentTouch && document instanceof DocumentTouch;
 		$('[data-toggle="popover"]').popover();
@@ -55,9 +44,8 @@
             	hide: 100
 		    },
 		});
-		if (!is_touch_device && !$('#header').hasClass('in')) {
-			$('#header').addClass('in');
-		}
+		console.log('true == ' + localStorage.getItem('in') + ' is ' + localStorage.getItem('in') == true);
+		localStorage.getItem('in') ? $('#header').addClass('in') : $('#header').removeClass('in');
 	});
 </script>
 @endpush

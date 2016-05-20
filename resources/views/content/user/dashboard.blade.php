@@ -7,8 +7,14 @@
 
 	@if($subject->users)
 
-		@foreach($subject->users as $user)
-			{{ $user->getName() . ' ' . $user->pivot->type }}<br/>
+		Followers:
+		@foreach($subject->followers as $follower)
+			{{ $follower->getName() . ' ' . $follower->pivot->type }}<br/>
+		@endforeach
+
+		Donators:
+		@foreach($subject->donators as $donator)
+			{{ $donator->getName() . ' ' . $donator->pivot->type }}<br/>
 		@endforeach
 
 	@endif

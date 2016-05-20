@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
 	use SoftDeletes;
 
+	const USER_FOLLOWER = 1;
+	const USER_DONATOR = 2;
+
 	/**
 	 * The table associated with the model.
 	 *
@@ -62,11 +65,24 @@ class User extends Authenticatable
 		return $this->hasMany(Resource::class);
 	}
 
-	# User relation
+	# Users relation
 	public function users()
 	{
+		return $this->belongsToMany(User::class);
+	}
+
+	# Followers relation
+	public function followers()
+	{
 		return $this->belongsToMany(User::class, 'user_user', 'user_id', 'related_id')
-			->withPivot('type');;
+			->wherePivot('type', self::USER_FOLLOWER)->withPivot('type');
+	}
+
+	# Donators relation
+	public function donators()
+	{
+		return $this->belongsToMany(User::class, 'user_user', 'user_id', 'related_id')
+			->wherePivot('type', self::USER_DONATOR)->withPivot('type');
 	}
 
 	# Project relation

@@ -29,7 +29,7 @@
 					<div class="dropdown-divider"></div>
 				@endif
 
-				<a class="dropdown-item" href="{{ url('/user/your-profile') }}">Projects</a>
+				<a class="dropdown-item" href="{{ url('/user/your-profile') }}">Profile</a>
 				<a class="dropdown-item" href="{{ url('/user/your-settings') }}">Settings</a>
 				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>

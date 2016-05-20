@@ -14,11 +14,17 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
+	/*
+	 * Redirect to own profile.
+	 */
 	public function getIndex()
 	{
 		return redirect('user/your-profile');
 	}
 
+	/*
+	 * Get own settings.
+	 */
 	public function getYourSettings()
 	{
 		$subject = Auth::user();
@@ -26,15 +32,21 @@ class UserController extends Controller
 		return view('content.user.settings', compact('links', 'subject'));
 	}
 
+	/*
+	 * Get own profile.
+	 */
 	public function getYourProfile()
 	{
 		$subject = Auth::user();
 		$links = [
 			['title' => 'New Project', 'href' => 'project', 'text' => '']
 		];
-		return view('content.user.profile', compact('links', 'subject'));
+		return view('content.user.dashboard', compact('links', 'subject'));
 	}
 
+	/*
+	 * Get own subjects.
+	 */
 	public function getYourSubjects()
 	{
 		$subject = Auth::user();
@@ -42,6 +54,9 @@ class UserController extends Controller
 		return view('content.user.subjects', compact('links', 'subject'));
 	}
 
+	/*
+	 * Get some profile by id.
+ 	 */
 	public function getProfile($id)
 	{
 		# Check if user is visiting own profile
@@ -54,6 +69,9 @@ class UserController extends Controller
 		return view('content.user.profile', compact('subject', 'user'));
 	}
 
+	/*
+	 * Post a new profile picture.
+	 */
 	public function postPicture(Request $request)
 	{
 		$validator = \Validator::make($request->all(), [
@@ -90,6 +108,9 @@ class UserController extends Controller
 		return redirect($path)->with('picture', 'Updated profile picture');
 	}
 
+	/*
+	 * Update password.
+	 */
 	public function putPassword(Request $request)
 	{
 		$validator = \Validator::make($request->all(), [
@@ -115,6 +136,9 @@ class UserController extends Controller
 		return redirect($path)->with('password', 'Password set');
 	}
 
+	/*
+	 * Update profile information.
+	 */
 	public function putProfile(Request $request)
 	{
 		$validator = \Validator::make($request->all(), [
@@ -155,6 +179,9 @@ class UserController extends Controller
 		return redirect($path)->with('profile', 'Profile updated');
 	}
 
+	/*
+	 * Delete user.
+	 */
 	public function deleteDelete($id)
 	{
 		$editorIsAdmin = Auth::user()->is_admin;

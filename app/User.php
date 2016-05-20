@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
 	use SoftDeletes;
 
+	const USER_FOLLOWER = 1;
+	const USER_DONATOR = 2;
+
 	/**
 	 * The table associated with the model.
 	 *
@@ -40,7 +43,9 @@ class User extends Authenticatable
 	 *
 	 * @var array
 	 */
-	protected $dates = ['deleted_at'];
+	protected $dates = [
+		'deleted_at',
+	];
 
 	# Profile relation
 	public function profile()
@@ -60,6 +65,26 @@ class User extends Authenticatable
 		return $this->hasMany(Resource::class);
 	}
 
+	# Users relation
+	public function users()
+	{
+		return $this->belongsToMany(User::class);
+	}
+
+	# Followers relation
+	public function followers()
+	{
+		return $this->belongsToMany(User::class, 'user_user', 'user_id', 'related_id')
+			->wherePivot('type', self::USER_FOLLOWER)->withPivot('type');
+	}
+
+	# Donators relation
+	public function donators()
+	{
+		return $this->belongsToMany(User::class, 'user_user', 'user_id', 'related_id')
+			->wherePivot('type', self::USER_DONATOR)->withPivot('type');
+	}
+
 	# Project relation
 	public function projects()
 	{
@@ -69,22 +94,28 @@ class User extends Authenticatable
     # The organizations that belong to the user.
     public function organizations()
     {
-        return $this->hasMany(Organization::class);
+        return $this->belongsToMany(Organization::class);
     }
 
-	# Get first and last name
+	/*
+	 * Gets users full name.
+	 */
 	public function getName()
 	{
 		return $this->first_name . ' ' . $this->last_name;
 	}
 
-	# Get amount of xp aquired
+	/*
+	 * Gets total amount of xp.
+	 */
 	public function getXp()
 	{
 		return $this->xp;
 	}
 
-	# Get profile picture
+	/*
+	 * Gets profile picture.
+	 */
 	public function getPicture()
 	{
 		return $this->profile->resource
@@ -92,7 +123,9 @@ class User extends Authenticatable
 			: 'img/placeholder.jpg';
 	}
 
-	# Get link to profile
+	/*
+	 * Gets public profile url.
+	 */
 	public function getProfileUrl()
 	{
 		$url = Auth::user()->is_admin ? '/admin/user-profile/' . $this->getKey() : '/user/profile/' . $this->getKey();

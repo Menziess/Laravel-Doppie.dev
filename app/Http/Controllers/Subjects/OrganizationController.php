@@ -11,22 +11,34 @@ use App\Http\Requests;
 
 class OrganizationController extends Controller
 {
+	/*
+	 * Get organization creation form.
+	 */
 	public function getIndex()
 	{
 		return 'Make new organization';
 	}
 
+	/*
+	 * Post organization creation form.
+	 */
 	public function postIndex()
 	{
 
 	}
 
+	/*
+	 * Get the organizations profile by id.
+	 */
 	public function getProfile($id)
 	{
 		$subject = Organization::findOrFail($id);
 		return view('content.organization.profile', compact('subject'));
 	}
 
+	/*
+	 * Delete organization.
+	 */
 	public function deleteDelete($id)
 	{
 		$editorIsAdmin = Auth::user()->is_admin;

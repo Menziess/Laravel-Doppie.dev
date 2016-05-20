@@ -11,16 +11,25 @@ use App\Http\Requests;
 
 class ProjectController extends Controller
 {
+	/*
+	 * Get project creation form.
+	 */
 	public function getIndex()
 	{
 		return 'Make new project';
 	}
 
+	/*
+	 * Post project creation form.
+	 */
 	public function postIndex()
 	{
 
 	}
 
+	/*
+	 * Get project profile by id.
+	 */
 	public function getProfile($id)
 	{
 		$subject = Project::findOrFail($id);
@@ -28,6 +37,9 @@ class ProjectController extends Controller
 		return view('content.project.profile', compact('links', 'subject'));
 	}
 
+	/*
+	 * Delete project.
+	 */
 	public function deleteDelete($id)
 	{
 		$editorIsAdmin = Auth::user()->is_admin;

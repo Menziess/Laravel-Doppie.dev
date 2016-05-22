@@ -4,7 +4,6 @@ html {
     overflow-x:hidden;
 }
 
-/* For tables */
 .text-small {
 	font-size: 80%;
 }
@@ -12,6 +11,10 @@ html {
 .shadow {
 	/*box-shadow: 0px 0px 50px #888888;*/
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card {
+	text-align:center;
 }
 
 .card-img-top {
@@ -24,6 +27,10 @@ html {
 	font-size: 36px;
 	line-height: 1.25;
 	margin-top: 0;
+}
+
+.spacer {
+    margin-top: 2em;
 }
 
 .unselectable {
@@ -46,8 +53,6 @@ html {
 
 .profile-picture-large {
 	margin: 5px;
-	/*border: 1px solid #ccc;*/
-	/*float: left;*/
 	max-width: 250px;
 	display: flex;
 	}
@@ -56,23 +61,14 @@ html {
 	}
 
 .row {
-	margin-top: 10px;
-	/*margin-bottom: 10px;*/
+	margin-top: 1em;
 	text-align:center;
 }
 
-/* centered columns styles */
-.row-centered {
-	text-align:center;
-}
-
-.col-centered {
+.left {
 	display:inline-block;
 	float:none;
-	/* reset the text-align */
 	text-align:left;
-	/* inline-block space fix */
-	/*margin-right:-4px;*/
 	margin:0 auto;
 }
 
@@ -86,26 +82,9 @@ html {
 	width: 40%;
 }
 
-.div-centered {
-	margin: auto;
-}
-
-.margin-top {
-	margin-top: 2em;
-}
-
-.padding {
+.nav-padding {
 	padding-left: 3px;
 	padding-right: 3px;
-}
-
-.padding-top {
-	padding-top: 13px;
-	padding-bottom: 13px;
-}
-
-.padding-bottom {
-	padding-bottom: 5px;
 }
 
 input[type=date]::-webkit-inner-spin-button {
@@ -116,15 +95,6 @@ input[type=date]::-webkit-inner-spin-button {
 ul.no-dots {
     list-style-type: none;
     -webkit-transform:translateX(-2em);
-}
-
-hr.styled {
-    border: 0;
-    height: 1px;
-    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
 }
 
 /* Pagination styling */

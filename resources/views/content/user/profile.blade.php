@@ -16,15 +16,15 @@
 
 			<div id="project{{ $project->id }}" class="collapse">
 				<div class="card-block">
-					<div class="row row-centered">
+					<div class="row">
 
-						<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
+						<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
 						<a href="{{ url($project->getProfileUrl()) }}" class="over round">
 							<img id="picture" src="{{ asset($project->getPicture()) }}" class="img-circle profile-picture-small" alt="" href="#" data-content="" rel="popover" data-placement="right" data-original-title="" data-trigger="hover">
 						</a>
 						</div>
 
-						<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
+						<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
 						<h4 class="card-title">{{ $project->getName() }}</h4>
 						<p class="card-body">{{ $project->header }}</p>
 						</div>
@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="card-footer">
-				<div id="progress" class="padding-top div-centered-large">
+				<div id="progress" class="p-t-2 div-centered-large">
 					<a data-toggle="collapse" href="#project{{ $project->id }}" aria-expanded="false" aria-controls="header">
 					<progress class="progress progress-success" value="{{ $project->getXp() }}" max="100"></progress>
 					</a>

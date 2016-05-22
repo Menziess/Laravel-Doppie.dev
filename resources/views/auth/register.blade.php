@@ -3,27 +3,28 @@
 @section('content')
 
 <div class="container">
-
-	<div class="div-centered-large">
-		<h1 class="display-3 hidden-xs-down padding-top">Welcome aboard!</h1>
-		<h1 class="display-4 hidden-sm-up padding-top">Welcome aboard!</h1>
+	<div class="row">
+		<div class="div-centered-large">
+			<h1 class="display-3 hidden-sm-down p-y-2">Welcome aboard!</h1>
+			<h3 class="hidden-md-up spacer">Welcome aboard!</h3>
+		</div>
 	</div>
 
 	<br />
 
-	<div class="row margin-top">
-		<div class="col-md-6 col-md-offset-3 col-centered">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
 			<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
 				Continue with Facebook
 			</a>
-			<p class="text-xs-center padding-top">
+			<p class="text-xs-center p-t-2">
 				<i class="fa fa-info-circle"></i> We won't post anything on Facebook
 			</p>
 		</div>
 	</div>
 
-	<div class="row margin-top">
-		<div class="col-md-6 col-md-offset-3 col-centered">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
 			<form id="form" class="form-horizontal" method="POST" action="{{ url('/register') }}">
 				{!! csrf_field() !!}
 
@@ -54,7 +55,7 @@
 				</div>
 
 				<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-					<div class="input-group padding-top">
+					<div class="input-group p-t-2">
 						<span class="input-group-addon" id="basic-addon3">@</span>
 						<input name="email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon3" value="{{ old('email') }}">
 					</div>
@@ -101,10 +102,6 @@
 			</p>
 		</div>
 	</div>
-
-	<div class="margin-top">
-	</div>
-
 </div>
 
 @endsection

@@ -6,7 +6,6 @@
 
 	@if($subject->projects)
 	<div id="projects" class="card">
-		<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 		<div class="card-block">
 			<h4 class="card-title">Projects</h4>
 			@if($subject->projects->count() > 0)
@@ -52,7 +51,6 @@
 
 	@if($subject->organizations)
 	<div id="organizations" class="card">
-		<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 		<div class="card-block">
 			<h4 class="card-title">Organizations</h4>
 			@if($subject->organizations->count() > 0)

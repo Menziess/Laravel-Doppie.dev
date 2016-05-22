@@ -27,9 +27,7 @@ class HomeController extends Controller
 	public function getIndex()
 	{
 		$subject = Auth::user();
-		$links = [
-			['title' => 'New Project', 'href' => 'project', 'text' => '']
-		];
+		$links = [];
 		return view('home', compact('links', 'subject'));
 	}
 }

@@ -2,27 +2,22 @@
 
 <div id="header" class="collapse">
 	<div class="container fluid">
-		<div class="row row-centered">
-
-			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
+		<div class="row">
+			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
 			<a href="{{ url($subject->getProfileUrl()) }}" class="over round">
 				<img id="picture" src="{{ asset($subject->getPicture()) }}" class="img-circle profile-picture-small" alt="" href="#" data-content="" rel="popover" data-placement="right" data-original-title="" data-trigger="hover">
 			</a>
 			</div>
 
-			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
+			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
 			<h4 class="card-title">{{ $subject->getName() }}</h4>
 			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 			</div>
-
-			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 col-centered">
-			</div>
-
 		</div>
 	</div>
 </div>
 
-<div id="progress" class="padding-top div-centered-large">
+<div id="progress" class="p-t-1 div-centered-large">
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header" onClick="saveCollapseState()">
 	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="100"></progress>
 	</a>

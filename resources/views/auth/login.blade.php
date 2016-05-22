@@ -3,16 +3,17 @@
 @section('content')
 
 <div class="container">
-
-	<div class="div-centered-large">
-		<h1 class="display-3 hidden-xs-down padding-top">Well hello there!</h1>
-		<h1 class="display-4 hidden-sm-up padding-top">Well hello there!</h1>
+	<div class="row">
+		<div class="div-centered-large">
+			<h1 class="display-3 hidden-sm-down p-y-2">Well hello there!</h1>
+			<h3 class="hidden-md-up spacer">Well hello there!</h3>
+		</div>
 	</div>
 
 	<br />
 
-	<div class="row margin-top">
-		<div class="col-md-6 col-md-offset-3 col-centered">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
 			<a href="{{ url('/facebook/fbredirect') }}" class="btn btn-social btn-facebook btn-block">
 				Continue with Facebook
 			</a>
@@ -22,8 +23,8 @@
 		</div>
 	</div>
 
-	<div class="row margin-top">
-		<div class="col-md-6 col-md-offset-3 col-centered">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
 			<form id="form" class="form-horizontal" method="POST" action="{{ url('/login') }}">
 				{!! csrf_field() !!}
 
@@ -70,15 +71,15 @@
 		</div>
 	</div>
 
-	<hr class="styled" />
+	<hr />
 
-	<div class="row margin-top">
-		<a href="{{ url('/register') }}" class="btn btn-secondary margin-top">
+	<div class="row m-t-3">
+		<a href="{{ url('/register') }}" class="btn btn-secondary m-t-3">
 			Register
 		</a>
 	</div>
 
-	<div class="margin-top">
+	<div class="m-t-3">
 	</div>
 
 </div>

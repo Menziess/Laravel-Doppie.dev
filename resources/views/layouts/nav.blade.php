@@ -6,13 +6,13 @@
 
 		@if (Auth::guest())
 
-			<div class="padding pull-xs-right">
+			<div class="nav-padding pull-xs-right">
 				<a href="{{ url('login') }}" class="btn btn-secondary-outline">Login</a>
 			</div>
 
 		@else
 
-			<div class="dropdown padding nav-item pull-right">
+			<div class="dropdown nav-padding nav-item pull-right">
 				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				{{ Auth::user()->first_name }}
 				</button>

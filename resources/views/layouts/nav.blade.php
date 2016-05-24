@@ -22,6 +22,10 @@
 					<a class="dropdown-item" href="{{ url('/admin') }}">Admin</a>
 				@endif
 
+				<a class="dropdown-item" href="{{ url('/user/your-profile') }}">Profile</a>
+				<a class="dropdown-item" href="{{ url('/user/your-settings') }}">Settings</a>
+				<div class="dropdown-divider"></div>
+
 				@if(isset($links) && count($links) > 0)
 					@foreach($links as $link)
 						<a class="dropdown-item" href="{{ url($link['href']) }}">{{ $link['title'] }}</a>
@@ -29,9 +33,6 @@
 					<div class="dropdown-divider"></div>
 				@endif
 
-				<a class="dropdown-item" href="{{ url('/user/your-profile') }}">Profile</a>
-				<a class="dropdown-item" href="{{ url('/user/your-settings') }}">Settings</a>
-				<div class="dropdown-divider"></div>
 				<a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
 
 				</div>

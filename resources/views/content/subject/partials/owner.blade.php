@@ -14,7 +14,7 @@
 
 			@else
 
-			This organization doesn't have a owner.
+			This {{ $subject->getModel() }} doesn't have a owner.
 			@endif
 
 		</div>

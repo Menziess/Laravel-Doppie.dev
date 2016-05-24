@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
 	use SoftDeletes;
 
+	const MODEL = 'user';
+
 	const USER_FOLLOWER = 1;
 	const USER_DONATOR = 2;
 
@@ -103,6 +105,14 @@ class User extends Authenticatable
 	public function getName()
 	{
 		return $this->first_name . ' ' . $this->last_name;
+	}
+
+	/*
+	 * Get model.
+	 */
+	public function getModel()
+	{
+		return self::MODEL;
 	}
 
 	/*

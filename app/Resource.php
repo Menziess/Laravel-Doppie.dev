@@ -11,6 +11,8 @@ class Resource extends Model
 {
 	use SoftDeletes;
 
+	const MODEL = 'resource';
+
 	/**
 	 * The table associated with the model.
 	 *

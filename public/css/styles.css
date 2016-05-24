@@ -4,6 +4,20 @@ html {
     overflow-x:hidden;
 }
 
+table {
+	table-layout: fixed;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+ul.no-dots {
+    list-style-type: none;
+    -webkit-transform:translateX(-2em);
+}
+
 .text-small {
 	font-size: 80%;
 }
@@ -85,16 +99,6 @@ html {
 .nav-padding {
 	padding-left: 3px;
 	padding-right: 3px;
-}
-
-input[type=date]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    display: none;
-}
-
-ul.no-dots {
-    list-style-type: none;
-    -webkit-transform:translateX(-2em);
 }
 
 /* Pagination styling */

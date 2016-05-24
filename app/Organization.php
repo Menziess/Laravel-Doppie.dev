@@ -10,6 +10,7 @@ class Organization extends Model
 {
 	use SoftDeletes;
 
+	const MODEL = 'organization';
 	/**
 	 * The table associated with the model.
 	 *
@@ -70,6 +71,12 @@ class Organization extends Model
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	# Get model
+	public function getModel()
+	{
+		return self::MODEL;
 	}
 
 	# Get amount of xp aquired

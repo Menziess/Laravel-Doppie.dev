@@ -31,9 +31,9 @@
 								<button type="submit" class="btn btn-primary-outline" name="submit">Save</button>
 							</div>
 						</form>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
+					</div>
+				</div>
+			</div>
 
 			<div class="row margin-bottom-20">
 				<img src="{{ asset($subject->getPicture()) }}" class=" img-circle profile-picture-large center-block" data-toggle="modal" data-target="#modal-upload" alt="" >

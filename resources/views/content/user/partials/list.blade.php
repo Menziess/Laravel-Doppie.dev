@@ -1,9 +1,8 @@
-@if($subject->users)
+@if($users)
 <div id="users" class="card">
-	<!-- <img class="card-img-top" data-src="..." alt="Card image cap"> -->
 	<div class="card-block">
 		<h4 class="card-title">Users</h4>
-		@if($subject->users->count() > 0)
+		@if($users->count() > 0)
 
 		<table class="table table-hover table-large text-small text-xs-left">
 			<thead>
@@ -16,7 +15,7 @@
 				</tr>
 			</thead>
 		<tbody>
-		@foreach($subject->users->take(5) as $user)
+		@foreach($users->take(5) as $user)
 			<tr class="clickable-row" data-href="{{ url(Auth::user()->is_admin ? 'admin/user-settings/' . $user->id : $user->getProfileUrl()) }}">
 				<td>{{ $user->id }}</td>
 				<td><img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>

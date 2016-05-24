@@ -10,6 +10,8 @@ class Project extends Model
 {
     use SoftDeletes;
 
+    const MODEL = 'project';
+
 	/**
 	 * The table associated with the model.
 	 *
@@ -79,6 +81,12 @@ class Project extends Model
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	# Get model
+	public function getModel()
+	{
+		return self::MODEL;
 	}
 
 	# Get amount of xp aquired

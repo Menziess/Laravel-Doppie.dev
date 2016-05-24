@@ -38,12 +38,22 @@ class ProjectController extends Controller
 	}
 
 	/*
+	 * Get project profile by id.
+	 */
+	public function getSettings($id)
+	{
+		$subject = Project::findOrFail($id);
+		$links = [];
+		return view('content.project.settings', compact('links', 'subject'));
+	}
+
+	/*
 	 * Delete project.
 	 */
 	public function deleteDelete($id)
 	{
 		$editorIsAdmin = Auth::user()->is_admin;
-		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
+		if (!$editorIsAdmin) {
 			abort(403);
 		}
 

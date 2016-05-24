@@ -6,9 +6,11 @@
 
 	@if(Auth::user()->is_admin)
 
-		@include('content.admin.partials.organizationpanel')
+		@include('content.subject.partials.permissions')
 
-	@else
+	@elseif(true)
+
+		@include('content.subject.partials.delete')
 
 	@endif
 

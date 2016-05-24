@@ -4,11 +4,15 @@
 
 <div class="container">
 
+	@if($subject->getModel() != 'user')
 	@include('content.subject.partials.owner')
+	@endif
 
-	@include('content.subject.partials.users')
+	@include('content.user.partials.list', ['users' => $subject->users])
 
-	@include('content.subject.partials.projects')
+	@include('content.project.partials.list', ['projects' => $subject->projects])
+
+	@include('content.organization.partials.list', ['organizations' => $subject->organizations])
 
 </div>
 

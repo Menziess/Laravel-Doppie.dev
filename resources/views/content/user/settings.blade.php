@@ -6,7 +6,6 @@
 
 	@if($subject && $subject->profile)
 
-
 		@include('content.user.partials.picture')
 
 		@include('content.user.partials.profile')
@@ -19,11 +18,11 @@
 
 	@if(Auth::user()->is_admin && Auth::user()->getKey() != $subject->getKey())
 
-		@include('content.admin.partials.userpanel')
+		@include('content.subject.partials.permissions')
 
-	@else
+	@elseif(true)
 
-		@include('content.user.partials.delete')
+		@include('content.subject.partials.delete')
 
 	@endif
 

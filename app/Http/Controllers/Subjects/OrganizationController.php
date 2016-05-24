@@ -33,7 +33,18 @@ class OrganizationController extends Controller
 	public function getProfile($id)
 	{
 		$subject = Organization::findOrFail($id);
+		$links = [];
 		return view('content.organization.profile', compact('subject'));
+	}
+
+	/*
+	 * Get the organizations profile by id.
+	 */
+	public function getSettings($id)
+	{
+		$subject = Organization::findOrFail($id);
+		$links = [];
+		return view('content.organization.settings', compact('subject'));
 	}
 
 	/*
@@ -42,7 +53,7 @@ class OrganizationController extends Controller
 	public function deleteDelete($id)
 	{
 		$editorIsAdmin = Auth::user()->is_admin;
-		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
+		if (!$editorIsAdmin) {
 			abort(403);
 		}
 

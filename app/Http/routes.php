@@ -14,11 +14,10 @@
 # Redirect routes for facebook login
 Route::controller('/facebook', 'SocialController');
 
-
 # Routes require user to be authenticated
 Route::group(['middleware' => 'auth'], function () {
 
-	Route::controller('/home', 'HomeController');
+	Route::controller('/feed', 'FeedController');
 
 	# SUBJECTS
 	Route::group(['namespace' => 'Subjects'], function () {
@@ -40,4 +39,4 @@ Route::group(['middleware' => 'auth'], function () {
 Route::auth();
 
 # GUEST PAGES
-Route::controller('/', 'PagesController');
+Route::controller('/', 'LandingController');

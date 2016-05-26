@@ -7,8 +7,13 @@ use Storage;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class FeedController extends Controller
 {
+	const LINKS = [
+		['title' => 'New Project', 'href' => 'project', 'text' => ''],
+		['title' => 'New Organization', 'href' => 'organization', 'text' => ''],
+	];
+
 	/**
 	 * Create a new controller instance.
 	 *
@@ -27,7 +32,7 @@ class HomeController extends Controller
 	public function getIndex()
 	{
 		$subject = Auth::user();
-		$links = [];
-		return view('home', compact('links', 'subject'));
+		$links = self::LINKS;
+		return view('feed', compact('links', 'subject'));
 	}
 }

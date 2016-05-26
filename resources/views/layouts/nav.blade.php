@@ -2,7 +2,7 @@
 <nav class="navbar navbar-light bg-faded">
 	<div class="container fluid">
 
-		<a class="navbar-brand" href="{{ url('/home') }}">Laravel</a>
+		<a class="navbar-brand" href="{{ url('/feed') }}">Laravel</a>
 
 		@if (Auth::guest())
 

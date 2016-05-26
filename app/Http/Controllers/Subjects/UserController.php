@@ -14,11 +14,6 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
-	const NEW_SUBJECT = [
-		['title' => 'New Project', 'href' => 'project', 'text' => ''],
-		['title' => 'New Organization', 'href' => 'organization', 'text' => ''],
-	];
-
 	/*
 	 * Redirect to own profile.
 	 */
@@ -33,7 +28,6 @@ class UserController extends Controller
 	public function getYourSettings()
 	{
 		$subject = Auth::user();
-		$links = self::NEW_SUBJECT;
 		return view('content.user.settings', compact('links', 'subject'));
 	}
 
@@ -43,18 +37,7 @@ class UserController extends Controller
 	public function getYourProfile()
 	{
 		$subject = Auth::user();
-		$links = self::NEW_SUBJECT;
-		return view('content.user.dashboard', compact('links', 'subject'));
-	}
-
-	/*
-	 * Get own subjects.
-	 */
-	public function getYourSubjects()
-	{
-		$subject = Auth::user();
-		$links = self::NEW_SUBJECT;
-		return view('content.user.subjects', compact('links', 'subject'));
+		return view('content.user.profile', compact('links', 'subject'));
 	}
 
 	/*

@@ -4,11 +4,17 @@
 
 <div class="container">
 
-	@include('content.user.partials.list')
+	@if(isset($users))
+		@include('content.user.partials.list')
+	@endif
 
-	@include('content.project.partials.list')
+	@if(isset($projects))
+		@include('content.project.partials.list')
+	@endif
 
-	@include('content.organization.partials.list')
+	@if(isset($organizations))
+		@include('content.organization.partials.list')
+	@endif
 
 </div>
 

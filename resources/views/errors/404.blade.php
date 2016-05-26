@@ -41,7 +41,9 @@
         <div class="container">
             <div class="content">
                 <div class="title">404</div>
-                <h2>Resource not found</h2>
+                @if(isset($exception))
+                    <p>{{ $exception->getMessage() }}</p>
+                @endif
             </div>
         </div>
     </body>

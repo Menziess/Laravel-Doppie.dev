@@ -1,4 +1,4 @@
-@if($projects)
+@if(isset($projects))
 <div id="projects" class="card">
 	<div class="card-block">
 		<h4 class="card-title">Projects</h4>
@@ -15,7 +15,7 @@
 				</tr>
 			</thead>
 		<tbody>
-		@foreach($projects->take(5) as $project)
+		@foreach($projects as $project)
 			<tr class="clickable-row" data-href="{{ url(Auth::user()->is_admin ? 'admin/project-settings/' . $project->id : $project->getProfileUrl()) }}">
 				<td>{{ $project->id }}</td>
 				<td><img src="{{ asset($project->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>

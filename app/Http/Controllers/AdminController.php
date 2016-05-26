@@ -52,7 +52,7 @@ class AdminController extends Controller
 		return [
 			['title' => ucwords($model) . ' Profile', 'href' => '/admin/' . $model . '-profile/' . $id, 'text' => ''],
 			['title' => ucwords($model) . ' Settings', 'href' => '/admin/' . $model . '-settings/' . $id, 'text' => ''],
-			['title' => ucwords($model) . ' Subjects', 'href' => '/admin/' . $model . '-relations/' . $id, 'text' => ''],
+			['title' => ucwords($model) . ' Relations', 'href' => '/admin/' . $model . '-relations/' . $id, 'text' => ''],
 		];
 	}
 
@@ -84,7 +84,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'user');
 		$subject = User::withTrashed()->findOrFail($id);
-		return view('content.user.profile', compact('subject', 'links', 'in'));
+		return view('content.user.profile', compact('subject', 'links'));
 	}
 
 	/*
@@ -95,7 +95,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'user');
 		$subject = User::withTrashed()->findOrFail($id);
-		return view('content.subject.relations', compact('subject', 'links', 'in'));
+		return view('content.subject.relations', compact('subject', 'links'));
 	}
 
 	/*
@@ -106,7 +106,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'user');
 		$subject = User::withTrashed()->findOrFail($id);
-		return view('content.user.settings', compact('subject', 'links', 'in'));
+		return view('content.user.settings', compact('subject', 'links'));
 	}
 
 	/*
@@ -164,7 +164,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'project');
 		$subject = Project::withTrashed()->findOrFail($id);
-		return view('content.project.profile', compact('subject', 'links', 'in'));
+		return view('content.project.profile', compact('subject', 'links'));
 	}
 
 	/*
@@ -175,7 +175,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'project');
 		$subject = Project::withTrashed()->findOrFail($id);
-		return view('content.subject.relations', compact('subject', 'links', 'in'));
+		return view('content.subject.relations', compact('subject', 'links'));
 	}
 
 	/*
@@ -186,7 +186,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'project');
 		$subject = Project::withTrashed()->findOrFail($id);
-		return view('content.project.settings', compact('subject', 'links', 'in'));
+		return view('content.project.settings', compact('subject', 'links'));
 	}
 
 	/*
@@ -235,7 +235,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'organization');
 		$subject = Organization::withTrashed()->findOrFail($id);
-		return view('content.organization.profile', compact('subject', 'links', 'in'));
+		return view('content.organization.profile', compact('subject', 'links'));
 	}
 
 	/*
@@ -246,7 +246,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'organization');
 		$subject = Organization::withTrashed()->findOrFail($id);
-		return view('content.subject.relations', compact('subject', 'links', 'in'));
+		return view('content.subject.relations', compact('subject', 'links'));
 	}
 
 	/*
@@ -257,7 +257,7 @@ class AdminController extends Controller
 		$in = true;
 		$links = self::getSubjectLinks($id, 'organization');
 		$subject = Organization::withTrashed()->findOrFail($id);
-		return view('content.organization.settings', compact('subject', 'links', 'in'));
+		return view('content.organization.settings', compact('subject', 'links'));
 	}
 
 	/*

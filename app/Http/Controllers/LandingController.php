@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class PagesController extends Controller
+class LandingController extends Controller
 {
 	/*
 	 * Gets landing page.
 	 */
     public function getIndex()
     {
-    	return view('welcome');
+    	return view('landing');
     }
 
 	/*

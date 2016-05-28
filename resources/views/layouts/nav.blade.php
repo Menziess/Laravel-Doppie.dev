@@ -22,7 +22,6 @@
 					<a class="dropdown-item" href="{{ url('/admin') }}">Admin</a>
 				@endif
 
-				<a class="dropdown-item" href="{{ url('/user/your-profile') }}">Profile</a>
 				<a class="dropdown-item" href="{{ url('/user/your-settings') }}">Settings</a>
 				<div class="dropdown-divider"></div>
 

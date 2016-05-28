@@ -14,9 +14,9 @@ use App\Http\Requests;
 class SubjectController extends Controller
 {
     const SUBJECTS = [
-		['title' => 'Users', 'href' => 'subject/users', 'text' => ''],
-		['title' => 'Projects', 'href' => 'subject/projects', 'text' => ''],
-		['title' => 'Organizations', 'href' => 'subject/organizations', 'text' => ''],
+		// ['title' => 'Users', 'href' => 'subject/users', 'text' => ''],
+		// ['title' => 'Projects', 'href' => 'subject/projects', 'text' => ''],
+		// ['title' => 'Organizations', 'href' => 'subject/organizations', 'text' => ''],
 	];
 
 	/*
@@ -26,7 +26,6 @@ class SubjectController extends Controller
 	{
 		$input = $request->search;
 		$search = '%' . $input . '%' ?: '%';
-		$links = self::SUBJECTS;
 		$subject = Auth::user();
 		$users = User::where('first_name', 'like', $search)
 			->orWhere('last_name', 'like', $search)
@@ -36,7 +35,7 @@ class SubjectController extends Controller
 			->orderBy('id', 'desc')->paginate(7);
 		$organizations = Organization::where('name', 'like', $search)
 			->orderBy('id', 'desc')->paginate(7);
-		return view('content.subject.list', compact('users', 'projects', 'organizations', 'subject', 'links', 'input'));
+		return view('content.subject.list', compact('users', 'projects', 'organizations', 'subject', 'input'));
 	}
 
 	/*
@@ -44,10 +43,9 @@ class SubjectController extends Controller
 	 */
 	public function getUsers()
 	{
-		$links = self::SUBJECTS;
 		$subject = Auth::user();
 		$users = User::orderBy('id', 'desc')->paginate(15);
-		return view('content.subject.list', compact('users', 'subject', 'links'));
+		return view('content.subject.list', compact('users', 'subject'));
 	}
 
  	/*
@@ -55,10 +53,9 @@ class SubjectController extends Controller
 	 */
 	public function getProjects()
 	{
-		$links = self::SUBJECTS;
 		$subject = Auth::user();
 		$projects = Project::orderBy('id', 'desc')->paginate(15);
-		return view('content.subject.list', compact('projects', 'subject', 'links'));
+		return view('content.subject.list', compact('projects', 'subject'));
 	}
 
 	/*
@@ -66,9 +63,8 @@ class SubjectController extends Controller
 	 */
 	public function getOrganizations()
 	{
-		$links = self::SUBJECTS;
 		$subject = Auth::user();
 		$organizations = Organization::orderBy('id', 'desc')->paginate(15);
-		return view('content.subject.list', compact('organizations', 'subject', 'links'));
+		return view('content.subject.list', compact('organizations', 'subject'));
 	}
 }

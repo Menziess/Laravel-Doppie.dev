@@ -16,7 +16,9 @@ class ProjectController extends Controller
 	 */
 	public function getIndex()
 	{
-		return 'Make new project';
+		$subject = Auth::user();
+		$links = [];
+		return view('content.project.create', compact('links', 'subject'));
 	}
 
 	/*
@@ -45,6 +47,26 @@ class ProjectController extends Controller
 		$subject = Project::findOrFail($id);
 		$links = [];
 		return view('content.project.settings', compact('links', 'subject'));
+	}
+
+	/*
+	 * Get project network planning by id.
+	 */
+	public function getPlanning($id)
+	{
+		$subject = Project::findOrFail($id);
+		$links = [];
+		return view('content.project.planning.network', compact('links', 'subject'));
+	}
+
+	/*
+	 * Get project timeline schedule by id.
+	 */
+	public function getTimeline($id)
+	{
+		$subject = Project::findOrFail($id);
+		$links = [];
+		return view('content.project.planning.timeline', compact('links', 'subject'));
 	}
 
 	/*

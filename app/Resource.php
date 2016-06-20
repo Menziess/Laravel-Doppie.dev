@@ -45,19 +45,25 @@ class Resource extends Model
 	 */
 	protected $dates = ['deleted_at'];
 
-	# Define relation
+	/*
+	 * Relation with user.
+	 */
 	public function user()
 	{
 		return $this->belongsTo(User::class);
 	}
 
-	# Define relation
+	/*
+	 * Relation with profile.
+	 */
 	public function profile()
 	{
 		return $this->hasOne(Profile::class);
 	}
 
-	# Define relation
+	/*
+	 * Relation with organization.
+	 */
 	public function organization()
 	{
 		return $this->hasOne(Organization::class);
@@ -73,7 +79,7 @@ class Resource extends Model
 	 */
 	public function uploadImageFile($file, $width = 1000, $height = 1000)
 	{
-		$image = Image::make($file)->fit($width, $height, function ($constraint) {
+		$image = Image::make($file)->orientate()->fit($width, $height, function ($constraint) {
             $constraint->aspectRatio();
         });
 
@@ -93,7 +99,7 @@ class Resource extends Model
 	 */
 	public function uploadImagePath($path, $width = 1000, $height = 1000)
 	{
-		$image = Image::make($path)->resize($width, $height);
+		$image = Image::make($path)->orientate()->resize($width, $height);
 		$this->original_name = self::generateName();
 		$this->original_mime_type = $image->mime();
 		$this->original_extension = pathinfo($path, PATHINFO_EXTENSION)

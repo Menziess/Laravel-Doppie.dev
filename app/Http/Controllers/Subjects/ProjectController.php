@@ -56,7 +56,7 @@ class ProjectController extends Controller
 	{
 		$subject = Project::findOrFail($id);
 		$links = [];
-		return view('content.project.planning.network', compact('links', 'subject'));
+		return view('content.project.planning.planning', compact('links', 'subject'));
 	}
 
 	/*

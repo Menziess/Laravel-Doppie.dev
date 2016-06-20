@@ -161,7 +161,6 @@ class AdminController extends Controller
 	 */
 	public function getProjectProfile($id)
 	{
-		$in = true;
 		$links = self::getSubjectLinks($id, 'project');
 		$subject = Project::withTrashed()->findOrFail($id);
 		return view('content.project.profile', compact('subject', 'links'));
@@ -172,7 +171,6 @@ class AdminController extends Controller
 	 */
 	public function getProjectRelations($id)
 	{
-		$in = true;
 		$links = self::getSubjectLinks($id, 'project');
 		$subject = Project::withTrashed()->findOrFail($id);
 		return view('content.subject.relations', compact('subject', 'links'));
@@ -183,7 +181,6 @@ class AdminController extends Controller
 	 */
 	public function getProjectSettings($id)
 	{
-		$in = true;
 		$links = self::getSubjectLinks($id, 'project');
 		$subject = Project::withTrashed()->findOrFail($id);
 		return view('content.project.settings', compact('subject', 'links'));
@@ -232,7 +229,6 @@ class AdminController extends Controller
  	 */
 	public function getOrganizationProfile($id)
 	{
-		$in = true;
 		$links = self::getSubjectLinks($id, 'organization');
 		$subject = Organization::withTrashed()->findOrFail($id);
 		return view('content.organization.profile', compact('subject', 'links'));
@@ -243,7 +239,6 @@ class AdminController extends Controller
 	 */
 	public function getOrganizationRelations($id)
 	{
-		$in = true;
 		$links = self::getSubjectLinks($id, 'organization');
 		$subject = Organization::withTrashed()->findOrFail($id);
 		return view('content.subject.relations', compact('subject', 'links'));
@@ -254,7 +249,6 @@ class AdminController extends Controller
 	 */
 	public function getOrganizationSettings($id)
 	{
-		$in = true;
 		$links = self::getSubjectLinks($id, 'organization');
 		$subject = Organization::withTrashed()->findOrFail($id);
 		return view('content.organization.settings', compact('subject', 'links'));

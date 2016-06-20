@@ -18,6 +18,26 @@ ul.no-dots {
 	font-size: 80%;
 }
 
+.gridster-pane {
+	min-width: 100%;
+	max-width: inherit;
+	overflow-x: hidden;
+	overflow-y: visible;
+	background-color: #eee;
+}
+
+.gridster {
+	max-width: 90%;
+    margin: 0 auto;
+    opacity: .8;
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+    text-align: center;
+}
+
 .shadow {
 	/*box-shadow: 0px 0px 50px #888888;*/
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

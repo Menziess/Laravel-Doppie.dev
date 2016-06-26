@@ -19,6 +19,14 @@ class SocialController extends Controller
 	const FIELDS = ['first_name', 'last_name', 'email', 'location', 'birthday', 'gender', 'updated_time'];
 
 	/**
+	 * Redirect to register.
+	 */
+	public function getIndex()
+	{
+		return redirect('/register');
+	}
+
+	/**
 	 * Facebook login.
 	 *
 	 * @return view.

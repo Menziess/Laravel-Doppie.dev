@@ -4,14 +4,24 @@ html {
     overflow-x:hidden;
 }
 
-input[type=date]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    display: none;
-}
-
 ul.no-dots {
     list-style-type: none;
     -webkit-transform:translateX(-2em);
+}
+
+.collapsing {
+	will-change: transform;
+	position: relative;
+	height: 0;
+	overflow: hidden;
+	-webkit-transform: translateZ(0);
+	-webkit-transition: height 0.35s ease 1s linear;
+	-moz-transition: height 0.35s ease 1s linear;
+	-o-transition: height 0.35s ease 1s linear;
+	-ms-transition: height 0.35s ease 1s linear;
+	transition: height 0.35s ease 1s linear;
+	-webkit-transition: height 0.35s ease;
+	transition: height 0.35s ease;
 }
 
 .text-small {
@@ -27,6 +37,7 @@ ul.no-dots {
 }
 
 .gridster {
+	will-change: opacity;
 	max-width: 90%;
     margin: 0 auto;
     opacity: .8;
@@ -50,17 +61,6 @@ ul.no-dots {
 .card-img-top {
 	width:100%;
 	height:auto;
-}
-
-.title {
-	font-family: Georgia;
-	font-size: 36px;
-	line-height: 1.25;
-	margin-top: 0;
-}
-
-.spacer {
-    margin-top: 2em;
 }
 
 .unselectable {

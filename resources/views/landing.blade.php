@@ -22,7 +22,9 @@
 				<div class="row">
 
 					<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
-						<img id="picture" src="{{ asset('img/landing.gif') }}" class="img-circle profile-picture-small" alt="" href="#" data-content="" rel="popover" data-placement="right" data-original-title="" data-trigger="hover">
+						<img id="picture" src="{{ asset('img/landing.gif') }}" class="img-circle profile-picture-small"
+							alt="" href="#" data-content="" rel="popover" data-placement="right" data-original-title=""
+							data-trigger="hover" width="150" height="150">
 					</div>
 
 					<div class="col-xs-18 col-sm-6 col-md-6 col-lg-6 left">

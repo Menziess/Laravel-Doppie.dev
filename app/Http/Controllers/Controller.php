@@ -14,6 +14,11 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
+    const LINKS = [
+		['title' => 'Game', 'href' => '/game', 'text' => ''],
+		['title' => 'Scores', 'href' => '/scores', 'text' => ''],
+	];
+
     /**
 	 * A generic empty response that tells nothing but success.
 	 * Mostly used for the options route to enable cors.

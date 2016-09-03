@@ -12,15 +12,15 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-							<h4 class="modal-title">Delete {{ $subject->getModel() }}</h4>
+							<h4 class="modal-title">Delete {{ class_basename($subject) }}</h4>
 						</div>
 						<div class="modal-body">
 							<p>
-								Deleting your {{ $subject->getModel() }} will also remove all associated private data.
+								Deleting your {{ class_basename($subject) }} will also remove all associated private data.
 							</p>
 						</div>
 						<div class="modal-footer">
-							<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/' . $subject->getModel() . '/delete/' . Auth::user()->getKey()) }}">
+							<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/' . lcfirst(class_basename($subject)) . '/delete/' . Auth::user()->getKey()) }}">
 							{!! csrf_field() !!}
 							{{ method_field('DELETE') }}
 							<button type="button" class="btn btn-secondary-outline" data-dismiss="modal">Close</button>

@@ -3,17 +3,11 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use Storage;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
-class FeedController extends Controller
+class ScoresController extends Controller
 {
-	const LINKS = [
-		['title' => 'New Project', 'href' => 'project', 'text' => ''],
-		['title' => 'New Organization', 'href' => 'organization', 'text' => ''],
-	];
-
 	/**
 	 * Create a new controller instance.
 	 *
@@ -33,6 +27,6 @@ class FeedController extends Controller
 	{
 		$subject = Auth::user();
 		$links = self::LINKS;
-		return view('feed', compact('links', 'subject'));
+		return view('scores', compact('links', 'subject'));
 	}
 }

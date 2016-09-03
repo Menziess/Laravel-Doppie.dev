@@ -4,6 +4,18 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
+	| Application Name
+	|--------------------------------------------------------------------------
+	|
+	| This value determines the "name" of your application that is displayed
+	| as title and header in the navbar and browser toolbar. The name can
+	| be modified in your ".env" file.
+	|
+	 */
+	'name' => env('APP_NAME', 'Laravel'),
+
+	/*
+	|--------------------------------------------------------------------------
 	| Application Environment
 	|--------------------------------------------------------------------------
 	|

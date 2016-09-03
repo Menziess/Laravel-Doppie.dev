@@ -5,8 +5,8 @@
 <div class="container">
 	<div class="row">
 		<div class="div-centered-large">
-			<h1 class="display-3 hidden-sm-down spacer p-y-2">Lets simplify project management!</h1>
-			<h3 class="hidden-md-up spacer">Lets simplify project management!</h3>
+			<h1 class="display-3 hidden-sm-down spacer p-y-2">{{ Config::get('app.name') }}</h1>
+			<h3 class="hidden-md-up spacer">{{ Config::get('app.name') }}</h3>
 		</div>
 
 		<i class="fa fa-btn fa-angle-down m-y-2" style="font-size: 32px;"></i>

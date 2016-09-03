@@ -8,14 +8,6 @@
 		@include('content.user.partials.list')
 	@endif
 
-	@if(isset($projects))
-		@include('content.project.partials.list')
-	@endif
-
-	@if(isset($organizations))
-		@include('content.organization.partials.list')
-	@endif
-
 </div>
 
 @endsection

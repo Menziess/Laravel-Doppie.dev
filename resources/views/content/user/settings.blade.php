@@ -18,11 +18,11 @@
 
 	@if(Auth::user()->is_admin && Auth::user()->getKey() != $subject->getKey())
 
-		@include('content.subject.partials.permissions')
+		@include('content.all.partials.permissions')
 
 	@elseif(true)
 
-		@include('content.subject.partials.delete')
+		@include('content.all.partials.delete')
 
 	@endif
 

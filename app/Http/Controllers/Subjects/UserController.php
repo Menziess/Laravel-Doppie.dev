@@ -47,7 +47,7 @@ class UserController extends Controller
 	{
 		# Check if user is visiting own profile
 		if (Auth::user()->id == $id) {
-			redirect('user/profile');
+			return redirect('user/your-profile');
 		}
 
 		$user = User::findOrFail($id);
@@ -70,7 +70,7 @@ class UserController extends Controller
 			: '/user/your-settings' . '#picture';
 
 		if ($validator->fails()) {
-				return redirect($path)->withErrors($validator);
+			return redirect($path)->withErrors($validator);
 		}
 		if (!$editorIsAdmin && !Auth::user()->id == $request->id) {
 			abort(403);

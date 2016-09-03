@@ -5,6 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class Delete extends Migration
 {
+    const AFTER = '_foreign';
+
     /**
      * Run the migrations.
      *
@@ -12,7 +14,11 @@ class Delete extends Migration
      */
     public function up()
     {
-        //
+        Schema::dropIfExists('project_user');
+        Schema::dropIfExists('organization_project');
+        Schema::dropIfExists('organization_user');
+        Schema::dropIfExists('projects');
+        Schema::dropIfExists('organizations');
     }
 
     /**

@@ -32,8 +32,9 @@ class GameController extends Controller
     	$users = User::all();
 		$subject = Auth::user();
 		$game = Game::findOrFail($id);
+        $links = self::LINKS;
 
-    	return view('content.game.board', compact('game', 'subject', 'users'));
+    	return view('content.game.board', compact('game', 'subject', 'users', 'links'));
     }
 
     /*

@@ -12,9 +12,6 @@ class User extends Authenticatable
 
 	const MODEL = 'user';
 
-	const USER_FOLLOWER = 1;
-	const USER_DONATOR = 2;
-
 	/**
 	 * The table associated with the model.
 	 *
@@ -28,7 +25,14 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'first_name', 'last_name', 'email', 'facebook_id',
+		'first_name',
+		'last_name',
+		'email',
+		'facebook_id',
+		'date_of_birth',
+		'gender',
+		'latitude',
+		'longitude',
 	];
 
 	/**
@@ -37,7 +41,8 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $hidden = [
-		'password', 'remember_token',
+		'password',
+		'remember_token',
 	];
 
 	/**
@@ -47,6 +52,7 @@ class User extends Authenticatable
 	 */
 	protected $dates = [
 		'deleted_at',
+		'date_of_birth',
 	];
 
 	# Profile relation
@@ -55,13 +61,13 @@ class User extends Authenticatable
 		return $this->hasOne(Profile::class);
 	}
 
-	# Profile relation
-	public function organization()
+	# Resource relation
+	public function resource()
 	{
-		return $this->hasOne(Organization::class);
+		return $this->hasOne(Resource::class);
 	}
 
-	# Resource relation
+	# Resources relation
 	public function resources()
 	{
 		return $this->hasMany(Resource::class);
@@ -72,32 +78,6 @@ class User extends Authenticatable
 	{
 		return $this->belongsToMany(User::class);
 	}
-
-	# Followers relation
-	public function followers()
-	{
-		return $this->belongsToMany(User::class, 'user_user', 'user_id', 'related_id')
-			->wherePivot('type', self::USER_FOLLOWER)->withPivot('type');
-	}
-
-	# Donators relation
-	public function donators()
-	{
-		return $this->belongsToMany(User::class, 'user_user', 'user_id', 'related_id')
-			->wherePivot('type', self::USER_DONATOR)->withPivot('type');
-	}
-
-	# Project relation
-	public function projects()
-	{
-		return $this->belongsToMany(Project::class);
-	}
-
-    # The organizations that belong to the user.
-    public function organizations()
-    {
-        return $this->belongsToMany(Organization::class);
-    }
 
 	/*
 	 * Gets users full name.
@@ -188,12 +168,7 @@ class User extends Authenticatable
 		if ($this->profile->resource) {
 			$this->profile->resource->removeFromStorage();
 		}
-		# Delete all projects if not related to other subjects
-		if ($this->projects) {
-			foreach ($this->projects as $project) {
-				$project->forceDelete();
-			}
-		}
+
 		# Delete user
 		$this->forceDelete();
 	}

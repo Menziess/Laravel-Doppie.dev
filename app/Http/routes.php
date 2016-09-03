@@ -17,14 +17,13 @@ Route::controller('/facebook', 'SocialController');
 # Routes require user to be authenticated
 Route::group(['middleware' => 'auth'], function () {
 
-	Route::controller('/feed', 'FeedController');
+	Route::controller('/game', 'GameController');
+	Route::controller('/scores', 'ScoresController');
 
 	# SUBJECTS
 	Route::group(['namespace' => 'Subjects'], function () {
 
 		Route::controller('/user', 'UserController');
-		Route::controller('/project', 'ProjectController');
-		Route::controller('/organization', 'OrganizationController');
 		Route::controller('/subject', 'SubjectController');
 	});
 

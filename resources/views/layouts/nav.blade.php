@@ -2,7 +2,7 @@
 <nav class="navbar navbar-light bg-faded">
 	<div class="container fluid">
 
-		<a class="navbar-brand" href="{{ url('/feed') }}">Laravel</a>
+		<a class="navbar-brand" href="{{ url('/game') }}">{{ Config::get('app.name') }}</a>
 
 		@if (Auth::guest())
 
@@ -20,10 +20,9 @@
 
 				@if(Auth::user()->is_admin)
 					<a class="dropdown-item" href="{{ url('/admin') }}">Admin</a>
+					<div class="dropdown-divider"></div>
 				@endif
 
-				<a class="dropdown-item" href="{{ url('/user/your-settings') }}">Settings</a>
-				<div class="dropdown-divider"></div>
 
 				@if(isset($links) && count($links) > 0)
 					@foreach($links as $link)
@@ -31,6 +30,10 @@
 					@endforeach
 					<div class="dropdown-divider"></div>
 				@endif
+
+				<a class="dropdown-item" href="{{ url('/user/your-settings') }}">Settings</a>
+
+				<div class="dropdown-divider"></div>
 
 				<a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
 

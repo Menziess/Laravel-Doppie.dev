@@ -16,7 +16,7 @@
 			</thead>
 		<tbody>
 		@foreach($users as $user)
-			<tr class="clickable-row" data-href="{{ url(Auth::user()->is_admin ? 'admin/user-settings/' . $user->id : $user->getProfileUrl()) }}">
+			<tr class="clickable-row" data-href="{{ url(Auth::user()->is_admin ? 'admin/user/' . $user->id : $user->getProfileUrl()) }}">
 				<td>{{ $user->id }}</td>
 				<td><img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
 				<td>

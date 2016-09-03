@@ -1,7 +1,7 @@
 @if(isset($users))
 <div id="users" class="card">
 	<div class="card-block">
-		<h4 class="card-title">Users</h4>
+		<h4 class="card-title">{{ isset($title) ? ucfirst($title) : 'Users' }}</h4>
 		@if($users->count() > 0)
 
 		<table class="table table-hover table-large text-small text-xs-left">
@@ -16,7 +16,7 @@
 			</thead>
 		<tbody>
 		@foreach($users as $user)
-			<tr class="clickable-row" data-href="{{ url(Auth::user()->is_admin ? 'admin/user/' . $user->id : $user->getProfileUrl()) }}">
+			<tr class="clickable-row" data-href="{{ url($user->getProfileUrl()) }}">
 				<td>{{ $user->id }}</td>
 				<td><img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
 				<td>

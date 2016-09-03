@@ -2,7 +2,7 @@
 <nav class="navbar navbar-light bg-faded">
 	<div class="container fluid">
 
-		<a class="navbar-brand" href="{{ url('/game') }}">{{ Config::get('app.name') }}</a>
+		<a class="navbar-brand" href="{{ url('/game') }}">Doppie er <span class="text-success">app</span></a>
 
 		@if (Auth::guest())
 
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 
-			<form class="form-inline pull-xs-right hidden-xs-down" method="GET" action="{{ Auth::user()->is_admin ? url('/admin/') : url('/subject/') }}">
+			<form class="form-inline pull-xs-right hidden-xs-down" method="GET" action="{{ url('/subject/') }}">
 			<input class="form-control" type="text" placeholder="Search" name="search" value="{{ isset($input) ? $input : '' }}">
 			<button class="btn btn-success-outline" type="submit">Search</button>
 			</form>

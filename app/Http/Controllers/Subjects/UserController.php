@@ -48,6 +48,8 @@ class UserController extends Controller
 		# Check if user is visiting own profile
 		if (Auth::user()->id == $id) {
 			return redirect('user/your-profile');
+		} else if (Auth::user()->is_admin) {
+			return redirect('admin/user/' . $id);
 		}
 
 		$user = User::findOrFail($id);

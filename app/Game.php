@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -66,5 +68,23 @@ class Game extends Model
 	 */
 	public function scopeActive($query) {
 		return $query->whereNull('finished_at');
+	}
+
+	public function addPlayer(User $user) {
+		if (!$this->users->contains($user->id)) {
+			 $this->users()->attach($user);
+		}
+	}
+
+	public function removePlayer(User $user) {
+		$this->users()->detach($user);
+	}
+
+	/**
+	 * Starts the game.
+	 */
+	public function start() {
+		$this->started_at = Carbon::now();
+		$this->save();
 	}
 }

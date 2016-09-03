@@ -14,7 +14,7 @@
 
 			@else
 
-			This {{ $subject->getModel() }} doesn't have a owner.
+			This {{ class_basename($subject) }} doesn't have a owner.
 			@endif
 
 		</div>

@@ -70,17 +70,23 @@ class Game extends Model
 		return $query->whereNull('finished_at');
 	}
 
+	/*
+	 * Adds a player to the game.
+	 */
 	public function addPlayer(User $user) {
 		if (!$this->users->contains($user->id)) {
 			 $this->users()->attach($user);
 		}
 	}
 
+	/*
+	 * Removes a player from the game.
+	 */
 	public function removePlayer(User $user) {
 		$this->users()->detach($user);
 	}
 
-	/**
+	/*
 	 * Starts the game.
 	 */
 	public function start() {

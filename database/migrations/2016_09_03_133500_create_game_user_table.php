@@ -20,8 +20,6 @@ class CreateGameUserTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
             $table->integer('team_id')->nullable();
-
-            $table->json('score');
         });
     }
 

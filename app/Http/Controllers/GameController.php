@@ -40,7 +40,7 @@ class GameController extends Controller
      * Start game.
      */
     public function putStartGame() {
-    	$game = Game::active()->orderBy('id', 'desc')->first();
+    	$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
     	$game->start();
 
     	return redirect('/game');
@@ -50,7 +50,7 @@ class GameController extends Controller
      * Delete game.
      */
     public function deleteDeleteGame() {
-    	$game = Game::active()->orderBy('id', 'desc')->first();
+    	$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
     	$game->delete();
 
     	return redirect('/game');
@@ -62,7 +62,7 @@ class GameController extends Controller
 	public function putAddUser($id)
 	{
 		$user = User::withTrashed()->findOrFail($id);
-		$game = Game::active()->orderBy('id', 'desc')->first();
+		$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
 
 		$game->addPlayer($user);
 
@@ -75,7 +75,7 @@ class GameController extends Controller
 	public function putRemoveUser($id)
 	{
 		$user = User::withTrashed()->findOrFail($id);
-		$game = Game::active()->orderBy('id', 'desc')->first();
+		$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
 
 		$game->removePlayer($user);
 

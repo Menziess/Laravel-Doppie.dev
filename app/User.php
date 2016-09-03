@@ -10,8 +10,6 @@ class User extends Authenticatable
 {
 	use SoftDeletes;
 
-	const MODEL = 'user';
-
 	/**
 	 * The table associated with the model.
 	 *
@@ -29,10 +27,6 @@ class User extends Authenticatable
 		'last_name',
 		'email',
 		'facebook_id',
-		'date_of_birth',
-		'gender',
-		'latitude',
-		'longitude',
 	];
 
 	/**
@@ -52,7 +46,6 @@ class User extends Authenticatable
 	 */
 	protected $dates = [
 		'deleted_at',
-		'date_of_birth',
 	];
 
 	# Profile relation
@@ -79,20 +72,18 @@ class User extends Authenticatable
 		return $this->belongsToMany(User::class);
 	}
 
+	# Games relation
+	public function games()
+	{
+		return $this->belongsToMany(Game::class);
+	}
+
 	/*
 	 * Gets users full name.
 	 */
 	public function getName()
 	{
 		return $this->first_name . ' ' . $this->last_name;
-	}
-
-	/*
-	 * Get model.
-	 */
-	public function getModel()
-	{
-		return self::MODEL;
 	}
 
 	/*

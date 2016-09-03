@@ -1,9 +1,9 @@
 <div id="delete" class="card card-block">
 	<div class="row row-centered">
-		<h4 class="card-title">{{ ucwords($subject->getModel()) }}</h4>
+		<h4 class="card-title">{{ class_basename($subject) }}</h4>
 		<div class="col-md-6 col-md-offset-3">
 
-			<p>All {{ $subject->getModel() }} related data will be lost forever.</p>
+			<p>All {{ class_basename($subject) }} related data will be lost forever.</p>
 
 			<div id="modal-delete" class="modal fade">
 				<div class="modal-dialog" role="document">

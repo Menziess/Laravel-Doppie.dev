@@ -63,7 +63,7 @@ class SocialController extends Controller
 		# Check if user is active or restore when trashed
 		if (!$newUser) {
 			if ($user->is_active == false && !$user->is_admin) {
-				return redirect('feed');
+				return redirect('game');
 			} else {
 			 	$user->restore();
 			}
@@ -77,7 +77,7 @@ class SocialController extends Controller
 		# Logs user in with remember me set on true
 		Auth::login($user, true);
 
-		return redirect('feed');
+		return redirect('game');
 	}
 
 	/**

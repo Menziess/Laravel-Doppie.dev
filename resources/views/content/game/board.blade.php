@@ -4,7 +4,10 @@
 
 	<div class="container">
 
-		@if($game->started_at)
+		@if($game->finished_at)
+
+
+		@elseif($game->started_at)
 
 			@include('content.game.partials.playing')
 

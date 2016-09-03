@@ -34,7 +34,7 @@
 	</div>
 
 	<div class="btn-group btn-group-justified">
-	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/activate-' . class_basename($subject) . '/' . $subject->getKey()) }}">
+	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/activate-' . lcfirst(class_basename($subject)) . '/' . $subject->getKey()) }}">
 		{!! csrf_field() !!}
 		{{ method_field('PUT') }}
 		<button class="btn btn-success-outline" type="submit">Activate</a>
@@ -42,7 +42,7 @@
 	</div>
 
 	<div class="btn-group btn-group-justified">
-	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/deactivate-' . class_basename($subject) . '/' . $subject->getKey()) }}">
+	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('/admin/deactivate-' . lcfirst(class_basename($subject)) . '/' . $subject->getKey()) }}">
 		{!! csrf_field() !!}
 		{{ method_field('PUT') }}
 		<button class="btn btn-warning-outline" type="submit">Deactivate</a>

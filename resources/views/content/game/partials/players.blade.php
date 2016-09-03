@@ -33,7 +33,7 @@
 	</div>
 </div>
 
-@if($game->users->count())
+@if($game->users->count() >= 3)
 	<form id="form-profile" class="form-horizontal" method="POST" action="{{ url('game/start-game') }}">
 		{!! csrf_field() !!}
 		{{ method_field('PUT') }}

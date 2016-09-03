@@ -14,24 +14,10 @@
 				</thead>
 			<tbody>
 
-				{{-- <tr class="clickable-row" data-href="{{ url($user->getProfileUrl()) }}">
-					<td>{{ $user->id }}</td>
-					<td><img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
-					<td>
-						{{ $user->getName() }}
-						@if(Auth::user()->is_admin)
-						<br>
-						{!! $user->is_active
-							? '<span class="label label-pill label-success">active</span>'
-							: '<span class="label label-pill label-warning">inactive</span>' !!}
-						{!! $user->is_admin
-							? '<span class="label label-pill label-primary">admin</span>'
-							: '' !!}
-						@endif
-					</td>
-					<td class="hidden-xs-down">{{ $user->email }}</td>
-					<td class="hidden-xs-down">{{ $user->created_at }}</td>
-				</tr> --}}
+				<tr>
+					<td>1</td>
+
+				</tr>
 
 			</tbody>
 			</table>

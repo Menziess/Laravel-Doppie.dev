@@ -61,19 +61,27 @@ class Game extends Model
 		return $this->belongsToMany(User::class);
 	}
 
+	# Get points per round
+	public function getPointsPerRound()
+	{
+        return count($this->users) > 4 ? (count($this->users) - 4) * 2 + 15 : 15;
+	}
+
 	/**
 	 * Get active game.
 	 *
 	 * @return query
 	 */
-	public function scopeActive($query) {
+	public function scopeActive($query)
+	{
 		return $query->whereNull('finished_at');
 	}
 
 	/*
 	 * Adds a player to the game.
 	 */
-	public function addPlayer(User $user) {
+	public function addPlayer(User $user)
+	{
 		if (!$this->users->contains($user->id)) {
 			 $this->users()->attach($user);
 		}
@@ -82,14 +90,34 @@ class Game extends Model
 	/*
 	 * Removes a player from the game.
 	 */
-	public function removePlayer(User $user) {
+	public function removePlayer(User $user)
+	{
 		$this->users()->detach($user);
+	}
+
+	/*
+	 * Persists the score of a round.
+	 */
+	public function saveScore($request)
+	{
+		$nr = count($this->score);
+		$round = $this->score;
+		$users = array_except($request->all(), ['_token', '_method']);
+		foreach ($users as $name => $points) {
+            $round[$nr][$name] = $points;
+            $round[$nr + 1][$name] = 0;
+        }
+        $this->score = $round;
+        $this->save();
+
+        return redirect('/game');
 	}
 
 	/*
 	 * Starts the game.
 	 */
-	public function start() {
+	public function start()
+	{
 		$this->started_at = Carbon::now();
         $round = [];
         foreach ($this->users as $key => $user) {

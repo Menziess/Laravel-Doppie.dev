@@ -28,20 +28,20 @@ class GameController extends Controller
     /*
 	 * Gets game by id.
 	 */
-    public function getShow($id) {
+    public function getShow($id)
+    {
     	$users = User::all();
 		$game = Game::findOrFail($id);
         $links = self::LINKS;
-        $maxPoints = 50;
-        $maxPointsRound = count($game->users) > 4 ? count($game->users - 4) * 2 + 15 : 15;
 
-    	return view('content.game.board', compact('game', 'users', 'links', 'maxPoints', 'maxPointsRound'));
+    	return view('content.game.board', compact('game', 'users', 'links'));
     }
 
     /*
      * Start game.
      */
-    public function putStartGame() {
+    public function putStartGame()
+    {
     	$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
     	$game->start();
 
@@ -49,9 +49,20 @@ class GameController extends Controller
     }
 
     /*
+     * Saves the score of the game.
+     */
+    public function putSaveScore(Request $request)
+    {
+        $game = Game::active()->orderBy('id', 'desc')->firstOrFail();
+
+        return $game->saveScore($request);
+    }
+
+    /*
      * Delete game.
      */
-    public function deleteDeleteGame() {
+    public function deleteDeleteGame()
+    {
     	$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
     	$game->delete();
 

@@ -32,8 +32,10 @@ class GameController extends Controller
     	$users = User::all();
 		$game = Game::findOrFail($id);
         $links = self::LINKS;
+        $maxPoints = 50;
+        $maxPointsRound = count($game->users) > 4 ? count($game->users - 4) * 2 + 15 : 15;
 
-    	return view('content.game.board', compact('game', 'users', 'links'));
+    	return view('content.game.board', compact('game', 'users', 'links', 'maxPoints', 'maxPointsRound'));
     }
 
     /*

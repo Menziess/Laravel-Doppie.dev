@@ -1,3 +1,4 @@
+@include('errors.feedback')
 
 <div class="row">
 	<form id="score-form" class="form-horizontal" method="POST" action="{{ url('game/save-score') }}">
@@ -21,19 +22,28 @@
 						@foreach($game->users as $user)
 							@if($round == count($game->score))
 								<td>
-									<input name="{{ $user->first_name }}" class="form-control" style="width: 70px;" type="number" min="0" step="1" inputmode="numeric" pattern="[0-9]*"
+									<input name="{{ $user->id }}" class="form-control" style="width: 70px;" type="number" min="0" step="1" inputmode="numeric" pattern="[0-9]*"
 									max="{{ $game->getPointsPerRound() }}"
-									placeholder="{{ $game->score[$round][$user->first_name] }}">
+									placeholder="0">
 								</td>
 							@else
-								<td>{{ $game->score[$round][$user->first_name] }}</td>
+								<td>{{ $game->score[$round][$user->id] }}</td>
 							@endif
 						@endforeach
 					</tr>
 				@endforeach
+				@if(count($game->score) > 1)
+				<tr>
+					<td>Total</td>
+					@foreach($game->users as $user)
+						<td>{{ $game->getTotalScores()[$user->id] }}</td>
+					@endforeach
+				</tr>
+				@endif
+
 		</tbody>
 		</table>
-		<button class="btn btn-primary-outline" type="submit">Save</button>
+		<button id="bottom" class="btn btn-primary-outline" type="submit">Save</button>
 
 	</form>
 </div>

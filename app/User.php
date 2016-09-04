@@ -78,6 +78,12 @@ class User extends Authenticatable
 		return $this->belongsToMany(Game::class);
 	}
 
+	# Owned games relation
+	public function ownedGames()
+	{
+		return $this->belongsToMany(Game::class, 'owner_id', 'id');
+	}
+
 	/*
 	 * Gets users full name.
 	 */

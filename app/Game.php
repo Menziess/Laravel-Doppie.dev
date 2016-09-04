@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -61,6 +62,12 @@ class Game extends Model
 		return $this->belongsToMany(User::class);
 	}
 
+	# Owner relation
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
 	# Get points per round
 	public function getPointsPerRound()
 	{
@@ -98,19 +105,32 @@ class Game extends Model
 	/*
 	 * Persists the score of a round.
 	 */
-	public function saveScore($request)
+	public function saveScore($request, $users)
 	{
 		$nr = count($this->score);
 		$round = $this->score;
-		$users = array_except($request->all(), ['_token', '_method']);
-		foreach ($users as $name => $points) {
-            $round[$nr][$name] = $points;
-            $round[$nr + 1][$name] = 0;
+		$totals = $this->getTotalScores();
+		foreach ($users as $user => $points) {
+			if ($this->type == 'punten halen') {
+	            $round[$nr][$user] = - ltrim($points, '0');
+			} else if ($totals[$user] + $points > 50) {
+	            $round[$nr][$user] = 50 - $totals[$user];
+            } else {
+	            $round[$nr][$user] = $points ? ltrim($points, '0') : 0;
+            }
+            $round[$nr + 1][$user] = 0;
         }
         $this->score = $round;
         $this->save();
 
-        return redirect('/game');
+        if ($this->type != 'punten halen' && self::hasFifty($totals)) { // todo totals has 50 value
+			$this->type  = 'punten halen';
+            $request->session()->flash('message', 'Punten halen.');
+        }
+
+        $this->save();
+
+        return redirect('/game#bottom');
 	}
 
 	/*
@@ -119,11 +139,44 @@ class Game extends Model
 	public function start()
 	{
 		$this->started_at = Carbon::now();
-        $round = [];
         foreach ($this->users as $key => $user) {
-            $round[1][$user->first_name] = 0;
+            $round[1][$user->id] = 0;
         }
         $this->score = $round;
+        $this->user()->associate(Auth::user());
 		$this->save();
+	}
+
+	/*
+	 * Get games total scores for each user.
+	 */
+	public function getTotalScores()
+	{
+		$totals = [];
+
+		foreach($this->users as $user) {
+
+			$total = 0;
+
+			foreach($this->score as $round => $value) {
+				$total += $this->score[$round][$user->id];
+			}
+
+			$totals[$user->id] = $total;
+		}
+
+		return $totals;
+	}
+
+	/*
+	 * Check if a user has 50 points.
+	 */
+	private static function hasFifty(array $totals)
+	{
+		foreach ($totals as $total => $value) {
+			if ($value == 50) {
+				return true;
+			}
+		}
 	}
 }

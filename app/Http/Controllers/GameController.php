@@ -53,9 +53,15 @@ class GameController extends Controller
      */
     public function putSaveScore(Request $request)
     {
+        $users = array_except($request->all(), ['_token', '_method']);
+
+        if (!array_filter($users)) {
+            return redirect()->back()->withErrors(['Please enter scores before pressing any buttons.']);
+        }
+
         $game = Game::active()->orderBy('id', 'desc')->firstOrFail();
 
-        return $game->saveScore($request);
+        return $game->saveScore($request, $users);
     }
 
     /*

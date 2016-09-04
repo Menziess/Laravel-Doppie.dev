@@ -13,7 +13,9 @@ class LandingController extends Controller
 	 */
     public function getIndex()
     {
-    	return view('landing');
+        $links = self::LINKS;
+
+    	return view('landing', compact('links'));
     }
 
 	/*

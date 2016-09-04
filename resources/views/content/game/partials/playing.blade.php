@@ -1,28 +1,26 @@
 
-<div id="players" class="card card-block">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3 col-centered">
+<div class="row">
+	<div class="col-md-6 col-md-offset-3 col-centered">
 
-			<table class="table table-hover table-large text-small text-xs-left">
-				<thead>
-					<tr>
-						<th>#</th>
-						@foreach($game->users as $user)
-							<th>{{ $user->first_name }}</th>
-						@endforeach
-					</tr>
-				</thead>
-			<tbody>
-
+		<table class="table table-hover table-large text-small text-xs-left">
+			<thead>
 				<tr>
-					<td>1</td>
-
+					<th>#</th>
+					@foreach($game->users as $user)
+						<th>{{ $user->first_name }}</th>
+					@endforeach
 				</tr>
+			</thead>
+		<tbody>
 
-			</tbody>
-			</table>
+			<tr>
+				<td>1</td>
 
-		</div>
+			</tr>
+
+		</tbody>
+		</table>
+
 	</div>
 </div>
 

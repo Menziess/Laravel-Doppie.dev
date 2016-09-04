@@ -31,7 +31,7 @@
 </head>
 
 
-<body id="app-layout">
+<body id="app-layout" style="{{ Request::segment(1) == 'game' ? 'padding-top: 54px;' : '' }}">
 
 	@include('layouts.nav')
 

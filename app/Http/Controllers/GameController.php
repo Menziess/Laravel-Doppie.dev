@@ -30,11 +30,10 @@ class GameController extends Controller
 	 */
     public function getShow($id) {
     	$users = User::all();
-		$subject = Auth::user();
 		$game = Game::findOrFail($id);
         $links = self::LINKS;
 
-    	return view('content.game.board', compact('game', 'subject', 'users', 'links'));
+    	return view('content.game.board', compact('game', 'users', 'links'));
     }
 
     /*

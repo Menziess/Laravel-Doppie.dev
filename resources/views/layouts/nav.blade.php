@@ -1,9 +1,8 @@
 
-<nav class="navbar navbar-light bg-faded">
-	<div class="container fluid">
+<nav class="navbar {{ Request::segment(1) == 'game' ? 'navbar-fixed-top' : '' }} navbar-light bg-faded">
+	<div class="container">
 
 		<a class="navbar-brand" href="{{ url('/game') }}">Doppie er <span class="text-success">app</span></a>
-
 		@if (Auth::guest())
 
 			<div class="nav-padding pull-xs-right">

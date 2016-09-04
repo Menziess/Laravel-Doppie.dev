@@ -16,7 +16,7 @@ class VerifyAdmin
     public function handle($request, Closure $next)
     {
         if (!$request->user()->is_admin) {
-            return redirect('/feed');
+            return redirect('/game');
         }
 
         return $next($request);

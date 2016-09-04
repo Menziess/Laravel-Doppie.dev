@@ -36,7 +36,7 @@
 			</div>
 
 			<div class="row margin-bottom-20">
-				<img src="{{ asset($subject->getPicture()) }}" class=" img-circle profile-picture-large center-block" data-toggle="modal" data-target="#modal-upload" alt="" >
+				<img src="{{ asset($subject->getPicture()) }}" class="img-circle profile-picture-large center-block" data-toggle="modal" data-target="#modal-upload" alt="" >
 			</div>
 
 			<hr>

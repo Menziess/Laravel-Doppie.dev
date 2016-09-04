@@ -13,10 +13,14 @@
 			</thead>
 		<tbody>
 
-			<tr>
-				<td>1</td>
-
-			</tr>
+			@foreach($game->score as $round => $value)
+				<tr>
+					<td>{{ $round }}</td>
+					@foreach($game->users as $user)
+						<td>{{ $game->score[$round][$user->first_name] }}</td>
+					@endforeach
+				</tr>
+			@endforeach
 
 		</tbody>
 		</table>

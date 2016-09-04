@@ -91,6 +91,11 @@ class Game extends Model
 	 */
 	public function start() {
 		$this->started_at = Carbon::now();
+        $round = [];
+        foreach ($this->users as $key => $user) {
+            $round[1][$user->first_name] = 0;
+        }
+        $this->score = $round;
 		$this->save();
 	}
 }

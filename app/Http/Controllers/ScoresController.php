@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Game;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,8 @@ class ScoresController extends Controller
 	{
 		$subject = Auth::user();
 		$links = self::LINKS;
-		return view('scores', compact('links', 'subject'));
+		$games = Game::orderBy('id', 'desc')->take(10);
+
+		return view('content.game.scores', compact('links', 'subject', 'games'));
 	}
 }

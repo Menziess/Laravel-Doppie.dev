@@ -179,4 +179,73 @@ class Game extends Model
 			}
 		}
 	}
+
+	// /**
+	//  * Data attribute getter.
+	//  *
+	//  * @return array
+	//  */
+	// public function getDataAttribute()
+	// {
+	// 	if (!isset($this->attributes['data'])) {
+	// 		return null;
+	// 	}
+
+	// 	return json_decode($this->attributes['data']);
+	// }
+
+	// /**
+	//  * Data attribute setter.
+	//  *
+	//  * @param  	array|object
+	//  * @return	void
+	//  */
+	// public function setDataAttribute($data)
+	// {
+	// 	$data = (object) array_merge((array) $this->data, (array) $data);
+	// 	$this->attributes['data'] = json_encode($data);
+	// }
+
+	// /**
+	//  * Grab data attribute.
+	//  *
+	//  * @param 	string	$key
+	//  * @return 	mixed
+	//  */
+	// public function getData($key)
+	// {
+	// 	$data = $this->data;
+	// 	return isset($data->{$key}) ? $data->{$key} : null;
+	// }
+
+	// /**
+	//  * Get data relation.
+	//  *
+	//  * @param 	string 	$key
+	//  * @param 	mixed 	$class
+	//  * @return 	mixed
+	//  */
+	// public function getDataRelation($key, $class)
+	// {
+	// 	$id = $this->getData($key);
+	// 	$relation = new $class();
+
+	// 	return $relation->find($id);
+	// }
+
+	// /**
+	//  * Set data attribute.
+	//  *
+	//  * @param 	string	$key
+	//  * @param 	mixed	$value
+	//  * @return 	App\Content
+	//  */
+	// public function setData($key, $value)
+	// {
+	// 	$data = is_null($this->data) ? new \stdClass() : $this->data;
+	// 	$data->{$key} = $value;
+	// 	$this->data = $data;
+
+	// 	return $this;
+	// }
 }

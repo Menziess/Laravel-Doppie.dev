@@ -7,7 +7,7 @@
 
 		<table class="table table-hover table-large text-small text-xs-left">
 			<thead>
-				<tr>
+				<tr class="table-success">
 					<th>#</th>
 					@foreach($game->users as $user)
 						<th>{{ $user->first_name }}</th>
@@ -33,10 +33,10 @@
 					</tr>
 				@endforeach
 				@if(count($game->score) > 1)
-				<tr>
+				<tr class="table-success">
 					<td>Total</td>
 					@foreach($game->users as $user)
-						<td>{{ $game->getTotalScores()[$user->id] }}</td>
+						<td>{{ $user->first_name . ': ' . $game->getTotalScores()[$user->id] }}</td>
 					@endforeach
 				</tr>
 				@endif

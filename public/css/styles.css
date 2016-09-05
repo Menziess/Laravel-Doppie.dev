@@ -9,6 +9,16 @@ ul.no-dots {
     -webkit-transform:translateX(-2em);
 }
 
+.truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.searchbar {
+	width: 25vw !important;
+}
+
 .collapsing {
 	will-change: transform;
 	position: relative;

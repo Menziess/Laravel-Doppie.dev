@@ -23,21 +23,21 @@ class UserController extends Controller
 	}
 
 	/*
-	 * Get own settings.
-	 */
-	public function getYourSettings()
-	{
-		$subject = Auth::user();
-		return view('content.user.settings', compact('links', 'subject'));
-	}
-
-	/*
 	 * Get own profile.
 	 */
 	public function getYourProfile()
 	{
 		$subject = Auth::user();
 		return view('content.user.profile', compact('links', 'subject'));
+	}
+
+	/*
+	 * Get own settings.
+	 */
+	public function getSettings()
+	{
+		$subject = Auth::user();
+		return view('content.user.settings', compact('links', 'subject'));
 	}
 
 	/*
@@ -68,8 +68,8 @@ class UserController extends Controller
 
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
-			? '/admin/user-settings/' . $request->id . '#picture'
-			: '/user/your-settings' . '#picture';
+			? '/admin/user/' . $request->id . '#picture'
+			: '/user/settings' . '#picture';
 
 		if ($validator->fails()) {
 			return redirect($path)->withErrors($validator);
@@ -108,8 +108,8 @@ class UserController extends Controller
 
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
-			? '/admin/user-settings/' . $request->id . '#password'
-			: '/user/your-settings' . '#password';
+			? '/admin/user/' . $request->id . '#password'
+			: '/user/settings' . '#password';
 
 		if ($validator->fails()) {
 			return redirect($path)->withErrors($validator);
@@ -139,8 +139,8 @@ class UserController extends Controller
 
 		$editorIsAdmin = Auth::user()->is_admin;
 		$path = $editorIsAdmin
-			? '/admin/user-settings/' . $request->id . '#profile'
-			: '/user/your-settings' . '#profile';
+			? '/admin/user/' . $request->id . '#profile'
+			: '/user/settings' . '#profile';
 
 		if ($validator->fails()) {
 			return redirect($path)
@@ -178,11 +178,11 @@ class UserController extends Controller
 		}
 
 		$fail = $editorIsAdmin
-			? '/admin/user-settings/'. $id . '#delete'
-			: '/user/your-settings' . '#delete';
+			? '/admin/user/'. $id . '#delete'
+			: '/user/settings' . '#delete';
 		$success = $editorIsAdmin
 			? '/admin' . '#users'
-			: '/user/your-settings';
+			: '/user/settings';
 
 		$user = User::withTrashed()->findOrFail($id);
 

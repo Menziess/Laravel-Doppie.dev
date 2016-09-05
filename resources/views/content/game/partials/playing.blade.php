@@ -18,7 +18,7 @@
 
 				@foreach($game->score as $round => $value)
 					<tr>
-						<td>{{ $round }}</td>
+						<td><strong>{{ $round }}</strong></td>
 						@foreach($game->users as $user)
 							@if($round == count($game->score))
 								<td>

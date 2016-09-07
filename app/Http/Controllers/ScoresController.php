@@ -21,15 +21,26 @@ class ScoresController extends Controller
 
 	/**
 	 * Show the application dashboard.
-	 *
-	 * @return \Illuminate\Http\Response
 	 */
-	public function getIndex()
+	public function getIndex($id = null)
 	{
 		$subject = Auth::user();
 		$links = self::LINKS;
 		$games = Game::orderBy('id', 'desc')->take(10);
 
 		return view('content.game.scores', compact('links', 'subject', 'games'));
+	}
+
+	/**
+	 * @param  int  $id
+	 */
+	public function show($id)
+	{
+		$subject = Auth::user();
+		$links = self::LINKS;
+		$game = Game::findOrFail($id);
+		$totals = $game->getTotalScores();
+
+		return $game->getWinners($totals);
 	}
 }

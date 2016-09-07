@@ -111,27 +111,44 @@ class Game extends Model
 		$round = count($scores);
 		$totals = $this->getTotalScores();
 
-		foreach ($users as $user => $points) {
-			if ($this->type == 'punten halen') {
-	            $scores[$round][$user] = - ltrim($points, '0');
-			} else if ($totals[$user] + $points > 50) {
-	            $scores[$round][$user] = 50 - $totals[$user];
-            } else {
-	            $scores[$round][$user] = $points ? ltrim($points, '0') : 0;
-            }
-            $scores[$round + 1][$user] = 0;
-        }
+		if ($this->type == 'punten halen') {
+			foreach ($users as $user => $points) {
+				if ($totals[$user] + $points < 1) {
+		        	$scores[$round][$user] = $totals[$user];
+		            $scores[$round + 1][$user] = 0;
+				} else {
+					$scores[$round][$user] = $points ? (int) - ltrim($points, '0') : 0;
+		            $scores[$round + 1][$user] = 0;
+				}
+			}
+		} else {
+			foreach ($users as $user => $points) {
+				if ($totals[$user] + $points > 49) {
+		            $scores[$round][$user] = (50 - $totals[$user]);
+		            $scores[$round + 1][$user] = 0;
+				} else {
+					$scores[$round][$user] = $points ? (int) ltrim($points, '0') : 0;
+		            $scores[$round + 1][$user] = 0;
+				}
+			}
+		}
+
         $this->data = ['scores' => $scores];
         $this->save();
 
-        $totals = $this->getTotalScores(); // todo improve performance and expandability
+        $totals = $this->getTotalScores();
 
-        if ($this->type != 'punten halen' && self::hasFifty($totals)) {
+        if ($this->type != 'punten halen' && self::hasAmountPoints($totals, 50)) {
 			$this->type  = 'punten halen';
             $request->session()->flash('message', 'Punten halen.');
         }
 
         $this->save();
+
+        if ($this->type == 'punten halen' && self::hasAmountPoints($totals, 0)) {
+        	$winners = $this->getWinners($totals);
+        	return $this->finish($winners);
+        }
 
         return redirect('/game#bottom');
 	}
@@ -157,6 +174,8 @@ class Game extends Model
 	{
 		$this->finished_at = Carbon::now();
 		$this->save();
+
+		return redirect('/scores/' . $this->id);
 	}
 
 	/*
@@ -184,84 +203,26 @@ class Game extends Model
 		return $totals;
 	}
 
+	/**
+	 * @param  Return players with score of 0.
+	 * @return array
+	 */
+	public function getWinners(array $totals)
+	{
+		return array_filter($totals, function ($w) {
+    		return $w == 0;
+    	});
+	}
+
 	/*
 	 * Check if a user has 50 points.
 	 */
-	private static function hasFifty(array $totals)
+	private static function hasAmountPoints(array $totals, int $amount)
 	{
 		foreach ($totals as $total => $value) {
-			if ($value == 50) {
+			if ($value == $amount) {
 				return true;
 			}
 		}
 	}
-
-	// /**
-	//  * Data attribute getter.
-	//  *
-	//  * @return array
-	//  */
-	// public function getDataAttribute()
-	// {
-	// 	if (!isset($this->attributes['data'])) {
-	// 		return null;
-	// 	}
-
-	// 	return json_decode($this->attributes['data']);
-	// }
-
-	// /**
-	//  * Data attribute setter.
-	//  *
-	//  * @param  	array|object
-	//  * @return	void
-	//  */
-	// public function setDataAttribute($data)
-	// {
-	// 	$data = (object) array_merge((array) $this->data, (array) $data);
-	// 	$this->attributes['data'] = json_encode($data);
-	// }
-
-	// /**
-	//  * Grab data attribute.
-	//  *
-	//  * @param 	string	$key
-	//  * @return 	mixed
-	//  */
-	// public function getData($key)
-	// {
-	// 	$data = $this->data;
-	// 	return isset($data->{$key}) ? $data->{$key} : null;
-	// }
-
-	// /**
-	//  * Get data relation.
-	//  *
-	//  * @param 	string 	$key
-	//  * @param 	mixed 	$class
-	//  * @return 	mixed
-	//  */
-	// public function getDataRelation($key, $class)
-	// {
-	// 	$id = $this->getData($key);
-	// 	$relation = new $class();
-
-	// 	return $relation->find($id);
-	// }
-
-	// /**
-	//  * Set data attribute.
-	//  *
-	//  * @param 	string	$key
-	//  * @param 	mixed	$value
-	//  * @return 	App\Content
-	//  */
-	// public function setData($key, $value)
-	// {
-	// 	$data = is_null($this->data) ? new \stdClass() : $this->data;
-	// 	$data->{$key} = $value;
-	// 	$this->data = $data;
-
-	// 	return $this;
-	// }
 }

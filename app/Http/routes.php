@@ -18,6 +18,7 @@ Route::controller('/facebook', 'SocialController');
 Route::group(['middleware' => 'auth'], function () {
 
 	Route::controller('/game', 'GameController');
+	Route::resource('/scores', 'ScoresController');
 	Route::controller('/scores', 'ScoresController');
 
 	# SUBJECTS

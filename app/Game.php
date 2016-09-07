@@ -25,7 +25,7 @@ class Game extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'score',
+		'data',
 	];
 
 	/**
@@ -53,7 +53,7 @@ class Game extends Model
      * @var array
      */
     protected $casts = [
-        'score' => 'array',
+        'data' => 'array',
     ];
 
     # Users relation
@@ -107,23 +107,26 @@ class Game extends Model
 	 */
 	public function saveScore($request, $users)
 	{
-		$nr = count($this->score);
-		$round = $this->score;
+		$scores = $this->data['scores'];
+		$round = count($scores);
 		$totals = $this->getTotalScores();
+
 		foreach ($users as $user => $points) {
 			if ($this->type == 'punten halen') {
-	            $round[$nr][$user] = - ltrim($points, '0');
+	            $scores[$round][$user] = - ltrim($points, '0');
 			} else if ($totals[$user] + $points > 50) {
-	            $round[$nr][$user] = 50 - $totals[$user];
+	            $scores[$round][$user] = 50 - $totals[$user];
             } else {
-	            $round[$nr][$user] = $points ? ltrim($points, '0') : 0;
+	            $scores[$round][$user] = $points ? ltrim($points, '0') : 0;
             }
-            $round[$nr + 1][$user] = 0;
+            $scores[$round + 1][$user] = 0;
         }
-        $this->score = $round;
+        $this->data = ['scores' => $scores];
         $this->save();
 
-        if ($this->type != 'punten halen' && self::hasFifty($totals)) { // todo totals has 50 value
+        $totals = $this->getTotalScores(); // todo improve performance and expandability
+
+        if ($this->type != 'punten halen' && self::hasFifty($totals)) {
 			$this->type  = 'punten halen';
             $request->session()->flash('message', 'Punten halen.');
         }
@@ -142,8 +145,17 @@ class Game extends Model
         foreach ($this->users as $key => $user) {
             $round[1][$user->id] = 0;
         }
-        $this->score = $round;
+        $this->data = ['scores' => $round];
         $this->user()->associate(Auth::user());
+		$this->save();
+	}
+
+	/*
+	 * Finish the game.
+	 */
+	public function finish()
+	{
+		$this->finished_at = Carbon::now();
 		$this->save();
 	}
 
@@ -156,10 +168,14 @@ class Game extends Model
 
 		foreach($this->users as $user) {
 
+			if (!isset($this->data['scores'])) {
+				return null;
+			}
+
 			$total = 0;
 
-			foreach($this->score as $round => $value) {
-				$total += $this->score[$round][$user->id];
+			foreach($this->data['scores'] as $round => $value) {
+				$total += $this->data['scores'][$round][$user->id];
 			}
 
 			$totals[$user->id] = $total;

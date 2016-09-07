@@ -26,7 +26,7 @@ class CreateGamesTable extends Migration
 
             $table->boolean('is_public')->default(true);
             $table->string('type')->nullable();
-            $table->text('score')->nullable();
+            $table->text('data')->nullable();
 
             $table->timestamp('started_at')->nullable();
             $table->timestamp('finished_at')->nullable();

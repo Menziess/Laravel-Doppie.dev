@@ -16,23 +16,23 @@
 			</thead>
 		<tbody>
 
-				@foreach($game->score as $round => $value)
+				@foreach($game->data['scores'] as $round => $value)
 					<tr>
 						<td><strong>{{ $round }}</strong></td>
 						@foreach($game->users as $user)
-							@if($round == count($game->score))
+							@if($round == count($game->data['scores']))
 								<td>
 									<input name="{{ $user->id }}" class="form-control" style="width: 70px;" type="number" min="0" step="1" inputmode="numeric" pattern="[0-9]*"
 									max="{{ $game->getPointsPerRound() }}"
-									placeholder="0">
+									placeholder="0" autofocus="autofocus">
 								</td>
 							@else
-								<td>{{ $game->score[$round][$user->id] }}</td>
+								<td>{{ $game->data['scores'][$round][$user->id] }}</td>
 							@endif
 						@endforeach
 					</tr>
 				@endforeach
-				@if(count($game->score) > 1)
+				@if(count($game->data['scores']) > 1)
 				<tr class="table-success">
 					<td>Total</td>
 					@foreach($game->users as $user)

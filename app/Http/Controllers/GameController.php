@@ -56,7 +56,7 @@ class GameController extends Controller
         $users = array_except($request->all(), ['_token', '_method']);
 
         if (!array_filter($users)) {
-            return redirect()->back()->withErrors(['Please enter scores before pressing any buttons.']);
+            return redirect()->to(\URL::previous() . '#bottom')->withErrors(['Please enter scores before pressing any buttons.']);
         }
 
         $game = Game::active()->orderBy('id', 'desc')->firstOrFail();

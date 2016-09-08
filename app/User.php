@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
 	use SoftDeletes;
 
+	const LEVEL_CONST = 0.1;
+
 	/**
 	 * The table associated with the model.
 	 *
@@ -104,9 +106,17 @@ class User extends Authenticatable
 	/*
 	 * Gets total amount of xp.
 	 */
-	public function getXpTop()
+	public function getXpNext()
 	{
-		return $this->xp + 50;
+		return pow(($this->getLevel() / self::LEVEL_CONST), 2);
+	}
+
+	/*
+	 * Get user level.
+	 */
+	public function getLevel()
+	{
+		return 1 + round(self::LEVEL_CONST * sqrt($this->xp));
 	}
 
 	/*

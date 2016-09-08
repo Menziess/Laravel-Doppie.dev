@@ -9,6 +9,10 @@ ul.no-dots {
     -webkit-transform:translateX(-2em);
 }
 
+.td-fixed {
+	width: 20px;
+}
+
 .truncate {
     overflow: hidden;
     white-space: nowrap;
@@ -17,6 +21,13 @@ ul.no-dots {
 
 .searchbar {
 	width: 25vw !important;
+}
+
+.progress-label {
+	position: absolute;
+	left: calc(50% - 1em);
+	line-height: 14px;
+	font-size: xx-large;
 }
 
 .collapsing {

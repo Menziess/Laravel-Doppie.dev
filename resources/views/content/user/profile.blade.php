@@ -6,6 +6,9 @@
 
 	@if($subject && $subject->profile)
 
+		Level: {{ $subject->getLevel() }}
+		Next level: {{ $subject->getXpNext() }}
+
 		<div class="card card-block">
 			<div class="row">
 				<div class="col-md-4">

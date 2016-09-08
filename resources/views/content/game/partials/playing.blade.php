@@ -1,9 +1,9 @@
 
-<div class="row">
-	<form id="score-form" class="form-horizontal" method="POST" action="{{ url('game/save-score') }}">
-	{!! csrf_field() !!}
-	{{ method_field('PUT') }}
+<form id="score-form" class="form-horizontal" method="POST" action="{{ url('game/save-score') }}">
+{!! csrf_field() !!}
+{{ method_field('PUT') }}
 
+	<div class="row">
 		<table class="table table-hover table-large text-small text-xs-left">
 			<thead>
 				<tr class="table-success">
@@ -13,11 +13,11 @@
 					@endforeach
 				</tr>
 			</thead>
-		<tbody>
 
+			<tbody>
 				@foreach($game->data['scores'] as $round => $value)
 					<tr>
-						<td><strong>{{ $round }}</strong></td>
+						<td class="td-fixed table-success"><strong>{{ $round }}</strong></td>
 						@foreach($game->users as $user)
 							@if($round == count($game->data['scores']))
 								<td>
@@ -31,26 +31,34 @@
 						@endforeach
 					</tr>
 				@endforeach
+
 				@if(count($game->data['scores']) > 1)
-				<tr class="table-success">
-					<td>Total</td>
-					@foreach($game->users as $user)
-						<td>{{ $user->first_name . ': ' . $game->getTotalScores()[$user->id] }}</td>
-					@endforeach
-				</tr>
+					<tr class="table-success">
+						<td></td>
+						@foreach($game->users as $user)
+							<td>
+								<strong>{{ $user->first_name }}</strong>
+								<br/>
+								{{ $game->getTotalScores()[$user->id] }}
+							</td>
+						@endforeach
+					</tr>
 				@endif
-
-		</tbody>
+			</tbody>
 		</table>
+	</div>
 
+	<div class="container">
+		<div class="row">
 		@include('errors.feedback')
+			<button class="btn btn-primary-outline" type="submit">Save</button>
+			<button style="display: inline-block;" class="btn btn-danger center-block" type="button" data-toggle="modal" data-target="#modal-delete">Stop</button>
+		</div>
+	</div>
 
-		<button id="bottom" class="btn btn-primary-outline" type="submit">Save</button>
+</form>
 
-	</form>
-</div>
-
-<div class="row">
+<div id="bottom" class="row">
 	<div id="modal-delete" class="modal fade">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -75,8 +83,4 @@
 			</div>
 		</div>
 	</div>
-
-	<hr>
-
-	<button class="btn btn-danger center-block" type="submit" data-toggle="modal" data-target="#modal-delete">Stop</button>
 </div>

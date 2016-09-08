@@ -12,7 +12,9 @@
 			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
 			<h4 class="card-title">{{ $subject->getName() }}</h4>
 			<p class="card-text">
-				To be added...
+				Wins:<br />
+				Losses:<br />
+				XP: {{ $subject->getXp() . '/' . $subject->getXpNext() }}
 			</p>
 			</div>
 		</div>
@@ -20,8 +22,10 @@
 </div>
 
 <div id="progress" class="p-t-1 div-centered-large">
-	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header" onClick="saveCollapseState()">
-	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="{{ $subject->getXpTop() }}"></progress>
+	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header" onClick="saveCollapseState()" style="color: black;">
+	<label class="progress-label">Lvl: {{ $subject->getLevel() }}</label>
+	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="{{ $subject->getXpNext() }}">
+	</progress>
 	</a>
 </div>
 

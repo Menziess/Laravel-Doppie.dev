@@ -27,6 +27,7 @@ class UserController extends Controller
 	 */
 	public function getYourProfile()
 	{
+		$links = self::LINKS;
 		$subject = Auth::user();
 		return view('content.user.profile', compact('links', 'subject'));
 	}
@@ -36,6 +37,7 @@ class UserController extends Controller
 	 */
 	public function getSettings()
 	{
+		$links = self::LINKS;
 		$subject = Auth::user();
 		return view('content.user.settings', compact('links', 'subject'));
 	}

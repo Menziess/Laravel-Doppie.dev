@@ -146,8 +146,7 @@ class Game extends Model
         $this->save();
 
         if ($this->type == 'punten halen' && self::hasAmountPoints($totals, 0)) {
-        	$winners = $this->getWinners($totals);
-        	return $this->finish($winners);
+        	return $this->finish();
         }
 
         return redirect('/game#bottom');
@@ -173,8 +172,10 @@ class Game extends Model
 	 */
 	public function finish()
 	{
+		$total = $this->getTotalScores();
+		$this->setData('winners', $this->setWinners($total));
+		$this->setData('losers', $this->setLosers($total));
 		$this->finished_at = Carbon::now();
-		$this->setData('winners', $this->getWinners($this->getTotalScores()));
 		$this->save();
 
 		return redirect('/scores/' . $this->id);
@@ -189,16 +190,10 @@ class Game extends Model
 
 		foreach($this->users as $user) {
 
-			if (!isset($this->data['scores'])) {
-				return null;
-			}
-
 			$total = 0;
-
 			foreach($this->data['scores'] as $round => $value) {
 				$total += $this->data['scores'][$round][$user->id];
 			}
-
 			$totals[$user->id] = $total;
 		}
 
@@ -209,11 +204,22 @@ class Game extends Model
 	 * @param  Return players with score of 0.
 	 * @return array
 	 */
-	public function getWinners(array $totals)
+	public function setWinners(array $totals)
 	{
 		return array_filter($totals, function ($w) {
     		return $w == 0;
     	});
+	}
+
+	/**
+	 * @param  Return players with score greater than 0.
+	 * @return array
+	 */
+	public function setLosers(array $totals)
+	{
+		return array_filter($totals, function ($l) {
+			return $l > 0;
+		});
 	}
 
 	/*

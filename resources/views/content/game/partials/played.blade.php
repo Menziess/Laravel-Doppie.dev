@@ -1,4 +1,3 @@
-@include('errors.feedback')
 
 <div class="row">
 

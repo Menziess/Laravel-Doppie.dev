@@ -18,6 +18,7 @@ class SubjectController extends Controller
 	 */
 	public function getIndex(Request $request)
 	{
+		$links = self::LINKS;
 		$input = $request->search;
 		$search = '%' . $input . '%' ?: '%';
 		$subject = Auth::user();
@@ -26,7 +27,7 @@ class SubjectController extends Controller
 			->orWhere('email', 'like', $search)
 			->orderBy('id', 'desc')->paginate();
 
-		return view('content.all.list', compact('users', 'subject', 'input'));
+		return view('content.all.list', compact('links', 'users', 'subject', 'input'));
 	}
 
 	/*

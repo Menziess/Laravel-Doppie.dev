@@ -42,9 +42,6 @@ class ScoresController extends Controller
 		$subject = Auth::user();
 		$links = self::LINKS;
 		$game = Game::findOrFail($id);
-		$totals = $game->getTotalScores();
-		$winners = $game->getWinners($totals);
-		$users = User::all();
 
     	return view('content.game.board', compact('game', 'users', 'links'));
 	}

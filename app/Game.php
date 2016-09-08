@@ -113,8 +113,8 @@ class Game extends Model
 
 		if ($this->type == 'punten halen') {
 			foreach ($users as $user => $points) {
-				if ($totals[$user] + $points < 1) {
-		        	$scores[$round][$user] = $totals[$user];
+				if ($totals[$user] - $points < 1) {
+		        	$scores[$round][$user] = - $totals[$user];
 		            $scores[$round + 1][$user] = 0;
 				} else {
 					$scores[$round][$user] = $points ? (int) - ltrim($points, '0') : 0;

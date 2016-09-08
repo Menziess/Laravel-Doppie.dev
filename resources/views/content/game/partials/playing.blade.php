@@ -1,4 +1,3 @@
-@include('errors.feedback')
 
 <div class="row">
 	<form id="score-form" class="form-horizontal" method="POST" action="{{ url('game/save-score') }}">
@@ -43,6 +42,9 @@
 
 		</tbody>
 		</table>
+
+		@include('errors.feedback')
+
 		<button id="bottom" class="btn btn-primary-outline" type="submit">Save</button>
 
 	</form>

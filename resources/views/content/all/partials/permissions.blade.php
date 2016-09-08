@@ -22,7 +22,7 @@
 					</p>
 				</div>
 				<div class="modal-footer">
-					<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/' . class_basename($subject) . '/delete/' . $subject->getKey()) }}">
+					<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/' .lcfirst(class_basename($subject)) . '/delete/' . $subject->getKey()) }}">
 					{!! csrf_field() !!}
 					{{ method_field('DELETE') }}
 					<button type="button" class="btn btn-secondary-outline" data-dismiss="modal">Close</button>

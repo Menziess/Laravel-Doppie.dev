@@ -6,6 +6,7 @@
 
 		@if($game->finished_at)
 
+			@include('content.game.partials.played')
 
 		@elseif($game->started_at)
 

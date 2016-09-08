@@ -2,7 +2,11 @@
 <div class="row">
 
 	<div class="card">
-		test
+		<div class="card-block">
+			@foreach($game->getData('winners') as $winner => $points)
+				{{ \App\User::find($winner)->first_name }} has {{ $points }} points.
+			@endforeach
+		</div>
 	</div>
 
 	<table class="table table-hover table-large text-small text-xs-left">

@@ -27,7 +27,7 @@ class ScoresController extends Controller
 	{
 		$subject = Auth::user();
 		$links = self::LINKS;
-		$games = Game::orderBy('id', 'desc')->take(10)->get();
+		$games = Game::whereNotNull('started_at')->orderBy('id', 'desc')->take(10)->get();
 
 		return view('content.game.scores', compact('links', 'subject', 'games'));
 	}

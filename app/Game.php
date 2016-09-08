@@ -111,7 +111,7 @@ class Game extends Model
 		$round = count($scores);
 		$totals = $this->getTotalScores();
 
-		if ($this->type == 'punten halen') {
+		if ($this->getData('punten_halen')) {
 			foreach ($users as $user => $points) {
 				if ($totals[$user] - $points < 1) {
 		        	$scores[$round][$user] = - $totals[$user];
@@ -138,14 +138,14 @@ class Game extends Model
 
         $totals = $this->getTotalScores();
 
-        if ($this->type != 'punten halen' && self::hasAmountPoints($totals, 50)) {
-			$this->type  = 'punten halen';
-            $request->session()->flash('message', 'Punten halen.');
+        if (!$this->getData('punten_halen') && self::hasAmountPoints($totals, 50)) {
+			 $this->setData('punten_halen', true);
+             $request->session()->flash('message', 'Punten halen.');
         }
 
         $this->save();
 
-        if ($this->type == 'punten halen' && self::hasAmountPoints($totals, 0)) {
+        if ($this->getData('punten_halen') && self::hasAmountPoints($totals, 0)) {
         	return $this->finish();
         }
 
@@ -161,7 +161,8 @@ class Game extends Model
         foreach ($this->users as $key => $user) {
             $round[1][$user->id] = 0;
         }
-        $this->setData('punten halen', false);
+        $this->type = "Hartenjagen";
+        $this->setData('punten_halen', false);
         $this->setData('scores', $round);
         $this->user()->associate(Auth::user());
 		$this->save();
@@ -242,7 +243,7 @@ class Game extends Model
 	 */
 	public function getData($key)
 	{
-		$data = $this->data;
+		$data = is_null($this->data) ? new \stdClass() : json_decode(json_encode($this->data));
 		return isset($data->{$key}) ? $data->{$key} : null;
 	}
 

@@ -1,6 +1,10 @@
 
 <div class="row">
 
+	<div class="card">
+		test
+	</div>
+
 	<table class="table table-hover table-large text-small text-xs-left">
 		<thead>
 			<tr class="table-success">

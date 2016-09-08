@@ -4,22 +4,30 @@
 
 <div class="container">
 
-	<div class="card-columns">
+	@if ($games->count() > 0)
+		<div class="card-columns">
 
-		@foreach($games as $game)
-			<div class="card">
-				<img class="card-img-top" src="{{ '' }}" alt="Card image cap">
-				<div class="card-block">
-					<h4 data-href="scores/{{ $game->id }}" class="card-title unselectable clickable-row">Hartenjagen</h4>
-					<p class="card-text">
-						{{ $game }}
-					</p>
-					<p class="card-text"><small class="text-muted">Game played {{ Carbon\Carbon::now()->diffForHumans($game->finished_at, true) }} ago</small></p>
+			@foreach($games as $game)
+				<div class="card">
+					<img class="card-img-top"
+						style="	width: 3em; margin-top: 1em;"
+						src="{{ asset('img/games/heart.png') }}"
+						alt="Game type">
+					<div class="card-block">
+						<h4 data-href="scores/{{ $game->id }}" class="card-title unselectable clickable-row">{{ $game->type }}</h4>
+						<p class="card-text">
+							{{ $game }}
+						</p>
+						<p class="card-text"><small class="text-muted">Game played {{ Carbon\Carbon::now()->diffForHumans($game->finished_at, true) }} ago</small></p>
+					</div>
 				</div>
-			</div>
-		@endforeach
+			@endforeach
 
-	</div>
+		</div>
+	@else
+		No games have been played recently...
+	@endif
+
 </div>
 
 @endsection

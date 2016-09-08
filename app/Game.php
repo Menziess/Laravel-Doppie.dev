@@ -133,7 +133,7 @@ class Game extends Model
 			}
 		}
 
-        $this->data = ['scores' => $scores];
+        $this->setData('scores', $scores);
         $this->save();
 
         $totals = $this->getTotalScores();
@@ -162,7 +162,8 @@ class Game extends Model
         foreach ($this->users as $key => $user) {
             $round[1][$user->id] = 0;
         }
-        $this->data = ['scores' => $round];
+        $this->setData('punten halen', false);
+        $this->setData('scores', $round);
         $this->user()->associate(Auth::user());
 		$this->save();
 	}
@@ -173,6 +174,7 @@ class Game extends Model
 	public function finish()
 	{
 		$this->finished_at = Carbon::now();
+		$this->setData('winners', $this->getWinners($this->getTotalScores()));
 		$this->save();
 
 		return redirect('/scores/' . $this->id);
@@ -224,5 +226,34 @@ class Game extends Model
 				return true;
 			}
 		}
+	}
+
+	/**
+	 * Grab data attribute.
+	 *
+	 * @param 	string	$key
+	 * @return 	mixed
+	 */
+	public function getData($key)
+	{
+		$data = $this->data;
+		return isset($data->{$key}) ? $data->{$key} : null;
+	}
+
+	/**
+	 * Set data attribute.
+	 *
+	 * @param 	string	$key
+	 * @param 	mixed	$value
+	 * @return 	App\Content
+	 */
+	public function setData($key, $value)
+	{
+		$data = is_null($this->data) ? new \stdClass() : json_decode(json_encode($this->data));
+		$data->{$key} = $value;
+		$data = (object) array_merge((array) $this->data, (array) $data);
+		$this->attributes['data'] = json_encode($data);
+
+		return $this;
 	}
 }

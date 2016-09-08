@@ -84,6 +84,16 @@ class Game extends Model
 		return $query->whereNull('finished_at');
 	}
 
+	/**
+	 * Get finished game.
+	 *
+	 * @return query
+	 */
+	public function scopeFinished($query)
+	{
+		return $query->whereNotNull('finished_at');
+	}
+
 	/*
 	 * Adds a player to the game.
 	 */
@@ -173,10 +183,14 @@ class Game extends Model
 	 */
 	public function finish()
 	{
-		$total = $this->getTotalScores();
-		$this->setData('winners', $this->setWinners($total));
-		$this->setData('losers', $this->setLosers($total));
 		$this->finished_at = Carbon::now();
+		$total = $this->getTotalScores();
+		$winners = $this->setWinners($total);
+		$losers = $this->setLosers($total);
+		$this->setData('winners', $winners);
+		$this->setData('losers', $losers);
+		$this->setXp($winners);
+		$this->setXp($losers);
 		$this->save();
 
 		return redirect('/scores/' . $this->id);
@@ -221,6 +235,19 @@ class Game extends Model
 		return array_filter($totals, function ($l) {
 			return $l > 0;
 		});
+	}
+
+	/**
+	 * Gives experience points to all players.
+	 *
+	 * @param array $winners
+	 * @param array $losers
+	 */
+	private function setXp(array $players)
+	{
+		foreach($players as $player => $score) {
+			User::find($player)->giveXp(50 - ($score == 0 ? - 10 : $score));
+		}
 	}
 
 	/*

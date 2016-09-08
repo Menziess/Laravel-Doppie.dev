@@ -3,13 +3,22 @@
 
 	<div class="card">
 		<div class="card-block">
-			@foreach($game->getData('winners') as $winner => $points)
-				{{ \App\User::find($winner)->first_name }} has {{ $points }} points.
-			@endforeach
+			<h2>Congratulations!</h2>
+			<div class="row">
+				@foreach($game->getData('winners') as $winner => $points)
+					<div style="display: inline-block;">
+
+						<h4>{{ \App\User::find($winner)->first_name }}</h4>
+							<a href="{{ url(\App\User::find($winner)->getProfileUrl()) }}" class="over round">
+								<img src="{{ url(\App\User::find($winner)->getPicture()) }}" class="img-circle profile-picture-small">
+							</a>
+					</div>
+				@endforeach
+			</div>
 		</div>
 	</div>
 
-	<table class="table table-hover table-large text-small text-xs-left">
+	<table class="table table-large text-small text-xs-left">
 		<thead>
 			<tr class="table-success">
 				<th>#</th>

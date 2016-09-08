@@ -11,7 +11,9 @@
 
 			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
 			<h4 class="card-title">{{ $subject->getName() }}</h4>
-			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			<p class="card-text">
+				To be added...
+			</p>
 			</div>
 		</div>
 	</div>
@@ -19,7 +21,7 @@
 
 <div id="progress" class="p-t-1 div-centered-large">
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header" onClick="saveCollapseState()">
-	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="100"></progress>
+	<progress class="progress progress-success" value="{{ $subject->getXp() }}" max="{{ $subject->getXpTop() }}"></progress>
 	</a>
 </div>
 

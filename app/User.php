@@ -94,11 +94,28 @@ class User extends Authenticatable
 	}
 
 	/*
-	 * Gets total amount of xp.
+	 * Gets user  xp.
 	 */
 	public function getXp()
 	{
 		return $this->xp;
+	}
+
+	/*
+	 * Gets total amount of xp.
+	 */
+	public function getXpTop()
+	{
+		return $this->xp + 50;
+	}
+
+	/*
+	 * Increases the users xp by a certain amount.
+	 */
+	public function giveXp(int $amount)
+	{
+		$this->xp += $amount;
+		$this->save();
 	}
 
 	/*

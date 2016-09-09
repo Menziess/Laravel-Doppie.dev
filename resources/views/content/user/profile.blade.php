@@ -6,9 +6,6 @@
 
 	@if($subject && $subject->profile)
 
-		Level: {{ $subject->getLevel() }}
-		Next level: {{ $subject->getXpNext() }}
-
 		<div class="card card-block">
 			<div class="row">
 				<div class="col-md-4">
@@ -22,8 +19,14 @@
 
 				<div class="col-md-8 text-xs-left">
 					<h4 class="card-title">Statistics</h4>
-					To be added...
+					Wins: {{ $subject->getData('wins') ?? 0 }}<br />
+					Losses: {{ $subject->getData('losses') ?? 0 }}<br />
+					Average score: {{ 'N/A' }}<br />
+					Last game: {{ 'N/A' }}<br />
+					XP: {{ $subject->getXp() . '/' . $subject->getXpNext() }}<br />
+					Lvl: {{ $subject->getLevel() }}
 				</div>
+
 			</div>
 		</div>
 

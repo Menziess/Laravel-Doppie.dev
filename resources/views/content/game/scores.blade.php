@@ -16,7 +16,10 @@
 					<div class="card-block">
 						<h4 data-href="scores/{{ $game->id }}" class="card-title unselectable clickable-row">{{ $game->type }}</h4>
 						<p class="card-text">
-							{{ $game }}
+							<p><strong>Winners:</strong></p>
+							@foreach($game->getData('winners') as $winner => $points)
+								{{ \App\User::find($winner)->getName() }}
+							@endforeach
 						</p>
 						<p class="card-text"><small class="text-muted">Game played {{ Carbon\Carbon::now()->diffForHumans($game->finished_at, true) }} ago</small></p>
 					</div>

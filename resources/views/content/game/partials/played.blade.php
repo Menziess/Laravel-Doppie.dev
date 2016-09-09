@@ -51,4 +51,32 @@
 	</tbody>
 	</table>
 
+	<div class="card">
+		<div class="card-block">
+			<h2>Experience Points</h2>
+			@foreach($game->getData('winners') as $winner => $points)
+				<div class="row">
+					<div class="col-md-6 text-xs-right">
+						{{ \App\User::find($winner)->getName() }}
+					</div>
+					<div class="col-md-6 text-xs-left">
+						+ <span class="text-success">50</span> xp
+						<br />
+						+ <span class="text-success">10</span> xp for winning
+					</div>
+				</div>
+			@endforeach
+			@foreach($game->getData('losers') as $loser => $points)
+				<div class="row">
+					<div class="col-md-6">
+						{{ \App\User::find($loser)->getName() }}
+					</div>
+					<div class="col-md-6">
+						+ <span class="text-success">{{ 50 - $points}}</span> xp
+					</div>
+				</div>
+			@endforeach
+		</div>
+	</div>
+
 </div>

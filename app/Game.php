@@ -246,7 +246,10 @@ class Game extends Model
 	private function setXp(array $players)
 	{
 		foreach($players as $player => $score) {
-			User::find($player)->giveXp(50 - ($score == 0 ? - 10 : $score));
+			$user = User::find($player);
+			$user->setWinner(0 == $score);
+			$user->giveXp(50 - ($score == 0 ? - 10 : $score));
+			$user->save();
 		}
 	}
 

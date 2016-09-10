@@ -34,7 +34,7 @@
 	</div>
 </div>
 
-<div class="card shadow" style="overflow: auto; min-height: 40vh;">
+<div class="card shadow scrolling-content" style="min-height: 40vh;">
 	<table class="table table-large text-small text-xs-left">
 		<thead style="background: #f5f5f5;">
 			<tr>

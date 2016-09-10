@@ -3,7 +3,7 @@
 {!! csrf_field() !!}
 {{ method_field('PUT') }}
 
-	<div class="card shadow m-t-3" style="overflow: auto; min-height: 40vh;">
+	<div class="card shadow m-t-3 scrolling-content">
 		<table class="table table-hover table-striped table-large text-small text-xs-left">
 			<thead style="background: #f5f5f5;">
 				<tr">

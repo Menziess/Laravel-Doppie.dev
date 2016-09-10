@@ -30,6 +30,12 @@ ul.no-dots {
 	font-size: xx-large;
 }
 
+.scrolling-content {
+   -webkit-overflow-scrolling: touch;
+   -webkit-transform: translateZ(0px);
+   overflow-x: auto;
+}
+
 .collapsing {
 	will-change: transform;
 	position: relative;

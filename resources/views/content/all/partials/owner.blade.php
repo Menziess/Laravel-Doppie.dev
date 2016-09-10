@@ -1,4 +1,4 @@
-<div id="users" class="card card-block">
+<div id="users" class="card shadow card-block">
 	<div class="row">
 		<div class="card-block">
 			<h4 class="card-title">Owner</h4>

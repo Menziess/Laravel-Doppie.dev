@@ -1,4 +1,4 @@
-<div id="players" class="card card-block m-t-2">
+<div id="players" class="card shadow card-block m-t-2">
 	<div class="row">
 		<h4 class="card-title">New Game</h4>
 

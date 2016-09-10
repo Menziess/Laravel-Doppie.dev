@@ -1,4 +1,4 @@
-<div id="password" class="card card-block">
+<div id="password" class="card shadow card-block">
 	<div class="row">
 		<h4 class="card-title">Password</h4>
 		<div class="col-md-6 col-md-offset-3 col-centered">

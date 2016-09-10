@@ -1,4 +1,4 @@
-<div id="delete" class="card card-block">
+<div id="delete" class="card shadow card-block">
 	<div class="row row-centered">
 		<h4 class="card-title">{{ class_basename($subject) }}</h4>
 		<div class="col-md-6 col-md-offset-3">

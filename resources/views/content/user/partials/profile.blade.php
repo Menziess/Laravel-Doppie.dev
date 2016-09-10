@@ -1,4 +1,4 @@
-<div id="profile" class="card card-block">
+<div id="profile" class="card shadow card-block">
 	<div class="row">
 		<h4 class="card-title">Profile</h4>
 		<div class="col-md-6 col-md-offset-3 left">

@@ -25,7 +25,7 @@ ul.no-dots {
 
 .progress-label {
 	position: absolute;
-	left: calc(50% - 1em);
+	left: calc(50vw - 1em);
 	line-height: 14px;
 	font-size: xx-large;
 }
@@ -50,8 +50,12 @@ ul.no-dots {
 }
 
 .shadow {
-	/*box-shadow: 0px 0px 50px #888888;*/
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.shadow:hover {
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
 }
 
 .card {

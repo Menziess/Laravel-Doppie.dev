@@ -52,9 +52,10 @@ class UserController extends Controller
 			return redirect('user/your-profile');
 		}
 
+		$links = self::LINKS;
 		$user = User::findOrFail($id);
 		$subject = $user;
-		return view('content.user.profile', compact('subject', 'user'));
+		return view('content.user.profile', compact('links', 'subject', 'user'));
 	}
 
 	/*

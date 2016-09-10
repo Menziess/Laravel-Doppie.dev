@@ -3,10 +3,10 @@
 {!! csrf_field() !!}
 {{ method_field('PUT') }}
 
-	<div class="row">
-		<table class="table table-hover table-large text-small text-xs-left">
-			<thead>
-				<tr class="table-success">
+	<div class="card shadow" style="overflow: auto; min-height: 40vh;">
+		<table class="table table-hover table-striped table-large text-small text-xs-left">
+			<thead style="background: #f5f5f5;">
+				<tr">
 					<th>#</th>
 					@foreach($game->users as $user)
 						<th>{{ $user->first_name }}</th>
@@ -16,8 +16,8 @@
 
 			<tbody>
 				@foreach($game->data['scores'] as $round => $value)
-					<tr>
-						<td class="td-fixed table-success"><strong>{{ $round }}</strong></td>
+					<tr {!! $round < count($game->data['scores']) ? 'class="clickable-row"' : '' !!} data-href="lol">
+						<td class="td-fixed"><strong>{{ $round }}</strong></td>
 						@foreach($game->users as $user)
 							@if($round == count($game->data['scores']))
 								<td>
@@ -33,7 +33,7 @@
 				@endforeach
 
 				@if(count($game->data['scores']) > 1)
-					<tr class="table-success">
+					<tr style="background: #f5f5f5;">
 						<td></td>
 						@foreach($game->users as $user)
 							<td>
@@ -77,10 +77,20 @@
 					<form class="form-horizontal" method="POST" action="{{ url('game/delete-game') }}">
 						{!! csrf_field() !!}
 						{{ method_field('DELETE') }}
-						<button class="btn btn-danger-outline center-block" type="submit">Delete Game</button>
+						<button class="btn btn-danger" type="submit">Delete</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+@push('scripts')
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".clickable-row").click(function() {
+			window.document.location = $(this).data("href");
+		});
+	});
+</script>
+@endpush

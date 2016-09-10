@@ -9,12 +9,14 @@
 
 			@foreach($games as $game)
 				<div class="card">
+					<div class="card-header clickable-row unselectable" data-href="scores/{{ $game['game']->id }}">
 					<img class="card-img-top"
-						style="	width: 3em; margin-top: 1em;"
+						style="	width: 3em;"
 						src="{{ asset('img/games/heart.png') }}"
 						alt="Game type">
+						<h4  class="card-title">{{ $game['game']->type }}</h4>
+					</div>
 					<div class="card-block">
-						<h4 data-href="scores/{{ $game['game']->id }}" class="card-title unselectable clickable-row">{{ $game['game']->type }}</h4>
 						<p class="card-text">
 							<p><strong>Winners:</strong></p>
 							@if($game['winners']->count() > 0)

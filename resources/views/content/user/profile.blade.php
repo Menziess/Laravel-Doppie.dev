@@ -6,13 +6,13 @@
 
 	@if($subject && $subject->profile)
 
-		<div class="card card-block">
+		<div class="card shadow card-block">
 			<div class="row">
 				<div class="col-md-4">
 					<h4 class="card-title">{{ $subject->getName() }}</h4>
 
 					<div class="row margin-bottom-20">
-						<a {{ Auth::user()->is_admin ? 'href=' . url('admin/user/' . $user->id) : '' }}>
+						<a {{ Auth::user()->is_admin ? 'href=' . url('admin/user/' . $subject->id) : '' }}>
 							<img src="{{ asset($subject->getPicture()) }}" class="img-circle profile-picture-small center-block" alt="">
 						</a>
 					</div>

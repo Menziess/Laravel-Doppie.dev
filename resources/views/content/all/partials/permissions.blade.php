@@ -1,4 +1,4 @@
-<div id="admin" class="card card-block card-inverse" style="background-color: #333; border-color: #333;">
+<div id="admin" class="card shadow card-block card-inverse" style="background-color: #333; border-color: #333;">
 
 	<h4 class="card-title">Admin</h4>
 

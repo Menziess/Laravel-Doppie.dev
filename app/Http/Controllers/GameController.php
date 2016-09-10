@@ -15,7 +15,7 @@ class GameController extends Controller
 	 */
     public function getIndex() {
 
-    	$game = Game::active()->orderBy('id', 'desc')->first();
+    	$game = Game::orderBy('id', 'desc')->first();
 
     	if (!$game) {
     		 $game = new Game();
@@ -32,9 +32,36 @@ class GameController extends Controller
     {
     	$users = User::all();
 		$game = Game::findOrFail($id);
+        $subject = Auth::user();
         $links = self::LINKS;
 
-    	return view('content.game.board', compact('game', 'users', 'links'));
+        if ($game->finished_at) {
+            $win_scores = $game->getData('winners');
+            $lose_scores = $game->getData('losers');
+            $winning_users = User::whereIn('id', array_keys((array) $win_scores))->get();
+            $losing_users = User::whereIn('id', array_keys((array) $lose_scores))->get();
+
+            $winners = $winning_users->map(function ($user) use ($win_scores) {
+                return ['winner' => $user, 'points' => $win_scores->{$user->id}];
+            });
+
+            $losers = $losing_users->map(function ($user) use ($lose_scores) {
+                return ['loser' => $user, 'points' => $lose_scores->{$user->id}];
+            });
+        }
+
+    	return view('content.game.board', compact('winners', 'losers', 'subject', 'game', 'users', 'links'));
+    }
+
+    /*
+     * Creates a new game.
+     */
+    public function postCreateGame()
+    {
+        $game = new Game();
+        $game->save();
+
+        return redirect('/game');
     }
 
     /*
@@ -70,6 +97,8 @@ class GameController extends Controller
     public function deleteDeleteGame()
     {
     	$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
+        $game->setData('deleted_by', Auth::user()->id);
+        $game->save();
     	$game->delete();
 
     	return redirect('/game');

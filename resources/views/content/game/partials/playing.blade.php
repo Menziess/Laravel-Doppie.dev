@@ -3,7 +3,7 @@
 {!! csrf_field() !!}
 {{ method_field('PUT') }}
 
-	<div class="card shadow" style="overflow: auto; min-height: 40vh;">
+	<div class="card shadow m-t-3" style="overflow: auto; min-height: 40vh;">
 		<table class="table table-hover table-striped table-large text-small text-xs-left">
 			<thead style="background: #f5f5f5;">
 				<tr">
@@ -16,10 +16,11 @@
 
 			<tbody>
 				@foreach($game->data['scores'] as $round => $value)
-					<tr {!! $round < count($game->data['scores']) ? 'class="clickable-row"' : '' !!} data-href="lol">
+					<tr {!! $round < count($game->data['scores']) ? 'class="clickable-row"' : '' !!}
+						data-href="{{ url('game/round/' . $round) }}">
 						<td class="td-fixed"><strong>{{ $round }}</strong></td>
 						@foreach($game->users as $user)
-							@if($round == count($game->data['scores']))
+							@if($round == count($game->data['scores']) && Auth::user() == $game->user)
 								<td>
 									<input name="{{ $user->id }}" class="form-control" style="width: 70px;" type="number" min="0" step="1" inputmode="numeric" pattern="[0-9]*"
 									max="{{ $game->getPointsPerRound() }}"
@@ -51,7 +52,9 @@
 	<div class="container">
 		<div class="row">
 		@include('errors.feedback')
-			<button class="btn btn-primary-outline" type="submit">Save</button>
+			@if(Auth::user() == $game->user || Auth::user()->is_admin)
+				<button class="btn btn-primary-outline" type="submit">Save</button>
+			@endif
 			<button style="display: inline-block;" class="btn btn-danger center-block" type="button" data-toggle="modal" data-target="#modal-delete">Stop</button>
 		</div>
 	</div>
@@ -70,15 +73,24 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Deleting your {{ class_basename($game) }} will remove player scores too.
+						Beware <strong>{{ Auth::user()->first_name }}</strong>,<br/>
+						your action will be registered and charged against you in case of game manipulation.
+						<br/><br/>
+
+						Time untill delete button will be publicly available in:<br/>
+						<b>{{ $game->started_at->addMinutes(80)->diffInMinutes(Carbon\Carbon::now()) }}</b> minutes
 					</p>
 				</div>
 				<div class="modal-footer">
+					@if(Auth::user() == $game->user || Auth::user()->is_admin || $game->started_at->addMinutes(80) < Carbon\Carbon::now())
 					<form class="form-horizontal" method="POST" action="{{ url('game/delete-game') }}">
 						{!! csrf_field() !!}
 						{{ method_field('DELETE') }}
 						<button class="btn btn-danger" type="submit">Delete</button>
 					</form>
+					@else
+						<button class="btn btn-danger disabled">Delete</button>
+					@endif
 				</div>
 			</div>
 		</div>

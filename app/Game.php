@@ -44,6 +44,7 @@ class Game extends Model
 	 */
 	protected $dates = [
 		'finished_at',
+		'started_at',
 		'deleted_at',
 	];
 

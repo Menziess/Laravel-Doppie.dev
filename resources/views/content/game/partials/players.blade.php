@@ -39,17 +39,17 @@
 
 			<button class="btn btn-primary-outline center-block" type="button" data-toggle="modal" data-target="#modal-upload">Add Players</button>
 
-			<hr/>
-
-			@if($game->users->count() >= 3)
-				<form id="form-profile" style="display: inline-block;" method="POST" action="{{ url('game/start-game') }}">
-					{!! csrf_field() !!}
-					{{ method_field('PUT') }}
-					<button class="btn btn-success-outline center-block" type="submit">Start</button>
-				</form>
-			@endif
-
 			@if($game->users->count() > 0)
+				<hr/>
+
+				@if($game->users->count() >= 3)
+					<form id="form-profile" style="display: inline-block;" method="POST" action="{{ url('game/start-game') }}">
+						{!! csrf_field() !!}
+						{{ method_field('PUT') }}
+						<button class="btn btn-success-outline center-block" type="submit">Start</button>
+					</form>
+				@endif
+
 				<form style="display: inline-block;" method="POST" action="{{ url('game/delete-game') }}">
 					{!! csrf_field() !!}
 					{{ method_field('DELETE') }}

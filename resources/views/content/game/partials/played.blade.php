@@ -1,3 +1,18 @@
+<div class="card shadow m-t-3">
+	<div class="card-block">
+		<h2 class="card-title">New Game</h2>
+		@if($game->finished_at->addDays(1) < Carbon\Carbon::now())
+			<p>
+				The last game was played on {{ $game->finished_at->toFormattedDateString() }}
+			</p>
+		@endif
+		<form style="display: inline-block;" method="POST" action="{{ url('game/create-game') }}">
+			{!! csrf_field() !!}
+			<button class="btn btn-warning-outline center-block" type="submit">Create New Game</button>
+		</form>
+	</div>
+</div>
+
 <div class="card shadow">
 	<div class="card-block">
 		@if($winners->count() > 0)

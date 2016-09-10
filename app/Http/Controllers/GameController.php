@@ -30,9 +30,8 @@ class GameController extends Controller
 	 */
     public function getShow($id)
     {
+        $game = Game::findOrFail($id);
     	$users = User::all();
-		$game = Game::findOrFail($id);
-        $subject = Auth::user();
         $links = self::LINKS;
 
         if ($game->finished_at) {
@@ -54,12 +53,54 @@ class GameController extends Controller
     }
 
     /*
+     * Gets round number of game.
+     */
+    public function getRound($nr = null)
+    {
+        $game = Game::active()->orderBy('id', 'desc')->first();
+        if (!$game || !$nr) {
+            abort(404, 'Not found, because this game has already been played.');
+        }
+
+        return view('content.game.row', compact('game', 'nr'));
+    }
+
+    public function putRound(Request $request, $nr = null)
+    {
+        $game = Game::active()->orderBy('id', 'desc')->first();
+        if (!$game || !$nr) {
+            abort(404, 'Not found, because this game has already been played.');
+        }
+
+        $users = array_except($request->all(), ['_token', '_method']);
+
+        if (!array_filter($users)) {
+            return redirect()->to(\URL::previous() . '#bottom')->withErrors(['Please enter scores before pressing any buttons.']);
+        }
+
+        $scores = $game->getData('scores');
+        foreach($users as $user => $score) {
+            $scores->{$nr}->{$user} = $score;
+        }
+
+        $game->setData('scores', $scores);
+        $game->save();
+
+        return redirect('game');
+    }
+
+    /*
      * Creates a new game.
      */
-    public function postCreateGame()
+    public function postCreateGame(Request $request)
     {
-        $game = new Game();
-        $game->save();
+        $game = Game::active()->orderBy('id', 'desc')->first();
+        if (!$game) {
+            $game = new Game();
+            $game->save();
+        } else {
+            $request->session()->flash('message', 'A game was already started.');
+        }
 
         return redirect('/game');
     }

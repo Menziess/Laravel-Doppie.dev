@@ -185,9 +185,9 @@ class User extends Authenticatable
 	 *
 	 * @return void
 	 */
-	public function makeAdmin()
+	public function makeAdmin(bool $true)
 	{
-		$this->is_admin = !$this->is_admin;
+		$this->is_admin = $true;
 		$this->save();
 	}
 

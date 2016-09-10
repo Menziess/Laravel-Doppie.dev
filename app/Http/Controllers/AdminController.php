@@ -13,10 +13,6 @@ use App\Http\Requests;
 
 class AdminController extends Controller
 {
-	const LINKS = [
-		['title' => 'All Users', 'href' => 'admin/users', 'text' => ''],
-	];
-
 	/*
 	 * Get admin dashboard.
 	 */
@@ -45,17 +41,6 @@ class AdminController extends Controller
 	*/
 
 	/*
-	 * Get all users.
-	 */
-	public function getUsers()
-	{
-		$links = self::LINKS;
-		$subject = Auth::user();
-		$users = User::withTrashed()->orderBy('id', 'desc')->paginate(15);
-		return view('content.all.list', compact('users', 'subject', 'links'));
-	}
-
-	/*
 	 * Get user settings by id.
 	 */
 	public function getUser($id)
@@ -66,12 +51,21 @@ class AdminController extends Controller
 	}
 
 	/*
-	 * Toggle user is admin by id.
+	 * Grant admin rights.
 	 */
-	public function putToggleadmin($id)
+	public function putEnableAdmin($id)
 	{
-		User::withTrashed()->findOrFail($id)->makeAdmin();
-		return redirect()->to(\URL::previous() . '#permissions');
+		User::withTrashed()->findOrFail($id)->makeAdmin(true);
+		return redirect()->to(\URL::previous() . '#admin');
+	}
+
+	/*
+	 * Revoke admin rights.
+	 */
+	public function putDisableAdmin($id)
+	{
+		User::withTrashed()->findOrFail($id)->makeAdmin(false);
+		return redirect()->to(\URL::previous() . '#admin');
 	}
 
 	/*

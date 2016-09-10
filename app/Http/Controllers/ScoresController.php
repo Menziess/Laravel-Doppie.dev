@@ -43,6 +43,9 @@ class ScoresController extends Controller
 		$links = self::LINKS;
 		$game = Game::findOrFail($id);
 
+		$winners = User::whereIn('id', array_keys((array) $game->getData('winners')))->get();
+		$losers = User::whereIn('id', array_keys((array) $game->getData('losers')))->get();
+
     	return view('content.game.board', compact('game', 'subject', 'links'));
 	}
 }

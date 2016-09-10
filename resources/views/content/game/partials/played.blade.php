@@ -7,11 +7,10 @@
 			<div class="row">
 				@foreach($game->getData('winners') as $winner => $points)
 					<div style="display: inline-block;">
-
 						<h4>{{ \App\User::find($winner)->first_name }}</h4>
-							<a href="{{ url(\App\User::find($winner)->getProfileUrl()) }}" class="over round">
-								<img src="{{ url(\App\User::find($winner)->getPicture()) }}" class="img-circle profile-picture-small">
-							</a>
+						<a href="{{ url(\App\User::find($winner)->getProfileUrl()) }}" class="over round">
+							<img src="{{ url(\App\User::find($winner)->getPicture()) }}" class="img-circle profile-picture-small">
+						</a>
 					</div>
 				@endforeach
 			</div>

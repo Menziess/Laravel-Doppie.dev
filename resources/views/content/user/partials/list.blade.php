@@ -18,7 +18,11 @@
 		@foreach($users as $user)
 			<tr class="clickable-row" data-href="{{ url($user->getProfileUrl()) }}">
 				<td>{{ $user->id }}</td>
-				<td><img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" ></td>
+				<td>
+					<a {{ Auth::user()->is_admin ? 'href=' . url('admin/user/' . $user->id) : '' }}>
+						<img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" >
+					</a>
+				</td>
 				<td>
 					{{ $user->getName() }}
 					@if(Auth::user()->is_admin)

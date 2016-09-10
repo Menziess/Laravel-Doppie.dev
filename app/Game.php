@@ -56,19 +56,25 @@ class Game extends Model
         'data' => 'array',
     ];
 
-    # Users relation
+    /*
+     * Relation with users.
+     */
 	public function users()
 	{
-		return $this->belongsToMany(User::class);
+		return $this->belongsToMany(User::class)->withTrashed();
 	}
 
-	# Owner relation
+	/*
+	 * Relation with owner.
+	 */
 	public function user()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class)->withTrashed();
 	}
 
-	# Get points per round
+	/*
+	 * Get amount of points that can be won each round.
+	 */
 	public function getPointsPerRound()
 	{
         return count($this->users) > 4 ? (count($this->users) - 4) * 2 + 15 : 15;

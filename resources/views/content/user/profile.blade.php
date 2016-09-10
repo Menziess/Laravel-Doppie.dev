@@ -12,7 +12,9 @@
 					<h4 class="card-title">{{ $subject->getName() }}</h4>
 
 					<div class="row margin-bottom-20">
-						<img src="{{ asset($subject->getPicture()) }}" class="img-circle profile-picture-small center-block" alt="">
+						<a {{ Auth::user()->is_admin ? 'href=' . url('admin/user/' . $user->id) : '' }}>
+							<img src="{{ asset($subject->getPicture()) }}" class="img-circle profile-picture-small center-block" alt="">
+						</a>
 					</div>
 
 				</div>

@@ -28,6 +28,13 @@ class ScoresController extends Controller
 		$subject = Auth::user();
 		$links = self::LINKS;
 		$games = Game::finished()->orderBy('id', 'desc')->take(10)->get();
+		$games = $games->map(function ($game) {
+			return [
+				'game' => $game,
+				'winners' => User::whereIn('id', array_keys((array) $game->getData('winners')))->get(),
+				'losers' => User::whereIn('id', array_keys((array) $game->getData('losers')))->get()
+			];
+		});
 
 		return view('content.game.scores', compact('links', 'subject', 'games'));
 	}
@@ -43,9 +50,19 @@ class ScoresController extends Controller
 		$links = self::LINKS;
 		$game = Game::findOrFail($id);
 
-		$winners = User::whereIn('id', array_keys((array) $game->getData('winners')))->get();
-		$losers = User::whereIn('id', array_keys((array) $game->getData('losers')))->get();
+		$win_scores = $game->getData('winners');
+		$lose_scores = $game->getData('losers');
+		$winning_users = User::whereIn('id', array_keys((array) $win_scores))->get();
+		$losing_users = User::whereIn('id', array_keys((array) $lose_scores))->get();
 
-    	return view('content.game.board', compact('game', 'subject', 'links'));
+		$winners = $winning_users->map(function ($user) use ($win_scores) {
+			return ['winner' => $user, 'points' => $win_scores->{$user->id}];
+		});
+
+		$losers = $losing_users->map(function ($user) use ($lose_scores) {
+			return ['loser' => $user, 'points' => $lose_scores->{$user->id}];
+		});
+
+    	return view('content.game.board', compact('winners', 'losers', 'game', 'subject', 'links'));
 	}
 }

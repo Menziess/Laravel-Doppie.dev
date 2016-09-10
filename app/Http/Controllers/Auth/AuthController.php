@@ -64,6 +64,10 @@ class AuthController extends Controller
 	 */
 	protected function create(array $data)
 	{
+		$data['first_name'] = ucwords(strtolower($data['first_name']));
+		$data['last_name'] = ucwords(strtolower($data['last_name']));
+		$data['email'] = strtolower($data['email']);
+
 		return User::create([
 			'first_name' => $data['first_name'],
 			'last_name' => $data['last_name'],

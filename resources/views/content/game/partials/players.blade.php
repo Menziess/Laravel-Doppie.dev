@@ -49,11 +49,13 @@
 				</form>
 			@endif
 
-			<form style="display: inline-block;" method="POST" action="{{ url('game/delete-game') }}">
-				{!! csrf_field() !!}
-				{{ method_field('DELETE') }}
-				<button class="btn btn-warning-outline center-block" type="submit">Reset</button>
-			</form>
+			@if($game->users->count() > 0)
+				<form style="display: inline-block;" method="POST" action="{{ url('game/delete-game') }}">
+					{!! csrf_field() !!}
+					{{ method_field('DELETE') }}
+					<button class="btn btn-warning-outline center-block" type="submit">Reset</button>
+				</form>
+			@endif
 		</div>
 	</div>
 </div>

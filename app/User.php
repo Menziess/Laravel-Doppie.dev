@@ -135,7 +135,20 @@ class User extends Authenticatable
 	public function giveXp(int $amount)
 	{
 		$this->xp += $amount;
-		$this->save();
+	}
+
+	/*
+	 * Counts the number of wins and losses.
+	 */
+	public function setWinner(bool $won)
+	{
+		if ($won) {
+			$wins = $this->getData('wins');
+			$this->setData('wins', $wins + 1);
+		} else {
+			$losses = $this->getData('losses');
+			$this->setData('losses', $losses + 1);
+		}
 	}
 
 	/*

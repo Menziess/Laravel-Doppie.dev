@@ -114,11 +114,19 @@ class User extends Authenticatable
 	}
 
 	/*
+	 * Gets user  xp.
+	 */
+	public function getCurrentXp()
+	{
+		return $this->xp - pow(($this->getLevel() - 1) / self::LEVEL_CONST, 2);
+	}
+
+	/*
 	 * Gets total amount of xp.
 	 */
 	public function getXpNext()
 	{
-		return pow(($this->getLevel() / self::LEVEL_CONST), 2);
+		return pow($this->getLevel() / self::LEVEL_CONST, 2);
 	}
 
 	/*

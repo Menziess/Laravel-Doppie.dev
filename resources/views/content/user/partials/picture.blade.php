@@ -21,9 +21,14 @@
 							<div class="modal-body">
 								<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }} div-centered-small">
 									<p>Select your new profile picture</p>
-									<div class="input-group">
+									{{-- <div class="input-group">
 										<input name="file" data-max-size="500" accept="image/*" value="{{ old('file') ?: $subject->file}}" type="file" >
-									</div>
+									</div> --}}
+
+									<label class="btn btn-primary-outline">
+									    <span id="browse">Browse </span><input name="file" data-max-size="4000" accept="image/*" value="{{ old('file') }}" type="file" style="display: none;">
+									</label>
+
 								</div>
 							</div>
 							<div class="modal-footer">

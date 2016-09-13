@@ -103,6 +103,17 @@
 		$(".clickable-row").click(function() {
 			window.document.location = $(this).data("href");
 		});
+		$("#score-form").submit(function() {
+			var enteredScore = 0;
+			var result = false;
+			$("input[type=number]").each(function ($i, $e) {
+				if ({{ $game->getPointsPerRound() }} == parseInt($e.value)) {
+					result = true;
+				}
+				enteredScore += parseInt($e.value) || 0;
+			});
+			return (enteredScore == {{ $game->getPointsPerRound() }}) || result;
+		});
 	});
 </script>
 @endpush

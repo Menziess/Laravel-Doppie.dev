@@ -24,8 +24,7 @@
 						@foreach($game->users as $user)
 							@if($round == count($game->data['scores']) && Auth::user() == $game->user)
 								<td>
-									<input name="{{ $user->id }}" class="form-control" style="width: 70px;" type="number" min="0" step="1" inputmode="numeric" pattern="[0-9]*"
-									max="{{ $game->getPointsPerRound() }}"
+									<input name="{{ $user->id }}" class="form-control" style="width: 70px;" type="number" inputmode="numeric" pattern="[0-9]*"
 									placeholder="0" autofocus="autofocus">
 								</td>
 							@else

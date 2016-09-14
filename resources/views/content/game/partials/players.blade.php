@@ -59,3 +59,5 @@
 		</div>
 	</div>
 </div>
+
+@include('errors.feedback')

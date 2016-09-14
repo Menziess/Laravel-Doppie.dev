@@ -105,25 +105,32 @@
 			window.document.location = $(this).data("href");
 		});
 		$("#score-form").submit(function() {
+
 			var enteredScore = 0;
-			var result = false;
-			$("input[type=number]").each(function (i, e) {
-				if (parseInt(e.value) == {{ $game->getPointsPerRound() }} ||
-					parseInt(e.value) == 0) {
-					result = true;
-				} else {
-					result = false;
+			var playerHasAllPoints = true;
+			var pointsPerRound = {{ $game->getPointsPerRound() }};
+			var inputs = $("input[type=number]");
+
+			inputs.each(function (i, e) {
+				val = parseInt(e.value) || 0;
+				if (val != pointsPerRound && val != 0) {
+					playerHasAllPoints = false;
 				}
-				enteredScore += parseInt(e.value) || 0;
+				enteredScore += val;
 			});
-			submit = (enteredScore == {{ $game->getPointsPerRound() }}) || result;
-			message = !result ? 'You probably forgot someone!' : 'You entered ' + enteredScore + ' points, instead of ' + {{ $game->getPointsPerRound() }};
+
+			submit = (playerHasAllPoints && enteredScore == (inputs.size() - 1) * pointsPerRound) || (!playerHasAllPoints && enteredScore == pointsPerRound);
+			message = playerHasAllPoints ? 'Something is not right!' : 'You distributed ' + enteredScore + ' of ' + pointsPerRound + ', do some basic math ;)';
 			content = (
 				'<div class="alert alert-danger" role="alert">' +
 				message	+
 				'</div>'
 			);
-			document.getElementById("feedback").innerHTML = content;
+			if (!submit) {
+				document.getElementById("feedback").innerHTML = content;
+			} else {
+				document.getElementById("feedback").innerHTML = null;
+			}
 			return submit;
 		});
 	});

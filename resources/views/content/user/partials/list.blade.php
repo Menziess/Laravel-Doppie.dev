@@ -17,7 +17,7 @@
 		</thead>
 	<tbody>
 	@foreach($users as $user)
-		<tr class="clickable-row" data-href="{{ url($user->getProfileUrl()) }}">
+		<tr class="clickable-row touchable" data-href="{{ url($user->getProfileUrl()) }}">
 			<td>{{ $user->id }}</td>
 			<td>
 				<a {{ Auth::user()->is_admin ? 'href=' . url('admin/user/' . $user->id) : '' }}>

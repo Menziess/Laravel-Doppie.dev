@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 
-			<tbody class="unselectable">
+			<tbody class="unselectable touchable">
 				@foreach($game->data['scores'] as $round => $value)
 					<tr {!! $round < count($game->data['scores']) ? 'class="clickable-row"' : '' !!}
 						data-href="{{ url('game/round/' . $round) }}">
@@ -44,7 +44,7 @@
 								<br/>
 								{{ $game->getTotalScores()[$user->id] }}
 								@if(++$i % count($game->users) == count($game->data['scores']) % count($game->users))
-									- <i class="fa fa-random" aria-hidden="true" title="Shuffle"></i>
+									- <i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>
 								@endif
 							</td>
 						@endforeach
@@ -126,7 +126,7 @@
 			});
 
 			submit = (playerHasAllPoints && enteredScore == (inputs.size() - 1) * pointsPerRound) || (!playerHasAllPoints && enteredScore == pointsPerRound);
-			message = playerHasAllPoints ? 'You surely need this app...' : 'You distributed ' + enteredScore + ' of ' + pointsPerRound + ' points, do some basic math ;)';
+			message = playerHasAllPoints ? 'Did you forget someone?' : 'You distributed ' + enteredScore + ' of ' + pointsPerRound + ' points.';
 			content = (
 				'<div class="alert alert-warning" role="alert">' +
 				message	+

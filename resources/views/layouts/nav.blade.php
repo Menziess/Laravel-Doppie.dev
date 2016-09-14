@@ -35,7 +35,7 @@
 
 				<div class="dropdown-divider"></div>
 
-				<a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+				<a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>&#09;Logout</a>
 
 				</div>
 			</div>

@@ -21,12 +21,9 @@
 							<div class="modal-body">
 								<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }} div-centered-small">
 									<p>Select your new profile picture</p>
-									{{-- <div class="input-group">
-										<input name="file" data-max-size="500" accept="image/*" value="{{ old('file') ?: $subject->file}}" type="file" >
-									</div> --}}
 
 									<label class="btn btn-primary-outline">
-									    <span id="browse">Browse </span><input name="file" data-max-size="4000" accept="image/*" value="{{ old('file') }}" type="file" style="display: none;">
+									    <span id="browse">Browse </span><input id="file" name="file" data-max-size="4000" accept="image/*" value="{{ old('file') }}" type="file" style="display: none;">
 									</label>
 
 								</div>
@@ -41,7 +38,7 @@
 			</div>
 
 			<div class="row margin-bottom-20">
-				<img src="{{ asset($subject->getPicture()) }}" class="img-circle profile-picture-large center-block" data-toggle="modal" data-target="#modal-upload" alt="" >
+				<img src="{{ asset($subject->getPicture()) }}" class="img-circle profile-picture-large center-block touchable" data-toggle="modal" data-target="#modal-upload" alt="" >
 			</div>
 
 			<hr>

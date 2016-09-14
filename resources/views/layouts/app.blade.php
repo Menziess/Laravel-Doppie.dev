@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	<meta name="theme-color" content="#f7f7f9">
-	<meta name="description" content="">
+	<meta name="description" content="Doppie er af group website">
 	<meta name="author" content="">
 
 	<link rel="apple-touch-icon" href="{{ asset('img/logo.jpg') }}">
@@ -44,8 +44,6 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/tether/1.3.2/tether.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-
-	@include('layouts.footer')
 
 	@stack('scripts')
 	<script type="text/javascript">

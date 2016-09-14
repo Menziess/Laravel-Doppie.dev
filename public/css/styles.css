@@ -101,6 +101,10 @@ input[type=checkbox]:checked + label {
     user-select: none;
 }
 
+.touchable {
+	cursor: pointer;
+}
+
 .profile-picture-small {
 	margin: 5px;
 	max-width: 150px;

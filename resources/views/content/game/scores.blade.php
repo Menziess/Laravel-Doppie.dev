@@ -9,7 +9,7 @@
 
 			@foreach($games as $game)
 				<div class="card">
-					<div class="card-header clickable-row unselectable" data-href="scores/{{ $game['game']->id }}">
+					<div class="card-header clickable-row unselectable touchable" data-href="scores/{{ $game['game']->id }}">
 					<img class="card-img-top"
 						style="	width: 3em;"
 						src="{{ asset('img/games/heart.png') }}"

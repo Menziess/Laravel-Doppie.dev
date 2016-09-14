@@ -34,7 +34,7 @@
 				@foreach($game->users as $i => $user)
 					{{ ++$i }}
 					<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
-					{{ $user->getName() }}
+					{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
 					<br/>
 				@endforeach
 			</div>

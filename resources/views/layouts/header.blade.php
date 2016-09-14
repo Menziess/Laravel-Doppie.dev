@@ -22,7 +22,7 @@
 
 <div id="progress" class="p-t-1 div-centered-large">
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header" onClick="saveCollapseState()" style="color: black;">
-	<label class="progress-label">Lvl: {{ $subject->getLevel() }}</label>
+	<label class="progress-label touchable">Lvl: {{ $subject->getLevel() }}</label>
 	<progress class="progress progress-success" value="{{ $subject->getCurrentXp() }}" max="{{ $subject->getXpNext() }}">
 	</progress>
 	</a>

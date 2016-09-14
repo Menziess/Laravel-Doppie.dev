@@ -14,8 +14,9 @@ class LandingController extends Controller
     public function getIndex()
     {
         $links = self::LINKS;
+        $nrHartenjagen = \App\Game::where('type', 'Hartenjagen')->whereNotNull('finished_at')->count();
 
-    	return view('landing', compact('links'));
+    	return view('landing', compact('links', 'nrHartenjagen'));
     }
 
 	/*

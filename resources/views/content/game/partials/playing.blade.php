@@ -51,6 +51,7 @@
 
 	<div class="container">
 		<div class="row">
+		<div id="feedback"></div>
 		@include('errors.feedback')
 			@if(Auth::user() == $game->user || Auth::user()->is_admin)
 				<button class="btn btn-primary-outline" type="submit">Save</button>
@@ -106,13 +107,24 @@
 		$("#score-form").submit(function() {
 			var enteredScore = 0;
 			var result = false;
-			$("input[type=number]").each(function ($i, $e) {
-				if ({{ $game->getPointsPerRound() }} == parseInt($e.value)) {
+			$("input[type=number]").each(function (i, e) {
+				if (parseInt(e.value) == {{ $game->getPointsPerRound() }} ||
+					parseInt(e.value) == 0) {
 					result = true;
+				} else {
+					result = false;
 				}
-				enteredScore += parseInt($e.value) || 0;
+				enteredScore += parseInt(e.value) || 0;
 			});
-			return (enteredScore == {{ $game->getPointsPerRound() }}) || result;
+			submit = (enteredScore == {{ $game->getPointsPerRound() }}) || result;
+			message = !result ? 'You probably forgot someone!' : 'You entered ' + enteredScore + ' points, instead of ' + {{ $game->getPointsPerRound() }};
+			content = (
+				'<div class="alert alert-danger" role="alert">' +
+				message	+
+				'</div>'
+			);
+			document.getElementById("feedback").innerHTML = content;
+			return submit;
 		});
 	});
 </script>

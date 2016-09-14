@@ -8,8 +8,10 @@
 			<thead style="background: #f5f5f5;">
 				<tr">
 					<th>#</th>
-					@foreach($game->users as $user)
-						<th>{{ $user->first_name }}</th>
+					@foreach($game->users as $i => $user)
+						<th>
+							{{ $user->first_name }}
+						</th>
 					@endforeach
 				</tr>
 			</thead>
@@ -36,11 +38,14 @@
 				@if(count($game->data['scores']) > 1)
 					<tr style="background: #f5f5f5;">
 						<td></td>
-						@foreach($game->users as $user)
+						@foreach($game->users as $i => $user)
 							<td>
 								<strong>{{ $user->first_name }}</strong>
 								<br/>
 								{{ $game->getTotalScores()[$user->id] }}
+								@if(++$i % count($game->users) == count($game->data['scores']) % count($game->users))
+									- <i class="fa fa-random" aria-hidden="true" title="Shuffle"></i>
+								@endif
 							</td>
 						@endforeach
 					</tr>
@@ -76,7 +81,7 @@
 					<p>
 						Beware <strong>{{ Auth::user()->first_name }}</strong>,<br/>
 						your action will be registered and charged against you in case of game manipulation.
-						@if($game->started_at->addMinutes(80) >= Carbon\Carbon::now())
+						@if($game->started_at->addMinutes(80) > Carbon\Carbon::now())
 						<br/><br/>
 						Time untill delete button will be publicly available in:<br/>
 						<b>{{ $game->started_at->addMinutes(80)->diffInMinutes(Carbon\Carbon::now()) }}</b> minutes

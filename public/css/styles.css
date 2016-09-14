@@ -9,6 +9,25 @@ ul.no-dots {
     -webkit-transform:translateX(-2em);
 }
 
+input[type=checkbox] {
+	display: none;
+    margin:0;padding:0;
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+}
+
+input[type=checkbox] + label {
+	min-width: 50px;
+	min-height: 50px;
+	background-size: cover;
+}
+
+input[type=checkbox]:checked + label {
+	min-width: 50px;
+	border: 6px outset lightskyblue;
+}
+
 .td-fixed {
 	width: 20px;
 }
@@ -80,7 +99,6 @@ ul.no-dots {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    cursor:pointer;
 }
 
 .profile-picture-small {

@@ -108,8 +108,9 @@ class GameController extends Controller
     /*
      * Start game.
      */
-    public function putStartGame()
+    public function putStartGame(Request $request)
     {
+
     	$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
     	$game->start();
 
@@ -148,12 +149,15 @@ class GameController extends Controller
     /*
 	 * Add user by id.
 	 */
-	public function putAddUser($id)
+	public function postAddUsers(Request $request)
 	{
-		$user = User::withTrashed()->findOrFail($id);
-		$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
-
-		$game->addPlayer($user);
+        $game = Game::active()->orderBy('id', 'desc')->firstOrFail();
+        $users = array_except($request->all(), ['_token', '_method']);
+        \Session::set('time-added', $users);
+        $users = array_keys(array_sort($users, function($value) {
+            return $value;
+        }));
+		$game->addPlayersById($users);
 
 		return redirect()->to(\URL::previous() . '#players');
 	}

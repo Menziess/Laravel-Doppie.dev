@@ -104,10 +104,11 @@ class Game extends Model
 	/*
 	 * Adds a player to the game.
 	 */
-	public function addPlayer(User $user)
+	public function addPlayersById(array $users)
 	{
-		if (!$this->users->contains($user->id)) {
-			 $this->users()->attach($user);
+		$this->users()->detach();
+		if ($users) {
+			$this->users()->sync($users);
 		}
 	}
 

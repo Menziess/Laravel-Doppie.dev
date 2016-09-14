@@ -6,38 +6,42 @@
 
 			<div id="modal-upload" class="modal fade">
 				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-							<h4 class="modal-title">Add Players</h4>
-						</div>
+					<form class="form-horizontal" method="POST" action="{{ url('game/add-users') }}">
+					{!! csrf_field() !!}
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+								<h4 class="modal-title">Set Players</h4>
+							</div>
 
-						<div style="padding: 3px;">
-							@foreach($users as $user)
-								<form class="form-horizontal" style="display: inline-block;" method="POST" action="{{ url('game/add-user/' . $user->id) }}">
-									{!! csrf_field() !!}
-									{{ method_field('PUT') }}
-									<input type="image" name="submit" src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;" border="0" alt="Submit">
-								</form>
-							@endforeach
+							<div style="padding: 3px;" class="unselectable">
+								@foreach($users as $user)
+									<input {{ $game->users->contains($user) ? 'checked="checked"' : '' }} id="{{ $user->id }}" name="{{ $user->id }}" type="checkbox" value="{{ @Session::get('time-added')[$user->id] ?? null}}"/>
+									<label class="img-circle profile-picture-small" style="cursor: pointer; background-image: url({{ $user->getPicture() }});" for="{{ $user->id }}"></label>
+								@endforeach
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-success-outline center-block" type="submit">Set</button>
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 
 			<div class="text-xs-left" style="margin-left: 1em;">
-			@foreach($game->users as $user)
-				<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;">
-				{{ $user->getName() }}
-				<br/>
-			@endforeach
+				@foreach($game->users as $i => $user)
+					{{ ++$i }}
+					<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
+					{{ $user->getName() }}
+					<br/>
+				@endforeach
 			</div>
 
 			<hr/>
 
-			<button class="btn btn-primary-outline center-block" type="button" data-toggle="modal" data-target="#modal-upload">Add Players</button>
+			<button class="btn btn-primary-outline center-block" type="button" data-toggle="modal" data-target="#modal-upload">Set Players</button>
 
 			@if($game->users->count() > 0)
 				<hr/>
@@ -53,7 +57,7 @@
 				<form style="display: inline-block;" method="POST" action="{{ url('game/delete-game') }}">
 					{!! csrf_field() !!}
 					{{ method_field('DELETE') }}
-					<button class="btn btn-warning-outline center-block" type="submit">Reset</button>
+					<button class="btn btn-danger-outline center-block" type="submit">Delete</button>
 				</form>
 			@endif
 		</div>
@@ -61,3 +65,18 @@
 </div>
 
 @include('errors.feedback')
+
+@push('scripts')
+	<script type="text/javascript">
+		jQuery(function(){
+		    var max = 6;
+		    var checkboxes = $('input[type="checkbox"]');
+
+		    checkboxes.change(function(i){
+		    	i.currentTarget.value = $.now();
+		        var current = checkboxes.filter(':checked').length;
+		        checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+		    });
+		});
+	</script>
+@endpush

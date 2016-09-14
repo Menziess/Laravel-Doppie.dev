@@ -14,7 +14,7 @@
 				</tr>
 			</thead>
 
-			<tbody>
+			<tbody class="unselectable">
 				@foreach($game->data['scores'] as $round => $value)
 					<tr {!! $round < count($game->data['scores']) ? 'class="clickable-row"' : '' !!}
 						data-href="{{ url('game/round/' . $round) }}">
@@ -56,7 +56,7 @@
 			@if(Auth::user() == $game->user || Auth::user()->is_admin)
 				<button class="btn btn-primary-outline" type="submit">Save</button>
 			@endif
-			<button style="display: inline-block;" class="btn btn-danger center-block" type="button" data-toggle="modal" data-target="#modal-delete">Stop</button>
+			<button style="display: inline-block;" class="btn btn-danger-outline center-block" type="button" data-toggle="modal" data-target="#modal-delete">Stop</button>
 		</div>
 	</div>
 
@@ -76,10 +76,11 @@
 					<p>
 						Beware <strong>{{ Auth::user()->first_name }}</strong>,<br/>
 						your action will be registered and charged against you in case of game manipulation.
+						@if($game->started_at->addMinutes(80) >= Carbon\Carbon::now())
 						<br/><br/>
-
 						Time untill delete button will be publicly available in:<br/>
 						<b>{{ $game->started_at->addMinutes(80)->diffInMinutes(Carbon\Carbon::now()) }}</b> minutes
+						@endif
 					</p>
 				</div>
 				<div class="modal-footer">
@@ -120,9 +121,9 @@
 			});
 
 			submit = (playerHasAllPoints && enteredScore == (inputs.size() - 1) * pointsPerRound) || (!playerHasAllPoints && enteredScore == pointsPerRound);
-			message = playerHasAllPoints ? 'Something is not right!' : 'You distributed ' + enteredScore + ' of ' + pointsPerRound + ', do some basic math ;)';
+			message = playerHasAllPoints ? 'You surely need this app...' : 'You distributed ' + enteredScore + ' of ' + pointsPerRound + ' points, do some basic math ;)';
 			content = (
-				'<div class="alert alert-danger" role="alert">' +
+				'<div class="alert alert-warning" role="alert">' +
 				message	+
 				'</div>'
 			);

@@ -1,6 +1,7 @@
 <div id="players" class="card shadow card-block m-t-2">
 	<div class="row">
 		<h4 class="card-title">New Game</h4>
+		<p>Created {{ $game->created_at->diffForHumans() }}</p>
 
 		<div class="col-md-6 col-md-offset-3 col-centered">
 
@@ -31,12 +32,16 @@
 			</div>
 
 			<div class="text-xs-left" style="margin-left: 1em;">
-				@foreach($game->users as $i => $user)
-					{{ ++$i }}
-					<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
-					{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
-					<br/>
-				@endforeach
+				@if($game->users->count() > 0)
+					@foreach($game->users as $i => $user)
+						{{ ++$i }}
+						<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
+						{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
+						<br/>
+					@endforeach
+				@else
+					<p>No players yet...</p>
+				@endif
 			</div>
 
 			<hr/>

@@ -99,7 +99,7 @@ class GameController extends Controller
             $game = new Game();
             $game->save();
         } else {
-            $request->session()->flash('message', 'A game was already started.');
+            $request->session()->flash('message', 'A game was already created.');
         }
 
         return redirect('/game');

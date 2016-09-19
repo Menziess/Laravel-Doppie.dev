@@ -3,11 +3,13 @@
 namespace App;
 
 use Auth;
+use App\Helpers\JsonAble;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+	use JsonAble;
 	use SoftDeletes;
 
 	const LEVEL_CONST = 0.1;
@@ -226,34 +228,5 @@ class User extends Authenticatable
 
 		# Delete user
 		$this->forceDelete();
-	}
-
-	/**
-	 * Grab data attribute.
-	 *
-	 * @param 	string	$key
-	 * @return 	mixed
-	 */
-	public function getData($key)
-	{
-		$data = is_null($this->data) ? new \stdClass() : json_decode(json_encode($this->data));
-		return isset($data->{$key}) ? $data->{$key} : null;
-	}
-
-	/**
-	 * Set data attribute.
-	 *
-	 * @param 	string	$key
-	 * @param 	mixed	$value
-	 * @return 	App\Content
-	 */
-	public function setData($key, $value)
-	{
-		$data = is_null($this->data) ? new \stdClass() : json_decode(json_encode($this->data));
-		$data->{$key} = $value;
-		$data = (object) array_merge((array) $this->data, (array) $data);
-		$this->attributes['data'] = json_encode($data);
-
-		return $this;
 	}
 }

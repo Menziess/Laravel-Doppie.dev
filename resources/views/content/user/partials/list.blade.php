@@ -8,7 +8,7 @@
 	<table class="table table-hover table-striped table-large text-small text-xs-left">
 		<thead>
 			<tr>
-				<th>#</th>
+				<th>Level</th>
 				<th>Picture</th>
 				<th>Name</th>
 				<th class="hidden-xs-down">Email</th>
@@ -18,7 +18,7 @@
 	<tbody>
 	@foreach($users as $user)
 		<tr class="clickable-row touchable" data-href="{{ url($user->getProfileUrl()) }}">
-			<td>{{ $user->id }}</td>
+			<td><h3>{{ $user->getLevel() }}</h3></td>
 			<td>
 				<a {{ Auth::user()->is_admin ? 'href=' . url('admin/user/' . $user->id) : '' }}>
 					<img src="{{ asset($user->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" >
@@ -36,8 +36,18 @@
 					: '' !!}
 				@endif
 			</td>
-			<td class="hidden-xs-down">{{ $user->email }}</td>
-			<td class="hidden-xs-down">{{ $user->created_at }}</td>
+			<td class="hidden-xs-down">
+				{{ $user->email }}
+			</td>
+			<td class="hidden-xs-down">{{ $user->created_at ? $user->created_at->toFormattedDateString() : null }}</td>
+		</tr>
+		<tr>
+			<td>
+				<progress
+					style="position: absolute; margin: -1em -1em;"
+					class="progress progress-primary" value="{{ $user->getLevelObtainedXp() }}" min="{{ $user->getLevelRequiredXp($subject->getLevel() - 1) }}" max="{{ $subject->getLevelRequiredXp($subject->getLevel()) }}">
+				</progress>
+			</td>
 		</tr>
 	@endforeach
 	</tbody>

@@ -31,7 +31,7 @@ class GameController extends Controller
     public function getShow($id)
     {
         $game = Game::findOrFail($id);
-    	$users = User::all();
+    	$users = User::orderBy('xp', 'desc')->get();
         $links = self::LINKS;
 
         if ($game->finished_at) {

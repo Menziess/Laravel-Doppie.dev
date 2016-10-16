@@ -19,8 +19,10 @@
 
 							<div style="padding: 3px;" class="unselectable">
 								@foreach($users as $user)
+									<i style="position: absolute; left: 10vw; margin-top: 1em;">{{ $user->first_name }}</i>
 									<input {{ $game->users->contains($user) ? 'checked="checked"' : '' }} id="{{ $user->id }}" name="{{ $user->id }}" type="checkbox" value="{{ @Session::get('time-added')[$user->id] ?? null}}"/>
 									<label class="img-circle profile-picture-small" style="cursor: pointer; background-image: url({{ url($user->getPicture()) }});" for="{{ $user->id }}"></label>
+									<br />
 								@endforeach
 							</div>
 							<div class="modal-footer">

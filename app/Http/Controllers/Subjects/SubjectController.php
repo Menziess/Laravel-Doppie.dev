@@ -25,7 +25,7 @@ class SubjectController extends Controller
 		$users = User::where('first_name', 'like', $search)
 			->orWhere('last_name', 'like', $search)
 			->orWhere('email', 'like', $search)
-			->orderBy('id', 'desc')->paginate();
+			->orderBy('xp', 'desc')->paginate();
 
 		return view('content.all.list', compact('links', 'users', 'subject', 'input'));
 	}
@@ -36,7 +36,7 @@ class SubjectController extends Controller
 	public function getUsers()
 	{
 		$subject = Auth::user();
-		$users = User::orderBy('id', 'desc')->paginate();
+		$users = User::orderBy('xp', 'desc')->paginate();
 		return view('content.all.list', compact('users', 'subject'));
 	}
 }

@@ -22,10 +22,10 @@
 				<div class="col-md-8 text-xs-left">
 					<h4 class="card-title">Statistics</h4>
 					Wins: {{ $subject->getData('wins') ?? 0 }}<br />
-					Average score: {{ 'N/A' }}<br />
-					Last game: {{ 'N/A' }}<br />
+					@if($subject->games->last())
+					Last game: <a href="{{ url('scores/' . $subject->games->last()->id) }}">{{ $subject->games->last()->finished_at->toFormattedDateString() }}</a><br />
+					@endif
 					XP: {{ $subject->getLevelObtainedXp() }} / {{ $subject->getLevelRequiredXp($subject->getLevel()) }}<br/>
-					{{-- Total XP: {{ $subject->getXp() }}<br /> --}}
 					Lvl: {{ $subject->getLevel() }}
 				</div>
 

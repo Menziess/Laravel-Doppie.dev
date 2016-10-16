@@ -22,10 +22,10 @@
 				<div class="col-md-8 text-xs-left">
 					<h4 class="card-title">Statistics</h4>
 					Wins: {{ $subject->getData('wins') ?? 0 }}<br />
-					Losses: {{ $subject->getData('losses') ?? 0 }}<br />
 					Average score: {{ 'N/A' }}<br />
 					Last game: {{ 'N/A' }}<br />
-					XP: {{ $subject->getXp() . '/' . $subject->getXpNext() }}<br />
+					XP: {{ $subject->getLevelObtainedXp() }} / {{ $subject->getLevelRequiredXp($subject->getLevel()) }}<br/>
+					{{-- Total XP: {{ $subject->getXp() }}<br /> --}}
 					Lvl: {{ $subject->getLevel() }}
 				</div>
 

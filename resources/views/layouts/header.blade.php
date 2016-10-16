@@ -13,7 +13,6 @@
 			<h4 class="card-title">{{ $subject->getName() }}</h4>
 			<p class="card-text">
 				Wins: {{ $subject->getData('wins') ?? 0 }}<br />
-				Losses: {{ $subject->getData('losses') ?? 0 }}<br />
 			</p>
 			</div>
 		</div>
@@ -23,7 +22,7 @@
 <div id="progress" class="p-t-1 div-centered-large">
 	<a data-toggle="collapse" href="#header" aria-expanded="false" aria-controls="header" onClick="saveCollapseState()" style="color: black;">
 	<label class="progress-label touchable">Lvl: {{ $subject->getLevel() }}</label>
-	<progress class="progress progress-success" value="{{ $subject->getCurrentXp() }}" max="{{ $subject->getXpNext() }}">
+	<progress class="progress progress-success" value="{{ $subject->getLevelObtainedXp() }}" min="{{ $subject->getLevelRequiredXp($subject->getLevel() - 1) }}" max="{{ $subject->getLevelRequiredXp($subject->getLevel()) }}">
 	</progress>
 	</a>
 </div>

@@ -116,19 +116,19 @@ class User extends Authenticatable
 	}
 
 	/*
-	 * Gets user  xp.
+	 * Get amount xp obtained for next level.
 	 */
-	public function getCurrentXp()
+	public function getLevelObtainedXp()
 	{
 		return $this->xp - pow(($this->getLevel() - 1) / self::LEVEL_CONST, 2);
 	}
 
 	/*
-	 * Gets total amount of xp.
+	 * Gets total amount of xp needed for next level.
 	 */
-	public function getXpNext()
+	public function getLevelRequiredXp(int $level = 1)
 	{
-		return pow($this->getLevel() / self::LEVEL_CONST, 2);
+		return pow($level / self::LEVEL_CONST, 2) - pow(($level - 1) / self::LEVEL_CONST, 2);
 	}
 
 	/*
@@ -136,7 +136,7 @@ class User extends Authenticatable
 	 */
 	public function getLevel()
 	{
-		return 1 + round(self::LEVEL_CONST * sqrt($this->xp));
+		return 1 + floor(self::LEVEL_CONST * sqrt($this->xp));
 	}
 
 	/*

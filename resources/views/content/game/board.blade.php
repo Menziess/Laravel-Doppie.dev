@@ -12,9 +12,13 @@
 
 			@include('content.game.partials.playing')
 
-		@else
+		@elseif($game->type)
 
 			@include('content.game.partials.players')
+
+		@else
+
+			@include('content.game.partials.gametype')
 
 		@endif
 

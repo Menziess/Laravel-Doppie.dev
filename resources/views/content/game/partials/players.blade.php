@@ -1,6 +1,6 @@
 <div id="players" class="card shadow card-block m-t-2">
 	<div class="row">
-		<h4 class="card-title">New Game</h4>
+		<h4 class="card-title">{{ $game->type }}</h4>
 		<p>Created {{ $game->created_at->diffForHumans() }}</p>
 
 		<div class="col-md-6 col-md-offset-3 col-centered">
@@ -50,23 +50,22 @@
 
 			<button class="btn btn-primary-outline center-block" type="button" data-toggle="modal" data-target="#modal-upload">Set Players</button>
 
-			@if($game->users->count() > 0)
-				<hr/>
+			<hr/>
 
-				@if($game->users->count() >= 3)
-					<form id="form-profile" style="display: inline-block;" method="POST" action="{{ url('game/start-game') }}">
-						{!! csrf_field() !!}
-						{{ method_field('PUT') }}
-						<button class="btn btn-success-outline center-block" type="submit">Start</button>
-					</form>
-				@endif
-
-				<form style="display: inline-block;" method="POST" action="{{ url('game/delete-game') }}">
+			@if($game->users->count() >= 3)
+				<form id="form-profile" style="display: inline-block;" method="POST" action="{{ url('game/start-game') }}">
 					{!! csrf_field() !!}
-					{{ method_field('DELETE') }}
-					<button class="btn btn-danger-outline center-block" type="submit">Delete</button>
+					{{ method_field('PUT') }}
+					<button class="btn btn-success-outline center-block" type="submit">Start</button>
 				</form>
 			@endif
+
+			<form style="display: inline-block;" method="POST" action="{{ url('game/delete-game') }}">
+				{!! csrf_field() !!}
+				{{ method_field('DELETE') }}
+				<button class="btn btn-danger-outline center-block" type="submit">Delete</button>
+			</form>
+
 		</div>
 	</div>
 </div>

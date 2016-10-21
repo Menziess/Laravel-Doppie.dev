@@ -106,6 +106,19 @@ class GameController extends Controller
     }
 
     /*
+     * Set game type.
+     */
+    public function putSetType(Request $request)
+    {
+
+        $game = Game::active()->orderBy('id', 'desc')->firstOrFail();
+        $game->type = $request->type;
+        $game->save();
+
+        return redirect('/game');
+    }
+
+    /*
      * Start game.
      */
     public function putStartGame(Request $request)

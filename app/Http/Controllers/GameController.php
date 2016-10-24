@@ -65,6 +65,9 @@ class GameController extends Controller
         return view('content.game.row', compact('game', 'nr'));
     }
 
+    /*
+     * Update game round.
+     */
     public function putRound(Request $request, $nr = null)
     {
         $game = Game::active()->orderBy('id', 'desc')->first();
@@ -110,7 +113,6 @@ class GameController extends Controller
      */
     public function putSetType(Request $request)
     {
-
         $game = Game::active()->orderBy('id', 'desc')->firstOrFail();
         $game->type = $request->type;
         $game->save();
@@ -123,8 +125,10 @@ class GameController extends Controller
      */
     public function putStartGame(Request $request)
     {
-
     	$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
+        if ($request->input("team")) {
+            $game->setData('team', $request->input('team'));
+        }
     	$game->start();
 
     	return redirect('/game');
@@ -144,6 +148,20 @@ class GameController extends Controller
         $game = Game::active()->orderBy('id', 'desc')->firstOrFail();
 
         return $game->saveScore($request, $users);
+    }
+
+    /*
+     * Set game type.
+     */
+    public function putResetGame(Request $request)
+    {
+
+        $game = Game::active()->orderBy('id', 'desc')->firstOrFail();
+        $game->type = null;
+        $game->users()->detach();
+        $game->save();
+
+        return redirect('/game');
     }
 
     /*

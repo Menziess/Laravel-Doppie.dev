@@ -181,8 +181,6 @@ class Game extends Model
         foreach ($this->users as $key => $user) {
             $round[1][$user->id] = 0;
         }
-        $this->type = "Hartenjagen";
-        $this->setData('punten_halen', false);
         $this->setData('scores', $round);
         $this->user()->associate(Auth::user());
 		$this->save();

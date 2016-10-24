@@ -1,6 +1,11 @@
 <div class="card shadow m-t-3">
 	<div class="card-block">
 		<h2 class="card-title">New Game</h2>
+		<p>
+			<small>Created {{ $game->created_at->diffForHumans() }}</small>
+		</p>
+
+		@include('errors.feedback')
 		<form style="display: inline-block;" method="POST" action="{{ url('game/set-type') }}">
 			{!! csrf_field() !!}
 			{{ method_field('PUT') }}

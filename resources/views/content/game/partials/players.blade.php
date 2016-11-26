@@ -8,7 +8,7 @@
 		@if ($game->type == 'Hartenjagen')
 			@include('content.game.partials.players.hartenjagen')
 		@elseif ($game->type == 'Klaverjassen')
-			@include('content.game.partials.players.Klaverjassen')
+			@include('content.game.partials.players.klaverjassen')
 		@endif
 
 	</div>

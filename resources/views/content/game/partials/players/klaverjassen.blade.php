@@ -76,9 +76,9 @@
 	@if($game->users->count() == 4)
 		<form id="form-profile" style="display: inline-block;" method="POST" action="{{ url('game/start-game') }}">
 			{!! csrf_field() !!}
-			{{ method_field('PUT') }}
+			{{-- {{ method_field('PUT') }} --}}  {{-- Method not found --}}
 			<input id="team" name="team" value="Zij" type="hidden" hidden="hidden">
-			<button class="btn btn-success-outline center-block" type="submit">Start</button>
+			<button class="btn btn-success-outline center-block" type="submit" disabled="disabled">Start</button>
 		</form>
 	@endif
 

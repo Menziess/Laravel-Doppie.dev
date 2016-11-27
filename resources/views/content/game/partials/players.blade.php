@@ -5,9 +5,9 @@
 			<small>Created {{ $game->created_at->diffForHumans() }}</small>
 		</p>
 
-		@if ($game->type == 'Hartenjagen')
+		@if ($game->type == \App\Game::HARTENJAGEN)
 			@include('content.game.partials.players.hartenjagen')
-		@elseif ($game->type == 'Klaverjassen')
+		@elseif ($game->type == \App\Game::KLAVERJASSEN)
 			@include('content.game.partials.players.klaverjassen')
 		@endif
 

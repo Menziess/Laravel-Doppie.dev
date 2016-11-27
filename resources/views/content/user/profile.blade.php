@@ -24,8 +24,10 @@
 					Wins: {{ $subject->getData('wins') ?? 0 }}<br />
 					Level: {{ $subject->getLevel() }}<br />
 					XP: {{ $subject->getLevelObtainedXp() }} / {{ $subject->getLevelRequiredXp($subject->getLevel()) }}<br/>
-					@if($subject->games->last())
+					@if($subject->games->last()->finished_at)
 					Last game: <a href="{{ url('scores/' . $subject->games->last()->id) }}">{{ $subject->games->last()->finished_at->toFormattedDateString() }}</a><br />
+					@else
+					Last game: <a href="{{ url('/game') }}">Currently playing</a>
 					@endif
 				</div>
 

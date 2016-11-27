@@ -1,5 +1,5 @@
-@if ($game->type == 'Hartenjagen')
+@if ($game->type == \App\Game::HARTENJAGEN)
 	@include('content.game.partials.playing.hartenjagen')
-@elseif ($game->type == 'Klaverjassen')
+@elseif ($game->type == \App\Game::KLAVERJASSEN)
 	@include('content.game.partials.playing.klaverjassen')
 @endif

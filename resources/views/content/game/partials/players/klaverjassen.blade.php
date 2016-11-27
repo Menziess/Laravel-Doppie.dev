@@ -32,11 +32,7 @@
 		@if($game->users->count() > 0)
 			<div class="row text-xs-left">
 				<div class="col-md-6">
-					<select id="team1" class="form-control">
-						<option value="Zij">Zij</option>
-						<option value="Wij">Wij</option>
-					</select>
-					<br />
+					<h4>{{ $game->users[0]->id == Auth::id() || $game->users[2]->id == Auth::id() ? 'Wij' : 'Zij' }}</h4>
 					@foreach($game->users as $i => $user)
 						@if($i % 2 == 0)
 						{{ ++$i }}
@@ -47,11 +43,7 @@
 					@endforeach
 				</div>
 				<div class="col-md-6">
-					<select id="team2" class="form-control">
-						<option value="Wij">Wij</option>
-						<option value="Zij">Zij</option>
-					</select>
-					<br />
+					<h4>{{ $game->users[1]->id == Auth::id() || $game->users[3]->id == Auth::id() ? 'Wij' : 'Zij' }}</h4>
 					@foreach($game->users as $i => $user)
 						@if($i % 2 != 0)
 						{{ ++$i }}
@@ -76,9 +68,9 @@
 	@if($game->users->count() == 4)
 		<form id="form-profile" style="display: inline-block;" method="POST" action="{{ url('game/start-game') }}">
 			{!! csrf_field() !!}
-			{{-- {{ method_field('PUT') }} --}}  {{-- Method not found --}}
+			{{ method_field('PUT') }}
 			<input id="team" name="team" value="Zij" type="hidden" hidden="hidden">
-			<button class="btn btn-success-outline center-block" type="submit" disabled="disabled">Start</button>
+			<button class="btn btn-success-outline center-block" type="submit">Start</button>
 		</form>
 	@endif
 

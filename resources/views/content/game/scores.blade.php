@@ -12,7 +12,9 @@
 					<div class="card-header clickable-row unselectable touchable" data-href="scores/{{ $game['game']->id }}">
 					<img class="card-img-top"
 						style="	width: 3em;"
-						src="{{ asset('img/games/heart.png') }}"
+						src="{{ $game['game']->type == \App\Game::HARTENJAGEN ?
+							asset('img/games/heart.png') :
+							asset('img/games/clover.png') }}"
 						alt="Game type">
 						<h4  class="card-title">{{ $game['game']->type }}</h4>
 					</div>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 
 class LandingController extends Controller
@@ -14,7 +13,7 @@ class LandingController extends Controller
     public function getIndex()
     {
         $links = self::LINKS;
-        $nrHartenjagen = \App\Game::where('type', 'Hartenjagen')->whereNotNull('finished_at')->count();
+        $nrHartenjagen = \App\Game::where('type', \App\Game::HARTENJAGEN)->whereNotNull('finished_at')->count();
 
     	return view('landing', compact('links', 'nrHartenjagen'));
     }

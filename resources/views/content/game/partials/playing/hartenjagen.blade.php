@@ -41,7 +41,7 @@
 							<td>
 								<strong>{{ $user->first_name }}</strong>
 								<br/>
-								{{ $game->getTotalScores()[$user->id] }}
+								{{ $game->getTotalHartenjagenScores()[$user->id] }}
 								@if(++$i % count($game->users) == count($game->data['scores']) % count($game->users))
 									- <i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>
 								@endif

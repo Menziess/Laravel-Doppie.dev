@@ -14,6 +14,9 @@ class Game extends Model
     use JsonAble;
     use SoftDeletes;
 
+    const KLAVERJASSEN = "Klaverjassen";
+    const HARTENJAGEN = "Hartenjagen";
+
     /**
 	 * The table associated with the model.
 	 *
@@ -80,7 +83,11 @@ class Game extends Model
 	 */
 	public function getPointsPerRound()
 	{
-        return count($this->users) > 4 ? (count($this->users) - 4) * 2 + 15 : 15;
+		if ($this->type == self::HARTENJAGEN) {
+	        return count($this->users) > 4 ? (count($this->users) - 4) * 2 + 15 : 15;
+		} elseif ($this->type == self::KLAVERJASSEN) {
+			return 162;
+		}
 	}
 
 	/**
@@ -123,13 +130,13 @@ class Game extends Model
 	}
 
 	/*
-	 * Persists the score of a round.
+	 * Persists the score of a round of Hartenjagen.
 	 */
-	public function saveScore($request, $users)
+	public function saveHartenjagenScore($request, $users)
 	{
 		$scores = $this->data['scores'];
 		$round = count($scores);
-		$totals = $this->getTotalScores();
+		$totals = $this->getTotalHartenjagenScores();
 
 		if ($this->getData('punten_halen')) {
 			foreach ($users as $user => $points) {
@@ -156,16 +163,16 @@ class Game extends Model
         $this->setData('scores', $scores);
         $this->save();
 
-        $totals = $this->getTotalScores();
+        $totals = $this->getTotalHartenjagenScores();
 
-        if (!$this->getData('punten_halen') && self::hasAmountPoints($totals, 50)) {
+        if (!$this->getData('punten_halen') && in_array(50, $totals)) {
 			 $this->setData('punten_halen', true);
              $request->session()->flash('message', 'Punten halen.');
         }
 
         $this->save();
 
-        if ($this->getData('punten_halen') && self::hasAmountPoints($totals, 0)) {
+        if ($this->getData('punten_halen') && in_array(0,  $totals)) {
         	return $this->finish();
         }
 
@@ -173,14 +180,47 @@ class Game extends Model
 	}
 
 	/*
+	 * Persists the score of a round of Klaverjassen.
+	 */
+	public function saveKlaverjassenScore($request, $inputs)
+	{
+		$scores = $this->data['scores'];
+		$round = count($scores);
+		$totals = $this->getTotalKlaverjassenScores();
+
+		foreach ($inputs as $input => $points) {
+			$scores[$round][$input] = $points ? (int) ltrim($points, '0') : 0;
+            $scores[$round + 1][$input] = 0;
+		}
+
+        $this->setData('scores', $scores);
+        $this->save();
+
+        $totals = $this->getTotalKlaverjassenScores();
+
+		if ($round >= 16) {
+			return $this->finish();
+		}
+
+        return redirect('/game#bottom');
+    }
+
+	/*
 	 * Starts the game.
 	 */
 	public function start()
 	{
 		$this->started_at = Carbon::now();
-        foreach ($this->users as $key => $user) {
-            $round[1][$user->id] = 0;
-        }
+		if ($this->type == self::HARTENJAGEN) {
+			foreach ($this->users as $key => $user) {
+	            $round[1][$user->id] = 0;
+	        }
+		} elseif ($this->type == self::KLAVERJASSEN) {
+			$round[1]["Wij"] = 0;
+			$round[1]["Wij-roem"] = 0;
+			$round[1]["Zij"] = 0;
+			$round[1]["Zij-roem"] = 0;
+		}
         $this->setData('scores', $round);
         $this->user()->associate(Auth::user());
 		$this->save();
@@ -192,13 +232,26 @@ class Game extends Model
 	public function finish()
 	{
 		$this->finished_at = Carbon::now();
-		$total = $this->getTotalScores();
-		$winners = $this->setWinners($total);
-		$losers = $this->setLosers($total);
-		$this->setData('winners', $winners);
-		$this->setData('losers', $losers);
-		$this->setXp($winners);
-		$this->setXp($losers);
+
+		if ($this->type == self::HARTENJAGEN) {
+			$total = $this->getTotalHartenjagenScores();
+			$winners = $this->setWinners($total);
+			$losers = $this->setLosers($total);
+			$this->setData('winners', $winners);
+			$this->setData('losers', $losers);
+			$this->setHartenjagenXp($winners);
+			$this->setHartenjagenXp($losers);
+		} elseif ($this->type == self::KLAVERJASSEN) {
+			$total = $this->getTotalKlaverjassenScores();
+			$teams = $this->getWinningAndLosingTeams($total);
+			$winners = $teams['winners'];
+			$losers = $teams['losers'];
+			$this->setData('winners', $winners);
+			$this->setData('losers', $losers);
+			$this->setKlaverjassenXp($winners, TRUE);
+			$this->setKlaverjassenXp($losers, FALSE);
+		}
+
 		$this->save();
 
 		return redirect('/scores/' . $this->id);
@@ -207,7 +260,7 @@ class Game extends Model
 	/*
 	 * Get games total scores for each user.
 	 */
-	public function getTotalScores()
+	public function getTotalHartenjagenScores()
 	{
 		$totals = [];
 
@@ -223,11 +276,53 @@ class Game extends Model
 		return $totals;
 	}
 
+	/*
+	 * Get games total scores for each team.
+	 */
+	public function getTotalKlaverjassenScores()
+	{
+		$totals = [];
+
+		foreach(array_keys($this->getTeams()) as $team) {
+
+			for ($i=0; $i < 2; $i++) {
+				$total = 0;
+				foreach($this->data['scores'] as $round => $value) {
+					$total += $this->data['scores'][$round][$team];
+				}
+				$totals[$team] = $total;
+				$team = $team . '-roem';
+			}
+
+		}
+
+		return $totals;
+	}
+
+	/**
+	 * Gets Wij team for klaverjassen.
+	 * @return array
+	 */
+	public function getTeams() {
+		if (!$this->user) abort("Game hasn't got a user");
+		$teams = $this->users[0]->id == $this->user->id || $this->users[2]->id == $this->user->id ?
+			[
+				'Wij' => [$this->users[0], $this->users[2]],
+			 	'Zij' => [$this->users[1], $this->users[3]]
+			] :
+			[
+				'Wij' => [$this->users[1], $this->users[3]],
+				'Zij' => [$this->users[0], $this->users[2]]
+			];
+
+		return $teams;
+	}
+
 	/**
 	 * @param  Return players with score of 0.
 	 * @return array
 	 */
-	public function setWinners(array $totals)
+	private function setWinners(array $totals)
 	{
 		return array_filter($totals, function ($w) {
     		return $w == 0;
@@ -238,7 +333,7 @@ class Game extends Model
 	 * @param  Return players with score greater than 0.
 	 * @return array
 	 */
-	public function setLosers(array $totals)
+	private function setLosers(array $totals)
 	{
 		return array_filter($totals, function ($l) {
 			return $l > 0;
@@ -246,12 +341,48 @@ class Game extends Model
 	}
 
 	/**
-	 * Gives experience points to all players.
+	 * Determine winning and losing teams.
+	 * @param  array $total
+	 * @return array
+	 */
+	private function getWinningAndLosingTeams($total) {
+		$teams = $this->getTeams();
+
+		$wij_score = $total['Wij'] + $total['Wij-roem'];
+		$zij_score = $total['Zij'] + $total['Zij-roem'];
+
+		$wij = [
+			$teams['Wij'][0]->id => $wij_score,
+			$teams['Wij'][1]->id => $wij_score,
+		];
+
+		$zij = [
+			$teams['Zij'][0]->id => $zij_score,
+			$teams['Zij'][1]->id => $zij_score,
+		];
+
+		$teams = ['winners' => [], 'losers' => []];
+
+		if ($wij_score > $zij_score) {
+			$teams['winners'] = $wij;
+			$teams['losers'] = $zij;
+		} elseif ($wij_score < $zij_score) {
+			$teams['winners'] = $zij;
+			$teams['losers'] = $wij;
+		} else {
+			$teams['winners'] = array_merge($wij, $zij);
+		}
+
+		return $teams;
+	}
+
+	/**
+	 * Gives experience points to all players after Hartenjagen.
 	 *
 	 * @param array $winners
 	 * @param array $losers
 	 */
-	private function setXp(array $players)
+	private function setHartenjagenXp(array $players)
 	{
 		foreach($players as $player => $score) {
 			$user = User::find($player);
@@ -261,15 +392,19 @@ class Game extends Model
 		}
 	}
 
-	/*
-	 * Check if a user has 50 points.
+	/**
+	 * Gives experience points to all players after Klaverjassen.
+	 *
+	 * @param array $winners
+	 * @param array $losers
 	 */
-	private static function hasAmountPoints(array $totals, int $amount)
+	private function setKlaverjassenXp(array $players, bool $won)
 	{
-		foreach ($totals as $total => $value) {
-			if ($value == $amount) {
-				return true;
-			}
+		foreach($players as $player => $score) {
+			$user = User::find($player);
+			$user->setWinner($won);
+			$user->giveXp($won ? 50 + 20 : 25);
+			$user->save();
 		}
 	}
 }

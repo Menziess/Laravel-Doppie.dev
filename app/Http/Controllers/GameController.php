@@ -62,7 +62,13 @@ class GameController extends Controller
             abort(404, 'Not found, because this game has already been played.');
         }
 
-        return view('content.game.row', compact('game', 'nr'));
+        if ($game->type == Game::HARTENJAGEN) {
+            $view = view('content.game.partials.row.hartenjagen', compact('game', 'nr'));
+        } elseif ($game->type == Game::KLAVERJASSEN) {
+            $view = view('content.game.partials.row.klaverjassen', compact('game', 'nr'));
+        }
+
+        return $view;
     }
 
     /*
@@ -75,15 +81,15 @@ class GameController extends Controller
             abort(404, 'Not found, because this game has already been played.');
         }
 
-        $users = array_except($request->all(), ['_token', '_method']);
+        $inputs = array_except($request->all(), ['_token', '_method']);
 
-        if (!array_filter($users)) {
+        if (!array_filter($inputs)) {
             return redirect()->to(\URL::previous() . '#bottom')->withErrors(['Please enter scores before pressing any buttons.']);
         }
 
         $scores = $game->getData('scores');
-        foreach($users as $user => $score) {
-            $scores->{$nr}->{$user} = $score;
+        foreach($inputs as $input => $score) {
+            $scores->{$nr}->{$input} = $score;
         }
 
         $game->setData('scores', $scores);
@@ -126,9 +132,6 @@ class GameController extends Controller
     public function putStartGame(Request $request)
     {
     	$game = Game::active()->orderBy('id', 'desc')->firstOrFail();
-        if ($request->input("team")) {
-            $game->setData('team', $request->input('team'));
-        }
     	$game->start();
 
     	return redirect('/game');
@@ -139,15 +142,19 @@ class GameController extends Controller
      */
     public function putSaveScore(Request $request)
     {
-        $users = array_except($request->all(), ['_token', '_method']);
+        $inputs = array_except($request->all(), ['_token', '_method']);
 
-        if (!array_filter($users)) {
+        if (!array_filter($inputs)) {
             return redirect()->to(\URL::previous() . '#bottom')->withErrors(['Please enter scores before pressing any buttons.']);
         }
 
         $game = Game::active()->orderBy('id', 'desc')->firstOrFail();
 
-        return $game->saveScore($request, $users);
+        if ($game->type == Game::HARTENJAGEN) {
+            return $game->saveHartenjagenScore($request, $inputs);
+        } elseif ($game->type == Game::KLAVERJASSEN) {
+            return $game->saveKlaverjassenScore($request, $inputs);
+        }
     }
 
     /*

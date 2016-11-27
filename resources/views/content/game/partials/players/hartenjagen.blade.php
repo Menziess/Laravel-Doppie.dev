@@ -32,7 +32,7 @@
 		@if($game->users->count() > 0)
 			@foreach($game->users as $i => $user)
 				{{ ++$i }}
-				<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
+				<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;">
 				{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
 				<br/>
 			@endforeach
@@ -66,7 +66,7 @@
 @push('scripts')
 	<script type="text/javascript">
 		jQuery(function(){
-		    var max = 6;
+		    var max = 7;
 		    var checkboxes = $('input[type="checkbox"]');
 
 		    checkboxes.change(function(i){

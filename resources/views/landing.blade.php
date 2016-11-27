@@ -13,11 +13,51 @@
 	</div>
 
 	<div id="landing-project" class="card m-y-2 shadow">
+		<div class="card-header touchable" data-toggle="collapse" href="#project2" aria-expanded="false" aria-controls="header">
+			<h4 class="card-title unselectable">Klaverjassen</h4>
+		</div>
+
+		<div id="project2" class="collapse in">
+			<div class="card-block">
+				<div class="row">
+
+					<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
+						<img id="picture" src="{{ asset('img/games/clover.png') }}" class="profile-picture-small"
+							alt="" data-href="#" data-content="" rel="popover" data-placement="right" data-original-title=""
+							data-trigger="hover" width="150" height="150">
+					</div>
+
+					<div class="col-xs-18 col-sm-6 col-md-6 col-lg-6 left">
+					<h4 class="card-title">To Do</h4>
+					<p class="card-body">
+						<ul class="no-dots">
+							<li><i class="fa fa-btn fa-minus"></i>&#09;Create statistics page</li>
+							<li><i class="fa fa-btn fa-minus"></i>&#09;Add shuffler</li>
+							<br/>
+							<li><i class="fa fa-btn fa-check text-success"></i>&#09;Add Klaverjassen</li>
+						</ul>
+					</p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="card-footer touchable">
+			<div id="progress" class="p-t-1">
+				<a data-toggle="collapse" href="#project2" aria-expanded="false" aria-controls="header">
+				<progress class="progress progress-success" value="33" max="100"></progress>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="landing-project" class="card m-y-2 shadow">
 		<div class="card-header touchable" data-toggle="collapse" href="#project1" aria-expanded="false" aria-controls="header">
 			<h4 class="card-title unselectable">Hartenjagen</h4>
 		</div>
 
-		<div id="project1" class="collapse">
+		<div id="project1" class="collapse in">
 			<div class="card-block">
 				<div class="row">
 
@@ -36,9 +76,6 @@
 							<li><i class="fa fa-btn fa-check text-success"></i>&#09;Add shuffler</li>
 							<li><i class="fa fa-btn fa-check text-success"></i>&#09;Add game scores</li>
 							<li><i class="fa fa-btn fa-check text-success"></i>&#09;Build in game ownership</li>
-							<br/>
-							<li><i class="fa fa-btn fa-minus"></i>&#09;Create a better landing page</li>
-							<li><i class="fa fa-btn fa-minus"></i>&#09;Create public profile pages</li>
 						</ul>
 					</p>
 					</div>

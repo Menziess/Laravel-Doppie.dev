@@ -41,6 +41,7 @@
 				<th>#</th>
 				@foreach(array_keys($game->getTeams()) as $team)
 					<th>
+						({{ $game->getTeams()[$team][0]->first_name }} & {{ $game->getTeams()[$team][1]->first_name }})<br/>
 						{{ $team }}
 					</th>
 				@endforeach
@@ -55,8 +56,14 @@
 
 					@foreach(array_keys($game->getTeams()) as $team)
 						<td>
-							{{ $game->data['scores'][$round][$team] }} &emsp;
-							<b>{{ $game->data['scores'][$round][$team . '-roem'] }}</b>
+							<span style="margin-right: 10px;">
+								{{ $game->data['scores'][$round][$team] }}
+							</span>
+							@if ($game->data['scores'][$round][$team . '-roem'] > 0)
+							<span class="text-success" style="width: 100px;">
+								<b>{{ $game->data['scores'][$round][$team . '-roem'] }} roem</b>
+							</span>
+							@endif
 						</td>
 					@endforeach
 				</tr>
@@ -70,7 +77,7 @@
 							<strong>{{ $team }}</strong>
 							<br/>
 							{{ $game->getTotalKlaverjassenScores()[$team] }} +
-							{{ $game->getTotalKlaverjassenScores()[$team . '-roem'] }} = &emsp;
+							<span class="text-success"><b>{{ $game->getTotalKlaverjassenScores()[$team . '-roem'] }}</b></span> = &emsp;
 							<b>{{ $game->getTotalKlaverjassenScores()[$team] + $game->getTotalKlaverjassenScores()[$team . '-roem'] }}</b>
 						</td>
 					@endforeach

@@ -57,9 +57,12 @@
 							<td>
 								<strong>{{ $team }}</strong>
 								<br/>
-								{{ $game->getTotalKlaverjassenScores()[$team] }} +
-								<span class="text-success"><b>{{ $game->getTotalKlaverjassenScores()[$team . '-roem'] }}</b></span> = &emsp;
-								<b>{{ $game->getTotalKlaverjassenScores()[$team] + $game->getTotalKlaverjassenScores()[$team . '-roem'] }}</b>
+								{{ $game->getTotalKlaverjassenScores()[$team] }}
+								@if($game->getTotalKlaverjassenScores()[$team . '-roem'] > 0)
+									+
+									<span class="text-success"><b>{{ $game->getTotalKlaverjassenScores()[$team . '-roem'] }}</b></span> = &emsp;
+									<b>{{ $game->getTotalKlaverjassenScores()[$team] + $game->getTotalKlaverjassenScores()[$team . '-roem'] }}</b>
+								@endif
 							</td>
 						@endforeach
 					</tr>

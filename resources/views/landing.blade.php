@@ -57,7 +57,7 @@
 			<h4 class="card-title unselectable">Hartenjagen</h4>
 		</div>
 
-		<div id="project1" class="collapse in">
+		<div id="project1" class="collapse">
 			<div class="card-block">
 				<div class="row">
 
@@ -87,7 +87,7 @@
 		<div class="card-footer touchable">
 			<div id="progress" class="p-t-1">
 				<a data-toggle="collapse" href="#project1" aria-expanded="false" aria-controls="header">
-				<progress class="progress progress-success" value="33" max="100"></progress>
+				<progress class="progress progress-success" value="100" max="100"></progress>
 				</a>
 			</div>
 		</div>

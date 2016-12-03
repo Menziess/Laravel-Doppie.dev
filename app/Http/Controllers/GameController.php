@@ -15,7 +15,7 @@ class GameController extends Controller
 	 */
     public function getIndex() {
 
-    	$game = Game::orderBy('id', 'desc')->first();
+    	$game = Game::active()->orderBy('id', 'desc')->first();
 
     	if (!$game) {
     		 $game = new Game();

@@ -212,7 +212,9 @@ class Game extends Model
 
 		foreach ($inputs as $input => $points) {
 			$scores[$round][$input] = $points ? (int) ltrim($points, '0') : 0;
-            $scores[$round + 1][$input] = 0;
+			if ($round < 16) {
+	            $scores[$round + 1][$input] = 0;
+			}
 		}
 
         $this->setData('scores', $scores);

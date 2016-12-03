@@ -18,7 +18,7 @@
 		@if($winners->count() > 0)
 		<h2>Congratulations!</h2>
 		<img src="{{ asset($game->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="">
-			{!! ucfirst($game->type) !!}{{ ', ' . count($winners) . (count($winners) > 1 ? ' winners:' : 'winner:') }}
+			{!! ucfirst($game->type) !!}{{ ', ' . count($winners) . (count($winners) > 1 ? ' winners:' : ' winner:') }}
 		<div class="row">
 			@foreach($winners as $winner)
 				<div style="display: inline-block;">

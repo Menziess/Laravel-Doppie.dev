@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 use Auth;
+use App\Game;
 use App\User;
 use App\Project;
 use App\Organization;
@@ -22,13 +23,38 @@ class AdminController extends Controller
 		$search = '%' . $input . '%' ?: '%';
 		$links = self::LINKS;
 		$subject = Auth::user();
-		$users = User::withTrashed()
-			->where('first_name', 'like', $search)
-			->orWhere('last_name', 'like', $search)
-			->orWhere('email', 'like', $search)
-			->orderBy('id', 'desc')->paginate();
+		$games = null;
+		$users = null;
+		if ($request->has('viewGames')) {
+			$games = Game::withTrashed()
+				->orderBy('id', 'desc')->paginate();
+		} else {
+			$users = User::withTrashed()
+				->where('first_name', 'like', $search)
+				->orWhere('last_name', 'like', $search)
+				->orWhere('email', 'like', $search)
+				->orderBy('id', 'desc')->paginate();
+		}
 
-		return view('content.all.list', compact('users', 'subject', 'links', 'input'));
+		return view('content.all.list', compact('games', 'users', 'subject', 'links', 'input'));
+	}
+
+	/*
+	 * Show games.
+	 */
+	public function getGames(Request $request)
+	{
+		$request->request->add(['viewGames' => true]);
+		return $this->getIndex($request);
+	}
+
+	/*
+	 * Show users.
+	 */
+	public function getUsers(Request $request)
+	{
+		$request->request->add(['viewUsers' => true]);
+		return $this->getIndex($request);
 	}
 
 	/*

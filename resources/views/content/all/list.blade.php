@@ -8,6 +8,10 @@
 		@include('content.user.partials.list')
 	@endif
 
+	@if(isset($games))
+		@include('content.game.partials.list')
+	@endif
+
 </div>
 
 @endsection

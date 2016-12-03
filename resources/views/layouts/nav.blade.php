@@ -42,7 +42,7 @@
 
 			<form class="form-inline pull-xs-right hidden-xs-down" method="GET" action="{{ url('/subject/') }}">
 				<div class="input-group">
-					<input class="searchbar form-control" type="text" placeholder="Search" name="search" value="{{ isset($input) ? $input : '' }}">
+					<input class="searchbar form-control" type="text" placeholder="Search for users" name="search" value="{{ isset($input) ? $input : '' }}">
 					<span class="input-group-btn">
 						<button class="btn btn-success-outline" type="submit">Search</button>
 					</span>

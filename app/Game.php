@@ -79,6 +79,28 @@ class Game extends Model
 	}
 
 	/*
+	 * Gets url.
+	 */
+	public function getUrl()
+	{
+		return '/scores/' . $this->getKey();
+	}
+
+	/*
+	 * Gets profile picture.
+	 */
+	public function getPicture()
+	{
+		if ($this->type == self::HARTENJAGEN) {
+			return 'img/games/heart.png';
+		} elseif ($this->type == self::KLAVERJASSEN) {
+			return 'img/games/clover.png';
+		} else {
+			return 'img/placeholder.jpg';
+		}
+	}
+
+	/*
 	 * Get amount of points that can be won each round.
 	 */
 	public function getPointsPerRound()

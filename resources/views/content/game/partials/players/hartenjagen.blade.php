@@ -28,18 +28,21 @@
 		</div>
 	</div>
 
-	<div class="text-xs-left" style="margin-left: 1em;">
-		@if($game->users->count() > 0)
+	@if($game->users->count() > 0)
+		<div class="text-xs-left" style="margin-left: 1em;">
 			@foreach($game->users as $i => $user)
 				{{ ++$i }}
 				<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;">
 				{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
 				<br/>
 			@endforeach
-		@else
-			<p>No players yet...</p>
-		@endif
-	</div>
+		</div>
+	@else
+		<p>
+			Start with the <span class="text-primary">shuffling <i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i></span>
+			player, adding players clockwise.
+		</p>
+	@endif
 
 	<hr/>
 

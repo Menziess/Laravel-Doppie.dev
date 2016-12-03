@@ -29,7 +29,7 @@
 	</div>
 
 	<div style="margin-left: 1em;">
-		@if($game->users->count() > 0)
+		@if($game->users->count() == 4)
 			<div class="row text-xs-left">
 				<div class="col-md-6">
 					<h4>{{ $game->users[0]->id == Auth::id() || $game->users[2]->id == Auth::id() ? 'Wij' : 'Zij' }}</h4>
@@ -54,8 +54,18 @@
 					@endforeach
 				</div>
 			</div>
+		@elseif($game->users->count() > 0)
+			<div class="row text-xs-left">
+				@foreach($game->users as $i => $user)
+					<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
+					{{ $user->getName() }}
+				@endforeach
+			</div>
 		@else
-			<p>No players yet...</p>
+			<p>
+				Start with the <span class="text-primary">shuffling <i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i></span>
+				player, adding players clockwise.
+			</p>
 		@endif
 	</div>
 

@@ -23,7 +23,9 @@
 		<tr>
 			<td><h3>{{ $game->id }}</h3></td>
 			<td>
-				<img src="{{ asset($game->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" >
+				<a href="{{ url($game->getUrl()) }}">
+					<img src="{{ asset($game->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="">
+				</a>
 			</td>
 			<td>
 				<button style="display: inline-block;" class="btn btn-danger-outline center-block" type="button" data-toggle="modal" data-target="#modal-delete">Stop</button>

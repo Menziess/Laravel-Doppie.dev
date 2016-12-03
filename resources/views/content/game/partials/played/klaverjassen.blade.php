@@ -17,15 +17,17 @@
 	<div class="card-block">
 		@if($winners->count() > 0)
 		<h2>Congratulations!</h2>
+		<img src="{{ asset($game->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="">
+			{!! ucfirst($game->type) !!}{{ ', ' . count($winners) . (count($winners) > 1 ? ' winners:' : 'winner:') }}
 		<div class="row">
-				@foreach($winners as $winner)
-					<div style="display: inline-block;">
-						<h4>{{ $winner['winner']->first_name }}</h4>
-						<a href="{{ url($winner['winner']->getProfileUrl()) }}" class="over round">
-							<img src="{{ url($winner['winner']->getPicture()) }}" class="img-circle profile-picture-small">
-						</a>
-					</div>
-				@endforeach
+			@foreach($winners as $winner)
+				<div style="display: inline-block;">
+					<h4>{{ $winner['winner']->first_name }}</h4>
+					<a href="{{ url($winner['winner']->getProfileUrl()) }}" class="over round">
+						<img src="{{ url($winner['winner']->getPicture()) }}" class="img-circle profile-picture-small">
+					</a>
+				</div>
+			@endforeach
 		</div>
 		@else
 			Winner account has been deactivated...

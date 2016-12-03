@@ -83,7 +83,7 @@ class Game extends Model
 	 */
 	public function getUrl()
 	{
-		return '/scores/' . $this->getKey();
+		return '/admin/game/' . $this->getKey();
 	}
 
 	/*

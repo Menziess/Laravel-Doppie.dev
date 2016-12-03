@@ -77,6 +77,33 @@ class AdminController extends Controller
 	}
 
 	/*
+	 * Gets game by id.
+	 */
+    public function getGame($id)
+    {
+        $game = Game::withTrashed()->findOrFail($id);
+    	$users = User::orderBy('xp', 'desc')->get();
+        $links = self::LINKS;
+
+        if ($game->finished_at) {
+            $win_scores = $game->getData('winners');
+            $lose_scores = $game->getData('losers');
+            $winning_users = User::whereIn('id', array_keys((array) $win_scores))->get();
+            $losing_users = User::whereIn('id', array_keys((array) $lose_scores))->get();
+
+            $winners = $winning_users->map(function ($user) use ($win_scores) {
+                return ['winner' => $user, 'points' => $win_scores->{$user->id}];
+            });
+
+            $losers = $losing_users->map(function ($user) use ($lose_scores) {
+                return ['loser' => $user, 'points' => $lose_scores->{$user->id}];
+            });
+        }
+
+    	return view('content.game.board', compact('winners', 'losers', 'subject', 'game', 'users', 'links'));
+    }
+
+	/*
 	 * Grant admin rights.
 	 */
 	public function putEnableAdmin($id)

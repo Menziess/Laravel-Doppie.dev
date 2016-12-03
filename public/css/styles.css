@@ -25,7 +25,7 @@ input[type=checkbox] + label {
 
 input[type=checkbox]:checked + label {
 	min-width: 50px;
-	border: 6px outset lightskyblue;
+	border: 6px outset dodgerblue;
 }
 
 .td-fixed {

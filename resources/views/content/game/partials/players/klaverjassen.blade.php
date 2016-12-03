@@ -28,46 +28,50 @@
 		</div>
 	</div>
 
-	<div style="margin-left: 1em;">
-		@if($game->users->count() == 4)
-			<div class="row text-xs-left">
-				<div class="col-md-6">
-					<h4>{{ $game->users[0]->id == Auth::id() || $game->users[2]->id == Auth::id() ? 'Wij' : 'Zij' }}</h4>
-					@foreach($game->users as $i => $user)
-						@if($i % 2 == 0)
-						{{ ++$i }}
-						<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
-						{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
-						<br/>
-						@endif
-					@endforeach
-				</div>
-				<div class="col-md-6">
-					<h4>{{ $game->users[1]->id == Auth::id() || $game->users[3]->id == Auth::id() ? 'Wij' : 'Zij' }}</h4>
-					@foreach($game->users as $i => $user)
-						@if($i % 2 != 0)
-						{{ ++$i }}
-						<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
-						{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
-						<br/>
-						@endif
-					@endforeach
-				</div>
-			</div>
-		@elseif($game->users->count() > 0)
-			<div class="row text-xs-left">
+	@if($game->users->count() == 4)
+		<div class="row text-xs-left" style="margin-left: 1em;">
+			<div class="col-md-6">
+				@if(!$game->users->contains(Auth::id()))
+				<h4>Wij</h4>
+				@else
+				<h4>{{ $game->users[0]->id == Auth::id() || $game->users[2]->id == Auth::id() ? 'Wij' : 'Zij' }}</h4>
+				@endif
 				@foreach($game->users as $i => $user)
-					<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;"">
-					{{ $user->getName() }}
+					@if($i % 2 == 0)
+					{{ ++$i }}
+					<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px; border: 6px outset red;">
+					{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
+					<br/>
+					@endif
 				@endforeach
 			</div>
-		@else
-			<p>
-				Start with the <span class="text-primary">shuffling <i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i></span>
-				player, adding players clockwise.
-			</p>
-		@endif
-	</div>
+			<div class="col-md-6">
+				<h4>{{ $game->users[1]->id == Auth::id() || $game->users[3]->id == Auth::id() ? 'Wij' : 'Zij' }}</h4>
+				@foreach($game->users as $i => $user)
+					@if($i % 2 != 0)
+					{{ ++$i }}
+					<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px; border: 6px outset dodgerblue;">
+					{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
+					<br/>
+					@endif
+				@endforeach
+			</div>
+		</div>
+	@elseif($game->users->count() > 0)
+		<div class="row text-xs-left">
+			@foreach($game->users as $i => $user)
+				{{ $i + 1 }}
+				<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px; border: 6px outset {{ $i % 2 != 0 ? 'dodgerblue' : 'red' }}">
+				{{ $user->getName() }} {!! $i == 0 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
+				<br/>
+			@endforeach
+		</div>
+	@else
+		<p>
+			Start with the <span class="text-primary">shuffling <i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i></span>
+			player, adding players clockwise.
+		</p>
+	@endif
 
 	<hr/>
 
@@ -100,8 +104,9 @@
 
 		    checkboxes.change(function(i){
 		    	i.currentTarget.value = $.now();
-		        var current = checkboxes.filter(':checked').length;
-		        checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+		        var current = checkboxes.filter(':checked');
+		        setPlayerColor(current);
+		        checkboxes.filter(':not(:checked)').prop('disabled', current.length >= max);
 		    });
 
 		    $('#team1').change(function () {
@@ -117,6 +122,21 @@
                 	$('#team1').val("Zij") :
                 	$('#team1').val("Wij");
             });
+
+			setPlayerColor = function(arr) {
+				odd = arr.sort(function(a, b) {
+		   			return +a.value - +b.value;
+		   		});
+		        odd.each(function(i, input) {
+		        	if (i % 2 != 0) {
+		        		$('label[for="' + input.id + '"]').css('border-color', 'dodgerblue');
+		        	} else {
+			        	$('label[for="' + input.id + '"]').css('border-color', 'red');
+		        	}
+		        });
+			}
+
+			setPlayerColor(checkboxes.filter(':checked'));
 		});
 	</script>
 @endpush

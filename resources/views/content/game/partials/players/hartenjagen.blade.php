@@ -31,9 +31,9 @@
 	@if($game->users->count() > 0)
 		<div class="text-xs-left" style="margin-left: 1em;">
 			@foreach($game->users as $i => $user)
-				{{ ++$i }}
+				{{ $i + 1 }}
 				<img src="{{ $user->getPicture() }}" class="img-circle profile-picture-small" style="width: 50px;">
-				{{ $user->getName() }} {!! $i == 1 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
+				{{ $user->getName() }} {!! $i == 0 ? '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>' : null !!}
 				<br/>
 			@endforeach
 		</div>

@@ -172,6 +172,17 @@ class GameController extends Controller
     }
 
     /*
+     * Undo deletion.
+     */
+    public function putActivateGame($id)
+    {
+        $game = Game::withTrashed()->findOrFail($id);
+        $game->restore();
+
+        return redirect('/admin/game/' . $id);
+    }
+
+    /*
      * Delete game.
      */
     public function deleteDeleteGame()

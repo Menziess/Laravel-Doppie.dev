@@ -63,7 +63,6 @@
 			<button style="display: inline-block;" class="btn btn-danger-outline center-block" type="button" data-toggle="modal" data-target="#modal-delete">Stop</button>
 		</div>
 	</div>
-
 </form>
 
 <div id="bottom" class="row">
@@ -88,6 +87,14 @@
 					</p>
 				</div>
 				<div class="modal-footer">
+					@if(Auth::user()->is_admin && $game->trashed())
+						<form class="form-horizontal" method="POST" action="{{ url('game/activate-game/' . $game->id) }}">
+							{!! csrf_field() !!}
+							{{ method_field('PUT') }}
+							<button class="btn btn-success" type="submit">Activate</button>
+						</form>
+					@endif
+					<br />
 					@if(Auth::user() == $game->user || Auth::user()->is_admin || $game->started_at->addMinutes(80) < Carbon\Carbon::now())
 					<form class="form-horizontal" method="POST" action="{{ url('game/delete-game') }}">
 						{!! csrf_field() !!}

@@ -1,3 +1,4 @@
+<div id="feedback"></div>
 <div class="p-t-1">
 
 	@if (count($errors) > 0)

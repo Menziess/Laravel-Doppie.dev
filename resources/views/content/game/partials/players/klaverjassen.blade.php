@@ -83,7 +83,6 @@
 		<form id="form-profile" style="display: inline-block;" method="POST" action="{{ url('game/start-game') }}">
 			{!! csrf_field() !!}
 			{{ method_field('PUT') }}
-			<input id="team" name="team" value="Zij" type="hidden" hidden="hidden">
 			<button class="btn btn-success-outline center-block" type="submit">Start</button>
 		</form>
 	@endif
@@ -109,18 +108,17 @@
 		        checkboxes.filter(':not(:checked)').prop('disabled', current.length >= max);
 		    });
 
-		    $('#team1').change(function () {
-		    	$('#team').val("Wij");
-                $('#team1').val() == "Wij" ?
-                	$('#team2').val("Zij") :
-                	$('#team2').val("Wij");
+		    var team1 = $('#team1');
+		    var team2 = $('#team2');
+		    team1.change(function () {
+                team1.val() == "Wij" ?
+                	team2.val("Zij") :
+                	team2.val("Wij");
             });
-
-            $('#team2').change(function () {
-            	$('#team').val("Zij");
-                $('#team2').val() == "Wij" ?
-                	$('#team1').val("Zij") :
-                	$('#team1').val("Wij");
+            team2.change(function () {
+                team2.val() == "Wij" ?
+                	team1.val("Zij") :
+                	team1.val("Wij");
             });
 
 			setPlayerColor = function(arr) {

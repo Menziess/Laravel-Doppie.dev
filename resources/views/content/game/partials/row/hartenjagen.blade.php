@@ -58,3 +58,44 @@
 </div>
 
 @endsection
+
+
+@push('scripts')
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".clickable-row").click(function() {
+			window.document.location = $(this).data("href");
+		});
+		$("#score-form").submit(function() {
+
+			var enteredScore = 0;
+			var playerHasAllPoints = true;
+			var pointsPerRound = {{ $game->getPointsPerRound() }};
+			var inputs = $("input[type=number]");
+
+			inputs.each(function (i, e) {
+				val = parseInt(e.value) || 0;
+				if (val != pointsPerRound && val != 0) {
+					playerHasAllPoints = false;
+				}
+				enteredScore += val;
+			});
+
+			submit = (playerHasAllPoints && enteredScore == (inputs.size() - 1) * pointsPerRound) || (!playerHasAllPoints && enteredScore == pointsPerRound);
+			message = playerHasAllPoints ? 'Did you forget someone?' : 'You distributed ' + enteredScore + ' of ' + pointsPerRound + ' points.';
+			content = (
+				'<div class="alert alert-warning" role="alert">' +
+				message	+
+				'</div>'
+			);
+			if (!submit) {
+				document.getElementById("feedback").innerHTML = content;
+			} else {
+				document.getElementById("feedback").innerHTML = null;
+			}
+			return submit;
+		});
+	});
+</script>
+@endpush
+

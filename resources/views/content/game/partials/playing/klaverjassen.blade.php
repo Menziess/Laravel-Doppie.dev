@@ -27,9 +27,9 @@
 							@if($round == count($game->data['scores']) && Auth::user() == $game->user)
 								<td>
 									<div class="form-inline">
-										<input name="{{ $team }}" class="form-control" style="width: 100px;" type="number" inputmode="numeric" pattern="[0-9]*"
+										<input name="{{ $team }}" class="form-control" style="width: 100px;" min="0" max="162" type="number" inputmode="numeric" pattern="[0-9]*"
 										placeholder="0" autofocus="autofocus">
-										<input name="{{ $team }}-roem" class="form-control" style="width: 100px;" min="0" step="10" type="number" inputmode="numeric" pattern="[1-9]+[0]"
+										<input name="{{ $team }}-roem" class="form-control" style="width: 100px;" min="0" step="10" type="number" inputmode="numeric" pattern="[0-9]*"
 										placeholder="Roem" autofocus="autofocus">
 									</div>
 								</td>
@@ -73,7 +73,6 @@
 
 	<div class="container">
 		<div class="row">
-		<div id="feedback"></div>
 		@include('errors.feedback')
 			@if(Auth::user() == $game->user || Auth::user()->is_admin)
 				<button class="btn btn-primary-outline" type="submit">Save</button>
@@ -135,29 +134,30 @@
 		$(".clickable-row").click(function() {
 			window.document.location = $(this).data("href");
 		});
+
+		var wij = $("[name='Wij']");
+		var zij = $("[name='Zij']");
+		wij.bind('keyup change', function(e) {
+			if (this.value <= 162) {
+				zij.val(162 - this.value);
+			}
+		});
+		zij.bind('keyup change', function(e) {
+			if (this.value <= 162) {
+				wij.val(162 - this.value);
+			}
+		});
+
 		$("#score-form").submit(function() {
+			var message = "The scores don't add up to 162.";
+			var submit = (+wij.val() + +zij.val() == 162);
 
-			var enteredScore = 0;
-			var playerHasAllPoints = true;
-			var pointsPerRound = {{ $game->getPointsPerRound() }};
-			var inputs = $("input[type=number]");
+			content = (
+				'<div class="alert alert-warning" role="alert">' +
+				message	+
+				'</div>'
+			);
 
-			inputs.each(function (i, e) {
-				// val = parseInt(e.value) || 0;
-				// if (val != pointsPerRound && val != 0) {
-				// 	playerHasAllPoints = false;
-				// }
-				// enteredScore += val;
-			});
-
-			// submit = (playerHasAllPoints && enteredScore == (inputs.size() - 1) * pointsPerRound) || (!playerHasAllPoints && enteredScore == pointsPerRound);
-			// message = playerHasAllPoints ? 'Did you forget someone?' : 'You distributed ' + enteredScore + ' of ' + pointsPerRound + ' points.';
-			// content = (
-			// 	'<div class="alert alert-warning" role="alert">' +
-			// 	message	+
-			// 	'</div>'
-			// );
-			submit = true;
 			if (!submit) {
 				document.getElementById("feedback").innerHTML = content;
 			} else {

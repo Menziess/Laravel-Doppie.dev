@@ -10,8 +10,15 @@
 					<th>#</th>
 					@foreach(array_keys($game->getTeams()) as $team)
 						<th>
-							({{ $game->getTeams()[$team][0]->first_name }} & {{ $game->getTeams()[$team][1]->first_name }})<br/>
-							{{ $team }}
+							 {!! $game->getTeams()[$team][0] == $game->users[(count($game->data['scores']) - 1) % 4] ?
+							 	'<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>'
+							 	: null !!}
+							 {{ $game->getTeams()[$team][0]->first_name }} & {{ $game->getTeams()[$team][1]->first_name }}
+							 {!! $game->getTeams()[$team][1] == $game->users[(count($game->data['scores']) - 1) % 4] ?
+								 '<i class="fa fa-random text-primary" aria-hidden="true" title="Shuffle"></i>'
+							 	: null !!}
+							 <br/>
+							 {{ $team }}
 						</th>
 					@endforeach
 				</tr>

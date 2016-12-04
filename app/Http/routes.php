@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::controller('/game', 'GameController');
 	Route::resource('/scores', 'ScoresController');
 	Route::controller('/scores', 'ScoresController');
+	Route::controller('/leaderboards', 'LeaderboardController');
 
 	# SUBJECTS
 	Route::group(['namespace' => 'Subjects'], function () {

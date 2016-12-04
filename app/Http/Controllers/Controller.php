@@ -17,6 +17,7 @@ class Controller extends BaseController
     const LINKS = [
 		['title' => 'Game', 'href' => '/game', 'text' => ''],
 		['title' => 'Scores', 'href' => '/scores', 'text' => ''],
+		['title' => 'Leaderboards', 'href' => '/leaderboards', 'text' => ''],
 	];
 
     /**

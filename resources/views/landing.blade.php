@@ -32,11 +32,11 @@
 					<p class="card-body">
 						<ul class="no-dots">
 							<li><i class="fa fa-btn fa-minus"></i>&#09;Create statistics page</li>
-							<li><i class="fa fa-btn fa-minus"></i>&#09;Add shuffler</li>
 							<br/>
 							<li><i class="fa fa-btn fa-check text-success"></i>&#09;Add Klaverjassen</li>
 							<li><i class="fa fa-btn fa-check text-success"></i>&#09;Add new player picker</li>
 							<li><i class="fa fa-btn fa-check text-success"></i>&#09;Automatic score completion</li>
+							<li><i class="fa fa-btn fa-check text-success"></i>&#09;Add shuffler</li>
 						</ul>
 					</p>
 					</div>
@@ -48,7 +48,7 @@
 		<div class="card-footer touchable">
 			<div id="progress" class="p-t-1">
 				<a data-toggle="collapse" href="#project2" aria-expanded="false" aria-controls="header">
-				<progress class="progress progress-success" value="60" max="100"></progress>
+				<progress class="progress progress-success" value="80" max="100"></progress>
 				</a>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 <div id="profile" class="card shadow card-block">
 	<div class="row">
 		<h4 class="card-title">Profile</h4>
-		<div class="col-md-6 col-md-offset-3 left">
+		<div class="col-md-6 col-md-offset-3">
 
 			@if (Session::has('profile'))
 				<div class="alert alert-success" role="alert">

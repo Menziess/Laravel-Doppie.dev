@@ -57,6 +57,28 @@ class AdminController extends Controller
 		return $this->getIndex($request);
 	}
 
+ 	/*
+ 	 * Show logs.
+ 	 */
+	public function getLogs(Request $request)
+	{
+		$url = '../storage/logs/laravel.log';
+		$lines = null;
+		$file = [];
+		if (file_exists($url)) {
+			$file = file($url);
+			$length = count($file);
+			for ($i = 0; $i < 200; $i++) {
+				$lines[$i] = $file[$length - ($i + 1)] . "\n";
+				if (preg_match("/Stack trace:/", $lines[$i])) {
+					break;
+				}
+			}
+		}
+		$lines = array_reverse($lines);
+		return view('content.all.logs', compact('lines'));
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| User routes

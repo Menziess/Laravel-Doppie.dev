@@ -50,7 +50,7 @@
 				<div class="container">
 					<div class="row">
 						@include('errors.feedback')
-						<button class="btn btn-primary-outline" type="submit">Save</button>
+						<button class="btn btn-primary-outline" type="submit">Update</button>
 						<a href="{{ url('game') }}" class="btn btn-secondary" role="button">Back</a>
 					</div>
 				</div>

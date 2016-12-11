@@ -25,7 +25,7 @@
 							@if($round == count($game->data['scores']) && Auth::user() == $game->user)
 								<td>
 									<input name="{{ $user->id }}" class="form-control" style="width: 70px;" type="number" inputmode="numeric" pattern="[0-9]*"
-									placeholder="0" autofocus="autofocus">
+									placeholder="0" autofocus="autofocus" autocomplete="off">
 								</td>
 							@else
 								<td>{{ $game->data['scores'][$round][$user->id] }}</td>
@@ -58,7 +58,7 @@
 		<div id="feedback"></div>
 		@include('errors.feedback')
 			@if(Auth::user() == $game->user || Auth::user()->is_admin)
-				<button class="btn btn-primary-outline" type="submit">Save</button>
+				<button class="btn btn-primary-outline" type="submit">Enter</button>
 			@endif
 			<button style="display: inline-block;" class="btn btn-danger-outline center-block" type="button" data-toggle="modal" data-target="#modal-delete">Stop</button>
 		</div>

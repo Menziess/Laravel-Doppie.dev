@@ -35,9 +35,9 @@
 								<td>
 									<div class="form-inline">
 										<input name="{{ $team }}" class="form-control" style="width: 100px;" min="0" max="162" type="number" inputmode="numeric" pattern="[0-9]*"
-										placeholder="0" autofocus="autofocus">
+										placeholder="0" autofocus="autofocus" autocomplete="off">
 										<input name="{{ $team }}-roem" class="form-control" style="width: 100px;" min="0" step="10" type="number" inputmode="numeric" pattern="[0-9]*"
-										placeholder="Roem" autofocus="autofocus">
+										placeholder="Roem" autofocus="autofocus" autocomplete="off">
 									</div>
 								</td>
 							@else
@@ -82,7 +82,7 @@
 		<div class="row">
 		@include('errors.feedback')
 			@if(Auth::user() == $game->user || Auth::user()->is_admin)
-				<button class="btn btn-primary-outline" type="submit">Save</button>
+				<button class="btn btn-primary-outline" type="submit">Enter</button>
 			@endif
 			<button style="display: inline-block;" class="btn btn-danger-outline center-block" type="button" data-toggle="modal" data-target="#modal-delete">Stop</button>
 		</div>

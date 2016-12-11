@@ -89,7 +89,7 @@ class GameController extends Controller
 
         $scores = $game->getData('scores');
         foreach($inputs as $input => $score) {
-            $scores->{$nr}->{$input} = $score;
+            $scores->{$nr}->{$input} = $score ? (int) ltrim($score, '0') : 0;
         }
 
         $game->setData('scores', $scores);

@@ -159,6 +159,13 @@ class Game extends Model
 		$scores = $this->data['scores'];
 		$round = count($scores);
 		$totals = $this->getTotalHartenjagenScores();
+		$ppr = $this->getPointsPerRound();
+
+		// Minor validation in case Jquery fails
+		// Doesn't take into account entering 15 points for one player
+		if (array_sum($users) != $ppr && array_sum($users) != (count($users) - 1) * $ppr) {
+			return redirect('/game#bottom')->withErrors(['The score does not add up.']);
+		}
 
 		if ($this->getData('punten_halen')) {
 			foreach ($users as $user => $points) {
@@ -210,8 +217,31 @@ class Game extends Model
 		$round = count($scores);
 		$totals = $this->getTotalKlaverjassenScores();
 
+		// Minor validation in case Jquery fails
+		if ($inputs["Wij"] + $inputs["Zij"] != $this->getPointsPerRound()) {
+			return redirect('/game#bottom')->withErrors(['The score does not add up.']);
+		}
+
+		$teamNames = $this->getKlaverjassenMakersTeam($round);
+		if ((int) $inputs[$teamNames[0]] + (int) $inputs[$teamNames[0] . "-roem"] <= (int) $inputs[$teamNames[1]] + (int) $inputs[$teamNames[1] . "-roem"]) {
+			// Nat
+			$scores[$round][$teamNames[0]] = 0;
+			$scores[$round][$teamNames[0] . "-roem"] = 0;
+			$scores[$round][$teamNames[1]] = 162;
+			$scores[$round][$teamNames[1] . "-roem"] = (int) $inputs["Wij-roem"] + (int) $inputs["Zij-roem"];
+		} else if ((int) $inputs[$teamNames[0]] == 162 && (int) $inputs[$teamNames[1] . "-roem"] == 0) {
+			// Pit
+			$scores[$round][$teamNames[0]] = 162;
+			$scores[$round][$teamNames[0] . "-roem"] = (int) $inputs["Wij-roem"] + (int) $inputs["Zij-roem"] + 100;
+			$scores[$round][$teamNames[1]] = 0;
+			$scores[$round][$teamNames[1] . "-roem"] = 0;
+		} else {
+			foreach ($inputs as $input => $points) {
+				$scores[$round][$input] = $points ? (int) ltrim($points, '0') : 0;
+			}
+		}
+
 		foreach ($inputs as $input => $points) {
-			$scores[$round][$input] = $points ? (int) ltrim($points, '0') : 0;
 			if ($round < 16) {
 	            $scores[$round + 1][$input] = 0;
 			}
@@ -340,6 +370,32 @@ class Game extends Model
 			];
 
 		return $teams;
+	}
+
+	/**
+	 * Gets the player who started shuffling.
+	 * @return String
+	 */
+	private function getKlaverjassenStartingShufflerTeam() {
+		$team = 'Wij';
+		for ($i=0; $i < 4; $i++) {
+			if ($this->users[0]->id == $this->getTeams()[$team][$i % 2]->id) return $team;
+			$team == 'Wij' ?  $team = 'Zij' : $team = 'Wij';
+		}
+	}
+
+	/**
+	 * Get makers of the round.
+	 * @return array
+	 */
+	private function getKlaverjassenMakersTeam($round) {
+		$shufTeam = $this->getKlaverjassenStartingShufflerTeam();
+		$notShufTeam = $shufTeam == 'Wij' ? 'Zij' : 'Wij';
+		if ($round & 1) {
+			return [$notShufTeam, $shufTeam];
+		} else {
+			return [$shufTeam, $notShufTeam];
+		}
 	}
 
 	/**

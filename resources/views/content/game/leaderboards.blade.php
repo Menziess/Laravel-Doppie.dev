@@ -5,11 +5,40 @@
 <div class="container">
 	<div class="card shadow card-block">
 		<div class="row">
-			<h4 class="card-title">Leaderboards &#60;&#47;&#62;</h4>
-			<h4 class="card-title">To be added.</h4>
-			<div class="col-md-6 col-md-offset-3 col-centered">
-				<img id="ranking" src="{{ asset('img/rating.gif') }}" style="width: 15em; margin-top: 5em;" alt="" href="#">
-			</div>
+			<h4>Hartenjagen</h4>
+			{{ App\User::find(15)->getName() }}
+			@if(isset($hartenjagen))
+				<div class="col-md-6 col-centered">
+					Wins:
+					@foreach($hartenjagen["winners"] as $winner => $amount)
+						<br />{{ $winner }} : {{ $amount }}
+						<label class="img-circle profile-picture-small" style="cursor: pointer; background-image: url({{ "" }});"></label>
+					@endforeach
+				</div>
+				<div class="col-md-6 col-centered">
+					Losses:
+					@foreach($hartenjagen["losers"] as $winner => $amount)
+						<br />{{ $winner }} : {{ $amount }}
+					@endforeach
+				</div>
+			@endif
+		</div>
+		<div class="row">
+			<h4>Klaverjassen</h4>
+			@if(isset($klaverjassen))
+				<div class="col-md-6 col-centered">
+					Wins:
+					@foreach($klaverjassen["winners"] as $winner => $amount)
+						<br />{{ $winner }} : {{ $amount }}
+					@endforeach
+				</div>
+				<div class="col-md-6 col-centered">
+					Losses:
+					@foreach($klaverjassen["losers"] as $winner => $amount)
+						<br />{{ $winner }} : {{ $amount }}
+					@endforeach
+				</div>
+			@endif
 		</div>
 	</div>
 </div>

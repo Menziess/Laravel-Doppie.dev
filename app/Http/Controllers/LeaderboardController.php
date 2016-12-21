@@ -26,7 +26,7 @@ class LeaderboardController extends Controller
 				'losers' => array_keys((array) $game->getData('losers'))
 			];
 		});
-		$klaverjassen = $this->winLossRatio($klaverjassen);
+        $klaverjassen = $this->winLossRatio($klaverjassen);
 
 		$hartenjagen = $games->where("type", Game::HARTENJAGEN);
 		$hartenjagen = $hartenjagen->map(function ($game) {
@@ -36,7 +36,6 @@ class LeaderboardController extends Controller
 			];
 		});
 		$hartenjagen = $this->winLossRatio($hartenjagen);
-        // dd($hartenjagen);
 
     	return view('content.game.leaderboards', compact('subject', 'links', 'hartenjagen', 'klaverjassen'));
     }
@@ -54,17 +53,20 @@ class LeaderboardController extends Controller
     	$totals["winners"] = array_count_values($totals["winners"]);
     	$totals["losers"] = array_count_values($totals["losers"]);
 
-    	$sorted = $this->array_subtract($totals["winners"], $totals["losers"]);
-    	arsort($sorted);
+        $sorted = $totals["winners"];
+        foreach($sorted as $playerId => $ratio) {
+            $sorted[$playerId] = [
+                User::findOrFail($playerId),
+                $w = array_key_exists($playerId, $totals["winners"]) ? $totals["winners"][$playerId] : 0,
+                $l = array_key_exists($playerId, $totals["losers"]) ? $totals["losers"][$playerId] : 0,
+                ($w / ($w + $l + 1)) + (0.5 * $l / ($w + $l)),
+            ];
+        }
 
-    	foreach($sorted as $playerId => $ratio) {
-    		$sorted[$playerId] = [
-    			User::findOrFail($playerId),
-    			$ratio,
-    			array_key_exists($playerId, $totals["winners"]) ? $totals["winners"][$playerId] : 0,
-    			array_key_exists($playerId, $totals["losers"]) ? $totals["losers"][$playerId] : 0,
-    		];
-    	}
+        # Sort based on ratio
+    	usort($sorted, function($a, $b) {
+            return $b[3] <=> $a[3];
+        });
 
     	return $sorted;
     }

@@ -377,10 +377,14 @@ class Game extends Model
 	 * @return String
 	 */
 	private function getKlaverjassenStartingShufflerTeam() {
-		$team = 'Wij';
-		for ($i=0; $i < 4; $i++) {
-			if ($this->users[0]->id == $this->getTeams()[$team][$i % 2]->id) return $team;
-			$team == 'Wij' ?  $team = 'Zij' : $team = 'Wij';
+		if ($this->users[0]->id == $this->getTeams()["Wij"][0]->id ||
+			$this->users[0]->id == $this->getTeams()["Wij"][1]->id) {
+			return "Wij";
+		} else if ($this->users[0]->id == $this->getTeams()["Zij"][0]->id ||
+			$this->users[0]->id == $this->getTeams()["Zij"][1]->id) {
+			return "Zij";
+		} else {
+			abort("No player started shuffling.");
 		}
 	}
 
@@ -390,7 +394,7 @@ class Game extends Model
 	 */
 	private function getKlaverjassenMakersTeam($round) {
 		$shufTeam = $this->getKlaverjassenStartingShufflerTeam();
-		$notShufTeam = $shufTeam == 'Wij' ? 'Zij' : 'Wij';
+		$notShufTeam = (strcmp($shufTeam, 'Wij') !== 0 ? 'Wij' : 'Zij');
 		if ($round & 1) {
 			return [$notShufTeam, $shufTeam];
 		} else {

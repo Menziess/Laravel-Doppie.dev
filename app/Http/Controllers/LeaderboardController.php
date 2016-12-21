@@ -36,6 +36,7 @@ class LeaderboardController extends Controller
 			];
 		});
 		$hartenjagen = $this->winLossRatio($hartenjagen);
+        // dd($hartenjagen);
 
     	return view('content.game.leaderboards', compact('subject', 'links', 'hartenjagen', 'klaverjassen'));
     }

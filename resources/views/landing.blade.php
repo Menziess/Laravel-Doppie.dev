@@ -59,7 +59,7 @@
 			<h4 class="card-title unselectable">Hartenjagen</h4>
 		</div>
 
-		<div id="project1" class="collapse">
+		<div id="project1" class="collapse in">
 			<div class="card-block">
 				<div class="row">
 

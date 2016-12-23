@@ -56,7 +56,7 @@ class LeaderboardController extends Controller
         $sorted = $totals["winners"];
         foreach($sorted as $playerId => $ratio) {
             $sorted[$playerId] = [
-                User::findOrFail($playerId),
+                User::find($playerId),
                 $w = array_key_exists($playerId, $totals["winners"]) ? $totals["winners"][$playerId] : 0,
                 $l = array_key_exists($playerId, $totals["losers"]) ? $totals["losers"][$playerId] : 0,
                 ($w / ($w + $l + 1)) + (0.5 * $l / ($w + $l)),

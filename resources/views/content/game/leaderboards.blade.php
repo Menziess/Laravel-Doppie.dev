@@ -22,15 +22,15 @@
 						</thead>
 						<tbody>
 						@foreach($klaverjassen as $key => $player)
-							<tr class="clickable-row touchable" data-href="{{ url($player[0]->getProfileUrl()) }}">
+							<tr class="clickable-row touchable" data-href="{{ url(isset($player[0]) ? $player[0]->getProfileUrl() : "") }}">
 								<td>
 									<h3>{{ ++$key }}</h3>
 									<strong><span class="text-success">{{ round($player[3] * 100) }}%</span></strong>
 								</td>
 								<td>
-									<img src="{{ asset($player[0]->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" >
+									<img src="{{ asset(isset($player[0]) ? $player[0]->getPicture() : "img/placeholder.jpg") }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" >
 								</td>
-								<td>{{ $player[0]->getName() }}</td>
+								<td>{{ isset($player[0]) ? $player[0]->getName() : "" }}</td>
 								<td class="hidden-xs-down">{{ $player[1] }}</td>
 								<td class="hidden-md-down">{{ $player[2] }}</td>
 								<td class="hidden-md-down">{{ $player[1] + $player[2] }}</td>
@@ -59,15 +59,15 @@
 						</thead>
 						<tbody>
 						@foreach($hartenjagen as $key => $player)
-							<tr class="clickable-row touchable" data-href="{{ url($player[0]->getProfileUrl()) }}">
+							<tr class="clickable-row touchable" data-href="{{ url(isset($player[0]) ? $player[0]->getProfileUrl() : "") }}">
 								<td>
 									<h3>{{ ++$key }}</h3>
 									<strong><span class="text-success">{{ round($player[3] * 100) }}%</span></strong>
 								</td>
 								<td>
-									<img src="{{ asset($player[0]->getPicture()) }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" >
+									<img src="{{ asset(isset($player[0]) ? $player[0]->getPicture() : "img/placeholder.jpg") }}" class="img-circle profile-picture-small" style="width: 50px;" alt="" >
 								</td>
-								<td>{{ $player[0]->getName() }}</td>
+								<td>{{ isset($player[0]) ? $player[0]->getName() : "..." }}</td>
 								<td class="hidden-xs-down">{{ $player[1] }}</td>
 								<td class="hidden-md-down">{{ $player[2] }}</td>
 								<td class="hidden-md-down">{{ $player[1] + $player[2] }}</td>

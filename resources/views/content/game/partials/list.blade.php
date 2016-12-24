@@ -3,7 +3,7 @@
 	<div class="card-block">
 		<h4 class="card-title">{{ isset($title) ? ucfirst($title) : 'Games' }}</h4>
 		@if(Auth::user()->is_admin)
-			<a class="btn btn-primary-outline" href="{{ url('admin/users') }}">List of users</a>
+			<a class="btn btn-secondary" href="{{ url('admin/users') }}">List of users</a>
 		@endif
 		@if($games->count() > 0)
 	</div>

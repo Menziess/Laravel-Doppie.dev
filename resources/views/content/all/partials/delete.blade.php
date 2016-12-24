@@ -23,7 +23,7 @@
 							<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/' . lcfirst(class_basename($subject)) . '/delete/' . Auth::user()->getKey()) }}">
 							{!! csrf_field() !!}
 							{{ method_field('DELETE') }}
-							<button type="button" class="btn btn-secondary-outline" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-danger">Delete</button>
 							</form>
 						</div>

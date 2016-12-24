@@ -22,15 +22,15 @@
 								<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }} div-centered-small">
 									<p>Select your new profile picture</p>
 
-									<label class="btn btn-primary-outline">
+									<label class="btn btn-secondary">
 									    <span id="browse">Browse </span><input id="file" name="file" data-max-size="4000" accept="image/*" value="{{ old('file') }}" type="file" style="display: none;">
 									</label>
 
 								</div>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary-outline" data-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary-outline" name="submit">Save</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary" name="submit">Save</button>
 							</div>
 						</form>
 					</div>

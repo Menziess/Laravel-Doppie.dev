@@ -8,7 +8,7 @@
 		@endif
 		<form style="display: inline-block;" method="POST" action="{{ url('game/create-game') }}">
 			{!! csrf_field() !!}
-			<button class="btn btn-warning-outline center-block" type="submit">Create New Game</button>
+			<button class="btn" type="submit">Create New Game</button>
 		</form>
 	</div>
 </div>

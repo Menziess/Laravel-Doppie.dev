@@ -12,7 +12,7 @@ class User extends Authenticatable
 	use JsonAble;
 	use SoftDeletes;
 
-	const LEVEL_CONST = 0.1;
+	const LEVEL_CONST = 0.19;
 
 	/**
 	 * The table associated with the model.

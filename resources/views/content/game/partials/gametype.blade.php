@@ -11,13 +11,13 @@
 				src="{{ asset('img/games/heart.png') }}"
 				alt="Game type">
 			<input name="type" value="Hartenjagen" hidden="hidden">
-			<button class="btn btn-primary-outline center-block" type="submit">Hartenjagen</button>
+			<button class="btn button-primary-outline center-block" type="submit">Hartenjagen</button>
 		</form>
 		<form style="display: inline-block;" method="POST" action="{{ url('game/set-type') }}">
 			{!! csrf_field() !!}
 			{{ method_field('PUT') }}
 			<img class="card-img-top"
-				style="width: 3em; margin: 1em"
+				style="width: 3em; margin: 1em;"
 				src="{{ asset('img/games/clover.png') }}"
 				alt="Game type">
 			<input name="type" value="Klaverjassen" hidden="hidden">

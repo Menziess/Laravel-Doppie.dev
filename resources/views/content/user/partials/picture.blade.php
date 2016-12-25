@@ -20,8 +20,7 @@
 
 							<div class="modal-body">
 								<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }} div-centered-small">
-									<p>Select your new profile picture</p>
-
+									<p id="picture-feedback">Select your new profile picture</p>
 									<label class="btn btn-secondary">
 									    <span id="browse">Browse </span><input id="file" name="file" data-max-size="4000" accept="image/*" value="{{ old('file') }}" type="file" style="display: none;">
 									</label>
@@ -30,7 +29,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary" name="submit">Save</button>
+								<button id="save" type="submit" class="btn btn-primary" name="submit">Save</button>
 							</div>
 						</form>
 					</div>
@@ -58,3 +57,21 @@
 		</div>
 	</div>
 </div>
+
+
+@push('scripts')
+<script type="text/javascript">
+	$(function() {
+		$("#save").hide();
+		$(document).on('change', ':file', function() {
+		    var input = $(this),
+		        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+		        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		    input.trigger('fileselect', [numFiles, label]);
+		    $('#picture-feedback').text("Press 'Save' to upload picture");
+		    $('#browse').text(label + ' selected');
+		    $('#save').show();
+		});
+	});
+</script>
+@endpush

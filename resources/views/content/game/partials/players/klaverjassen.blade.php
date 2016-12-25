@@ -122,11 +122,11 @@
             });
 
 			setPlayerColor = function(arr) {
-				odd = arr.sort(function(a, b) {
+				sorted = arr.sort(function(a, b) {
 		   			return +a.value - +b.value;
 		   		});
-		        odd.each(function(i, input) {
-		        	if (i % 2 != 0) {
+		        sorted.each(function(i, input) {
+		        	if (i & 1) {
 		        		$('label[for="' + input.id + '"]').css('border-color', 'dodgerblue');
 		        	} else {
 			        	$('label[for="' + input.id + '"]').css('border-color', 'red');

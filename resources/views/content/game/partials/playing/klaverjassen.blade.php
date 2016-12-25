@@ -90,50 +90,7 @@
 
 </form>
 
-<div id="bottom" class="row">
-	<div id="modal-delete" class="modal fade">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-					<h4 class="modal-title">Delete {{ class_basename($game) }}</h4>
-				</div>
-				<div class="modal-body">
-					<p>
-						Beware <strong>{{ Auth::user()->first_name }}</strong>,<br/>
-						your action will be registered and charged against you in case of game manipulation.
-						@if($game->started_at->addMinutes(80) > Carbon\Carbon::now())
-						<br/><br/>
-						Time untill delete button will be publicly available in:<br/>
-						<b>{{ $game->started_at->addMinutes(80)->diffInMinutes(Carbon\Carbon::now()) }}</b> minutes
-						@endif
-					</p>
-				</div>
-				<div class="modal-footer">
-					@if(Auth::user()->is_admin && $game->trashed())
-						<form class="form-horizontal" method="POST" action="{{ url('game/activate-game/' . $game->id) }}">
-							{!! csrf_field() !!}
-							{{ method_field('PUT') }}
-							<button class="btn btn-success" type="submit">Activate</button>
-						</form>
-					@endif
-					<br />
-					@if(Auth::user() == $game->user || Auth::user()->is_admin || $game->started_at->addMinutes(80) < Carbon\Carbon::now())
-					<form class="form-horizontal" method="POST" action="{{ url('game/delete-game') }}">
-						{!! csrf_field() !!}
-						{{ method_field('DELETE') }}
-						<button class="btn btn-danger" type="submit">Delete</button>
-					</form>
-					@else
-						<button class="btn btn-danger disabled">Delete</button>
-					@endif
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+@include('content.game.partials.playing.delete')
 
 @push('scripts')
 <script type="text/javascript">

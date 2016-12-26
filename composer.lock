@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "11182fa4890783b000cdd9c939e9b177",
-    "content-hash": "5bbcc8044004d47e059d5310e15313d0",
+    "hash": "9cca8354f0315dbd6c3b3301baae4ec8",
+    "content-hash": "00f77e9fcc85694dd9076a1d51ce977f",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1037,51 +1037,6 @@
                 "time"
             ],
             "time": "2015-11-04 20:07:17"
-        },
-        {
-            "name": "nielse63/phpimagecache",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nielse63/php-image-cache.git",
-                "reference": "6ea37c7ff8b1613aa4cfacba20087731bc63152a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nielse63/php-image-cache/zipball/6ea37c7ff8b1613aa4cfacba20087731bc63152a",
-                "reference": "6ea37c7ff8b1613aa4cfacba20087731bc63152a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "ImageCache": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Creative Commons Attribution"
-            ],
-            "authors": [
-                {
-                    "name": "Erik Nielsen",
-                    "email": "erik@312development.com",
-                    "homepage": "http://312development.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Image Cache is a very simple PHP module that accepts an image source and will compress and cache the file, move it to a new directory, and return the cache source for the image.",
-            "homepage": "http://nielse63.github.io/php-image-cache",
-            "keywords": [
-                "cache",
-                "caching",
-                "image cache",
-                "php cache"
-            ],
-            "time": "2016-05-04 10:34:34"
         },
         {
             "name": "nikic/php-parser",
@@ -3694,9 +3649,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "nielse63/phpimagecache": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

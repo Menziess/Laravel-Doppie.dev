@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use DB;
 use Closure;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class Authenticate
@@ -24,6 +26,10 @@ class Authenticate
 				return redirect()->guest('login');
 			}
 		}
+
+		DB::table('sessions')
+		->where('user_id', Auth::id())
+		->update(['url' => $request->getPathInfo()]);
 
 		return $next($request);
 	}

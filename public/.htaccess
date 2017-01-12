@@ -17,7 +17,7 @@
 
     # Redirect to www version
     RewriteCond %{HTTP_HOST} ^menzies.ml [NC]
-    RewriteRule ^(.*)$ http://www.menzies.ml/$1 [L,R=301]
+    RewriteRule ^(.*)$ https://www.menzies.ml/$1 [L,R=301]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

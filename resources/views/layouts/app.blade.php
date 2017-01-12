@@ -7,11 +7,13 @@
 	<meta name="description" content="Doppie er af group website">
 	<meta name="author" content="Stefan Schenk">
 
+	<link rel="apple-touch-startup-image" href="{{ asset('favicon/apple-touch-icon.png') }}">
 	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
 	<link rel="icon" type="image/png" href="{{ asset('favicon/favicon-32x32.png') }}" sizes="32x32">
 	<link rel="icon" type="image/png" href="{{ asset('favicon/favicon-16x16.png') }}" sizes="16x16">
 	<link rel="manifest" href="{{ asset('favicon/manifest.json') }}">
 	<link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
+	<meta name="apple-mobile-web-app-title" content="{{ Config::get('app.name') }}">
 	<meta name="theme-color" content="#ffffff">
 
 	<meta name="mobile-web-app-capable" content="yes">

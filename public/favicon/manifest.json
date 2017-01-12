@@ -14,7 +14,6 @@
 		}
 	],
 	"theme_color": "#ffffff",
-	"start_url": "http:\/\/menzies.ml\/",
 	"display": "standalone",
 	"background_color": "#ffffff"
 }

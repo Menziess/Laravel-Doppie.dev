@@ -96,7 +96,7 @@ class Game extends Model
 		} elseif ($this->type == self::KLAVERJASSEN) {
 			return 'img/games/clover.png';
 		} else {
-			return 'img/placeholder.jpg';
+			return 'img/games/heart-clover.png';
 		}
 	}
 

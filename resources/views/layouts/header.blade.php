@@ -11,7 +11,7 @@
 
 			<div class="col-xs-18 col-sm-6 col-md-4 col-lg-4 left">
 			<h4 class="card-title">{{ $subject->getName() }}</h4>
-			<p class="card-text">
+			<p id="title" class="card-text">
 				Title
 			</p>
 			</div>

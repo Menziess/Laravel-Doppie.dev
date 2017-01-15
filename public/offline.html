@@ -82,7 +82,7 @@
 		<script>
 			jQuery(document).ready(function($) {
 				name = localStorage.getItem('name');
-				if (!is.null(name)) {
+				if (name) {
 					$('#replace-name').text(name);
 				}
 			});

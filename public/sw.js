@@ -6,6 +6,7 @@ self.addEventListener('install', event => {
         '/js/index.js',
         '/offline.html',
         '/favicon.ico',
+        '/img/games/heart-clover.png',
       ])
       .then(() => self.skipWaiting());
     })

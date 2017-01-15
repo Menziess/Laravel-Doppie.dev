@@ -27,11 +27,6 @@ class Authenticate
 			}
 		}
 
-		# Add last visited url
-		DB::table('sessions')
-		->where('user_id', Auth::id())
-		->update(['url' => $request->getPathInfo()]);
-
 		return $next($request);
 	}
 }

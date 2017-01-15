@@ -40,7 +40,4 @@ Route::group(['middleware' => 'auth'], function () {
 Route::auth();
 
 # GUEST PAGES
-Route::group(['middleware' => 'reload'], function() {
-
-	Route::controller('/', 'LandingController');
-});
+Route::controller('/', 'LandingController');

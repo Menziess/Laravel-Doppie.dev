@@ -23,7 +23,7 @@ class ReloadUrl
         if ($session = DB::table('sessions')
             ->where('user_id', Auth::id())
             ->where('ip_address', \Request::ip())
-            ->where('last_activity', '<', Carbon::now()->subSeconds(7)->timestamp)
+            ->where('last_activity', '<', Carbon::now()->subSeconds(10)->timestamp)
             ->get()) {
             DB::table('sessions')->where('user_id', Auth::id())->update(['url' => null]);
             if (isset($session[0]->url)) {

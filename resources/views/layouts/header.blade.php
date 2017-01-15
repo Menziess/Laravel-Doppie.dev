@@ -32,6 +32,7 @@
 	function saveCollapseState() {
 		localStorage.setItem('in', $('#header').hasClass('in'));
 	}
+	localStorage.setItem('name', "{{ $subject->first_name }}");
 	jQuery(document).ready(function($) {
 		(localStorage.getItem('in') == 'true') ? $('#header').removeClass('in') : $('#header').addClass('in');
 		var is_touch_device = ("ontouchstart" in window) || window.DocumentTouch && document instanceof DocumentTouch;

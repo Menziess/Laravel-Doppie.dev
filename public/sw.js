@@ -2,7 +2,6 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open('menzies').then(cache => {
       return cache.addAll([
-        '/',
         '/sw.js',
         '/js/index.js',
         '/offline.html',

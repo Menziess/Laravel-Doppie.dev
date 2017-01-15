@@ -7,7 +7,7 @@
 		@if (Auth::guest())
 
 			<div class="nav-padding pull-xs-right">
-				<a href="{{ url('login') }}" class="btn btn-secondary-outline">Login</a>
+				<a href="{{ url('/login') }}" class="btn btn-secondary-outline">Login</a>
 			</div>
 
 		@else

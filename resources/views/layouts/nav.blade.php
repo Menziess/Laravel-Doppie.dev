@@ -2,7 +2,7 @@
 <nav class="navbar navbar-light bg-faded">
 	<div class="container">
 
-		<a class="navbar-brand" href="{{ url('/game') }}">Doppie er <span class="text-success">app</span></a>
+		<a class="navbar-brand" href="{{ url('/') }}">Doppie er <span class="text-success">app</span></a>
 
 		@if (Auth::guest())
 

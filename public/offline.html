@@ -68,7 +68,7 @@
 								You lost your connection to the internet. Press home to return to the homepage or click reload to refresh the page.
 							</p>
 							<a href="/" class="btn btn-primary" type="button">Home</a>
-							<a href="." class="btn btn-success" type="button">Reload</a>
+							<a class="btn btn-success" type="button" onclick="reload()">Reload</a>
 							</div>
 						</div>
 					</div>
@@ -86,6 +86,9 @@
 					$('#replace-name').text(name);
 				}
 			});
+			function reload() {
+			    location.reload();
+			}
 		</script>
 		<script defer type="text/javascript">
 			(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(chref=d.href).replace(e.href,"").indexOf("#")&&(!/^[a-z\+\.\-]+:/i.test(chref)||chref.indexOf(e.protocol+"//"+e.host)===0)&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone");

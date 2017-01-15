@@ -20,11 +20,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      if(event.request.url.endsWith('/public/')) {
-        return fetch(event.request);
-      } else {
-        return response || fetch(event.request);
-      }
+      return response || fetch(event.request);
     }).catch(function() {
       return caches.match('offline.html');
     })

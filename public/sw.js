@@ -1,12 +1,10 @@
-
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open('menzies').then(cache => {
       return cache.addAll([
-        '/',
-        // '/laravel.dev/public',
+        './js/index.js',
         './offline.html',
-        './favicon.ico'
+        './favicon.ico',
       ])
       .then(() => self.skipWaiting());
     })

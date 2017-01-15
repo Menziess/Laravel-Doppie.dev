@@ -4,9 +4,8 @@ self.addEventListener('install', e => {
     caches.open('menzies').then(cache => {
       return cache.addAll([
         '/',
-        '/laravel.dev/public',
+        // '/laravel.dev/public',
         './offline.html',
-        './favicon/favicon-16x16.png',
         './favicon.ico'
       ])
       .then(() => self.skipWaiting());

@@ -4,7 +4,7 @@ self.addEventListener('install', event => {
       return cache.addAll([
         '/sw.js',
         '/js/index.js',
-        // '/offline.html',
+        '/offline.html',
         '/favicon.ico',
         '/img/games/heart-clover.png',
       ])

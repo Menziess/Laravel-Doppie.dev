@@ -4,7 +4,7 @@ self.addEventListener('install', event => {
       return cache.addAll([
         '/sw.js',
         '/js/index.js',
-        '/offline.html',
+        // '/offline.html',
         '/favicon.ico',
         '/img/games/heart-clover.png',
       ])
@@ -22,7 +22,7 @@ self.addEventListener('fetch', event => {
     caches.match(event.request).then(response => {
       return response || fetch(event.request);
     }).catch(function() {
-      return caches.match('offline.html');
+      return caches.match('/offline.html');
     })
   );
 });

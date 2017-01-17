@@ -160,4 +160,9 @@ class AdminController extends Controller
 		User::withTrashed()->findOrFail($id)->deactivate();
 		return redirect()->to(\URL::previous() . '#permissions');
 	}
+
+	public function getReact()
+	{
+		return view('react');
+	}
 }

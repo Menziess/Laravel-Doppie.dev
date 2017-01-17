@@ -11,6 +11,7 @@
 |
 */
 
+
 # Redirect routes for facebook login
 Route::controller('/facebook', 'SocialController');
 
@@ -31,7 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 	# ADMIN
 	Route::group(['middleware' => 'admin'], function () {
-
 		Route::controller('/admin', 'AdminController');
 	});
 });
